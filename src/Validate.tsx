@@ -1,14 +1,14 @@
 import React from 'react';
-import { ValidationRules } from './type';
+import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique } from './type';
 import { useValidation } from './index';
 import { validate } from './validation-fns';
 
 type Props = {
     children: JSX.Element;
     name: string;
-    required?: boolean;
-    unique?: string[];
-    regex?: RegExp;
+    required?: ValidationRuleRequired;
+    unique?: ValidationRuleUnique;
+    regex?: ValidationRuleRegex;
 };
 
 type AdditionalProps = {
@@ -50,6 +50,8 @@ const Validate = ({
     const addedProps: AdditionalProps = {
         onChange,
     };
+
+    // TODO: The if statement makes productions builds to not show any messages
     if (
         children.type.options.name === 'MuiTextField'
     ) {

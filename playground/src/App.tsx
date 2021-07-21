@@ -11,7 +11,7 @@ const App = () => (
             <Validate name="unique" unique={['a', 'b']}>
                 <TextField label='Unique (not "a" or "b")' />
             </Validate>
-            <Validate name="regex" regex={/^\d{1,5}$/}>
+            <Validate name="regex" regex={/^\d{0,5}$/}>
                 <TextField label="numeric, max. 5 chars" />
             </Validate>
             <AutoDisabler>

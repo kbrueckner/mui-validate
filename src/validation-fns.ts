@@ -7,17 +7,24 @@ export const validate = (value: string, rules: ValidationRules = {}): Validation
     console.log(validation)
     if (rulesIncluded.includes('required') && !validator.required.test(value)) {
         validation.valid = false;
-        validation.message = validator.required.errorMessage;
+        validation.message = (Array.isArray(rules.required) && rules.required[1]) || validator.required.errorMessage;
     }
 
-    if (rulesIncluded.includes('unique') && rules.unique && !validator.unique.test(value, rules.unique)) {
+    if (rulesIncluded.includes('unique') && rules.unique && !validator.unique.test(
+        value,
+        // @ts-ignore:next-line
+        Array.isArray(rules.unique[0]) ? rules.unique[0] : rules.unique
+    )) {
         validation.valid = false;
-        validation.message = validator.unique.errorMessage;
+        validation.message = (Array.isArray(rules.unique[0]) && rules.unique[1]) || validator.unique.errorMessage;
     }
 
-    if (rulesIncluded.includes('regex') && rules.regex && !validator.regex.test(value, rules.regex)) {
+    if (rulesIncluded.includes('regex') && rules.regex && !validator.regex.test(
+        value,
+        Array.isArray(rules.regex) ? rules.regex[0] : rules.regex
+    )) {
         validation.valid = false;
-        validation.message = validator.regex.errorMessage;
+        validation.message = (Array.isArray(rules.regex) && rules.regex[1]) || validator.regex.errorMessage;
     }
 
     return validation;

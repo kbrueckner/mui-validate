@@ -7,10 +7,16 @@ export type ValidationCollection = {
     [key: string]: Validation;
 };
 
+export type ValidationRuleRequired = boolean | [boolean, string];
+
+export type ValidationRuleUnique = string[] | [string[], string];
+
+export type ValidationRuleRegex = RegExp | [RegExp, string];
+
 export type ValidationRules = {
-    required?: boolean;
-    unique?: string[];
-    regex?: RegExp;
+    required?: ValidationRuleRequired;
+    unique?: ValidationRuleUnique;
+    regex?: ValidationRuleRegex;
 };
 
 export type ValidationInfo = {
