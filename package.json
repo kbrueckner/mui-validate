@@ -1,0 +1,35 @@
+{
+  "name": "mui-validate",
+  "version": "0.1.0",
+  "description": "Validation tools for Material UI components and component groups",
+  "main": "index.cjs.js",
+  "module": "index.esm.js",
+  "scripts": {
+    "build": "rollup -c",
+    "build-watch": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-playground": "cd playground && npm run start",
+    "i-all": "npm i && cd playground && npm i",
+    "dev": "npm-run-all --parallel build-watch start-playground",
+    "release": "npm run build && cp package.json dist/"
+  },
+  "author": "kenji.brueckner@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/styled-components": "^5.1.11",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.53.2",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "typescript": "^4.3.5"
+  },
+  "peerDependencies": {
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9"
+  },
+  "keywords": [
+    "validation",
+    "mui",
+    "material-ui"
+  ]
+}
