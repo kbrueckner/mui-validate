@@ -1,0 +1,68 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "ignorePatterns": [
+        "node_modules/",
+        "build/",
+        "coverage/"
+    ],
+    "extends": [
+        "airbnb",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/typescript"
+    ],
+    "plugins": [
+        "import",
+        "jsx-a11y"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "ecmaFeatures": {},
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true
+        }
+    },
+    "rules": {
+        "react/jsx-filename-extension": [
+            "error",
+            {
+                "extensions": [
+                    ".jsx",
+                    ".tsx"
+                ]
+            }
+        ],
+        "import/extensions": [
+            "error",
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        ],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "react/jsx-indent": [
+            "error",
+            4
+        ],
+        "react/jsx-indent-props": [
+            "error",
+            4
+        ],
+        "max-len": "off",
+        "react/jsx-props-no-spreading": "off",
+        "@typescript-eslint/ban-types": "off"
+    },
+    "globals": {
+        "jest": true
+    }
+}
