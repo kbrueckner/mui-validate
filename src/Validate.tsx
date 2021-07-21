@@ -2,9 +2,10 @@ import React from 'react';
 import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique } from './type';
 import { useValidation } from './index';
 import { validate } from './validation-fns';
+import { FormControl, FormHelperText } from '@material-ui/core';
 
 type Props = {
-    children: JSX.Element;
+    children: JSX.Element & { fullWidth?: boolean; };
     name: string;
     required?: ValidationRuleRequired;
     unique?: ValidationRuleUnique;
@@ -51,15 +52,22 @@ const Validate = ({
         onChange,
     };
 
-    // TODO: The if statement makes productions builds to not show any messages
-    if (
-        children.type.options.name === 'MuiTextField'
-    ) {
-        addedProps.helperText = validations[name]?.message;
-        addedProps.error = validations[name]?.message !== undefined;
+    // This block is specifically for TextFields
+    if (validations[name]?.message) {
+        addedProps.helperText = '';
+        addedProps.error = true;
     }
 
-    return React.cloneElement(children, addedProps);
+    // Additionally for FormControl based elements (i.e. Select) we need to wrap them into a FormControl
+    return (
+        <FormControl
+            error={validations[name]?.message !== undefined}
+            classes={{ root: 'MuiInputBase-fullWidth' }}
+        >
+            {React.cloneElement(children, addedProps)}
+            <FormHelperText>{validations[name]?.message}</FormHelperText>
+        </FormControl>
+    );
 };
 
 Validate.displayName = 'Validate';
