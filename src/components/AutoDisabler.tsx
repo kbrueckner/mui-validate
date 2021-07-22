@@ -1,5 +1,5 @@
 import React from 'react';
-import { useValidation } from '..';
+import { useValidation } from './ValidationContext';
 
 type Props = {
     children: JSX.Element;

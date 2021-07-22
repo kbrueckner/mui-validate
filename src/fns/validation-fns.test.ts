@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import { validate } from './validation-fns';
+import validate from './validation-fns';
 import ERROR_MESSAGE from '../definitions/error-messages';
 
 describe('validation-fns', () => {

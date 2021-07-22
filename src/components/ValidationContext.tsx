@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ValidationInfo } from '../type';
 
 const context = React.createContext<ValidationInfo>({
@@ -9,3 +9,5 @@ const context = React.createContext<ValidationInfo>({
 
 context.displayName = 'ValidationContext';
 export default context;
+
+export const useValidation = (): ValidationInfo => useContext(context);

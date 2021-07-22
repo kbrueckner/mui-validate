@@ -7,7 +7,7 @@ const App = () => (
         <>
             <div>
                 <Validate name="required" required>
-                    <TextField label="This field is required" />
+                    <TextField label="This field is required" fullWidth />
                 </Validate>
                 <Validate name="unique" unique={['a', 'b']}>
                     <TextField label='Unique (not "a" or "b")' />

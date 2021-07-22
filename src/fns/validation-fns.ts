@@ -1,7 +1,7 @@
 import { Validation, ValidationRules } from '../type';
 import validator from '../definitions/validators';
 
-export const validate = (value: string, rules: ValidationRules = {}): Validation => {
+const validate = (value: string, rules: ValidationRules = {}): Validation => {
     const validation: Validation = { valid: true, message: undefined };
     const rulesIncluded = Object.keys(rules);
 
@@ -12,8 +12,9 @@ export const validate = (value: string, rules: ValidationRules = {}): Validation
 
     if (rulesIncluded.includes('unique') && rules.unique && !validator.unique.test(
         value,
+        // eslint-disable-next-line
         // @ts-ignore:next-line
-        Array.isArray(rules.unique[0]) ? rules.unique[0] : rules.unique
+        Array.isArray(rules.unique[0]) ? rules.unique[0] : rules.unique,
     )) {
         validation.valid = false;
         validation.message = (Array.isArray(rules.unique[0]) && rules.unique[1]) || validator.unique.errorMessage;
@@ -21,7 +22,7 @@ export const validate = (value: string, rules: ValidationRules = {}): Validation
 
     if (rulesIncluded.includes('regex') && rules.regex && !validator.regex.test(
         value,
-        Array.isArray(rules.regex) ? rules.regex[0] : rules.regex
+        Array.isArray(rules.regex) ? rules.regex[0] : rules.regex,
     )) {
         validation.valid = false;
         validation.message = (Array.isArray(rules.regex) && rules.regex[1]) || validator.regex.errorMessage;
@@ -29,3 +30,5 @@ export const validate = (value: string, rules: ValidationRules = {}): Validation
 
     return validation;
 };
+
+export default validate;

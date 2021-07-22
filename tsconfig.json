@@ -20,7 +20,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "declarationDir": "dist/dts"
   },
   "include": [
     "src"
