@@ -24,7 +24,7 @@ readline.question('Is the set version correct for this release? (y/n): ', (answe
         fs.writeFileSync('dist/package.json', JSON.stringify(releasePackage));
         fs.copyFileSync('README.md', 'dist/README.md');
 
-        require('child_process').execSync('npm publish build');
+        require('child_process').execSync('npm publish dist');
     } catch (err) {
         console.error(err);
     }
