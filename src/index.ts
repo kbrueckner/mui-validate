@@ -1,14 +1,12 @@
 import { useContext } from 'react';
-import ValidationContext from './ValidationContext';
+import ValidationContext from './components/ValidationContext';
 import { Validation, ValidationInfo, ValidationCollection } from './type';
-import VG from './ValidationGroup';
-import V from './Validate';
-import AD from './AutoDisabler';
+import VG from './components/ValidationGroup';
+import V from './components/Validate';
+import AD from './components/AutoDisabler';
 
-export * as ERROR_MESSAGE from './error-messages';
+export * as ERROR_MESSAGE from './definitions/error-messages';
 export * from './type';
-
-export * as ValidationContext from './ValidationContext';
 
 export const ValidationGroup = VG;
 export const Validate = V;

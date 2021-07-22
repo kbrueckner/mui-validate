@@ -1,5 +1,5 @@
-import { Validation, ValidationRules } from './type';
-import validator from './validators';
+import { Validation, ValidationRules } from '../type';
+import validator from '../definitions/validators';
 
 export const validate = (value: string, rules: ValidationRules = {}): Validation => {
     const validation: Validation = { valid: true, message: undefined };

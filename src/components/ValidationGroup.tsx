@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ValidationContext from './ValidationContext';
-import { allValid as validateAll } from './';
-import { ValidationCollection } from './type';
+import { allValid as validateAll } from '..';
+import { ValidationCollection } from '../type';
 
 type Props = {
     children: JSX.Element;

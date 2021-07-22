@@ -7,9 +7,9 @@
     ],
     "testPathIgnorePatterns": [
         "/node_modules/",
-        "/build/"
+        "/dist/"
     ],
     "testMatch": [
-        "**/?(*.)+(spec|test).[jt]s?(x)"
+        "**/*.test.ts"
     ]
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique } from './type';
-import { useValidation } from './index';
-import { validate } from './validation-fns';
+import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique } from '../type';
+import { useValidation } from '..';
+import { validate } from '../fns/validation-fns';
 import { FormControl, FormHelperText } from '@material-ui/core';
 
 type Props = {
@@ -62,7 +62,7 @@ const Validate = ({
     return (
         <FormControl
             error={validations[name]?.message !== undefined}
-            classes={{ root: 'MuiInputBase-fullWidth' }}
+            classes={{ root: children.fullWidth ? 'MuiInputBase-fullWidth' : '' }}
         >
             {React.cloneElement(children, addedProps)}
             <FormHelperText>{validations[name]?.message}</FormHelperText>

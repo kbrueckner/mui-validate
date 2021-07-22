@@ -1,9 +1,9 @@
 import React from 'react';
-import { ValidationInfo } from './type';
+import { ValidationInfo } from '../type';
 
 const context = React.createContext<ValidationInfo>({
     validations: {},
-    setValidations: (): void => {},
+    setValidations: (): void => { },
     allValid: true,
 });
 
