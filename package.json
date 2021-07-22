@@ -15,9 +15,8 @@
     "dev": "npm-run-all --parallel build-watch start-playground",
     "release": "npm run lint && npm run test && npm run build && node scripts/release.js"
   },
-  "author": "kenji.brueckner@gmail.com",
-  "license": "MIT",
   "devDependencies": {
+    "@material-ui/core": "^4.12.2",
     "@types/jest": "^26.0.24",
     "@types/styled-components": "^5.1.11",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
@@ -46,8 +45,14 @@
     "mui",
     "material-ui"
   ],
-  "dependencies": {
-    "@material-ui/core": "^4.12.2",
-    "react": "^17.0.2"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kbrueckner/mui-validate"
+  },
+  "author": "Kenji Brückner <kenji.brueckner@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kbrueckner/mui-validate/issues"
+  },
+  "homepage": "https://github.com/kbrueckner/mui-validate"
 }
