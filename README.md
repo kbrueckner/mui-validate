@@ -2,7 +2,7 @@
 
 The validate module allows yout to validate inputs for Material UI input components such as TextField and Select.
 Multiple inputs can be grouped together into a validation group.
-Based on the validity of a validation group buttons in the group can be deactivated enabled/disabled automatically.
+Based on the validity of a validation group buttons in the group can be enabled/disabled automatically.
 The current state of a validation group can be accessed via a react hook.
 
 ## How to use it
@@ -74,7 +74,7 @@ export default () => (
 ## Custom error messages
 
 To override default error messages just provide the validation rule together with the desired error message.
-The format for this is an array wit hthe first value being the validation rule and the second value represents the custom error message.
+The format for this is an array with the first value being the validation rule and the second value represents the custom error message.
 
 ```js
 import { Validate } from 'mui-validate';
