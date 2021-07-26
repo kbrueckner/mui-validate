@@ -38,13 +38,13 @@ const Validate = ({
     }
 
     // eslint-disable-next-line
-    const onChange = (event: any): void => {
+    const onChange = (event: any, ...rest: any[]): void => {
         const { value = '' } = event.target;
 
         setValidations({ ...validations, [name]: validate(value, validationRules) });
 
         if (children.props.onChange) {
-            children.props.onChange(event);
+            children.props.onChange(event, ...rest);
         }
     };
 
