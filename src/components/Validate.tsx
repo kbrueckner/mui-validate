@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormControl, FormHelperText } from '@material-ui/core';
-import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique } from '../type';
+import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique, Validation } from '../type';
 import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
 
@@ -10,6 +10,8 @@ type Props = {
     required?: ValidationRuleRequired;
     unique?: ValidationRuleUnique;
     regex?: ValidationRuleRegex;
+    after?: (result: Validation) => void;
+    before?: () => void;
 };
 
 type AdditionalProps = {
@@ -19,7 +21,7 @@ type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required, unique, regex,
+    children, name, required, unique, regex, after, before,
 }: Props): JSX.Element => {
     const { validations, setValidations } = useValidation();
 
@@ -39,13 +41,17 @@ const Validate = ({
 
     // eslint-disable-next-line
     const onChange = (event: any, ...rest: any[]): void => {
-        const { value = '' } = event.target;
-
-        setValidations({ ...validations, [name]: validate(value, validationRules) });
-
         if (children.props.onChange) {
             children.props.onChange(event, ...rest);
         }
+
+        if (before) { before(); }
+
+        const { value = '' } = event.target;
+        const validationResult = validate(value, validationRules);
+        setValidations({ ...validations, [name]: validationResult });
+
+        if (after) { after(validationResult); }
     };
 
     const addedProps: AdditionalProps = {

@@ -6,7 +6,7 @@ const App = () => (
     <ValidationGroup>
         <>
             <div>
-                <Validate name="required" required>
+                <Validate name="required" required before={() => console.log('Validating now')} after={console.log}>
                     <TextField label="This field is required" fullWidth />
                 </Validate>
                 <Validate name="unique" unique={['a', 'b']}>
