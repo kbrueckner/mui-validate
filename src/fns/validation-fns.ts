@@ -30,6 +30,7 @@ const validate = (value: string, rules: ValidationRules = {}): Validation => {
 
     if (rulesIncluded.includes('custom') && rules.custom && !rules.custom[0](value)) {
         validation.valid = false;
+        // eslint-disable-next-line
         validation.message = rules.custom[1];
     }
 
