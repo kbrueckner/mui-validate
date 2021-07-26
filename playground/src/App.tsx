@@ -15,6 +15,9 @@ const App = () => (
                 <Validate name="regex" regex={/^\d{0,5}$/}>
                     <TextField label="numeric, max. 5 chars" />
                 </Validate>
+                <Validate name="custom" custom={[(value) => value === 'Test', 'Custom error']}>
+                    <TextField label="custom vlidator - input equals 'Test'" />
+                </Validate>
             </div>
             <div>
                 <Validate name="requiredTextfieldSelect" required>

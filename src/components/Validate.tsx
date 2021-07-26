@@ -1,17 +1,18 @@
 import React from 'react';
 import { FormControl, FormHelperText } from '@material-ui/core';
-import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique, Validation } from '../type';
+import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique, Validation, ValidationRuleCustom } from '../type';
 import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
 
 type Props = {
-    children: JSX.Element & { fullWidth?: boolean; };
     name: string;
     required?: ValidationRuleRequired;
     unique?: ValidationRuleUnique;
     regex?: ValidationRuleRegex;
+    custom?: ValidationRuleCustom;
     after?: (result: Validation) => void;
     before?: () => void;
+    children: JSX.Element & { fullWidth?: boolean; };
 };
 
 type AdditionalProps = {
@@ -21,7 +22,7 @@ type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required, unique, regex, after, before,
+    children, name, required, unique, regex, custom, after, before,
 }: Props): JSX.Element => {
     const { validations, setValidations } = useValidation();
 
@@ -29,6 +30,7 @@ const Validate = ({
     if (required) { validationRules.required = required; }
     if (unique !== undefined) { validationRules.unique = unique; }
     if (regex !== undefined) { validationRules.regex = regex; }
+    if (custom !== undefined) { validationRules.custom = custom; }
 
     // check for initial value valid = false conditions
     if (

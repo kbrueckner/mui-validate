@@ -28,6 +28,11 @@ const validate = (value: string, rules: ValidationRules = {}): Validation => {
         validation.message = (Array.isArray(rules.regex) && rules.regex[1]) || validator.regex.errorMessage;
     }
 
+    if (rulesIncluded.includes('custom') && rules.custom && !rules.custom[0](value)) {
+        validation.valid = false;
+        validation.message = rules.custom[1];
+    }
+
     return validation;
 };
 

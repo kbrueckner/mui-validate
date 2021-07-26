@@ -13,10 +13,13 @@ export type ValidationRuleUnique = string[] | [string[], string];
 
 export type ValidationRuleRegex = RegExp | [RegExp, string];
 
+export type ValidationRuleCustom = [(value: string) => boolean, string];
+
 export type ValidationRules = {
     required?: ValidationRuleRequired;
     unique?: ValidationRuleUnique;
     regex?: ValidationRuleRegex;
+    custom?: ValidationRuleCustom;
 };
 
 export type ValidationInfo = {

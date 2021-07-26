@@ -41,6 +41,9 @@ export default () => (
             <Validate name="internal key 3" regex={/^\d{0,5}$/}>
                 <TextField />
             </Validate>
+            <Validate name="internal key 4" custom={[(value) => value === 'expected value', 'Custom validation failed!']}>
+                <TextField />
+            </Validate>
             ...
         </>
     </ValidationGroup>
@@ -52,6 +55,9 @@ The Validate component has the following attributes and validation rules:
 - required (optional) - boolean value to mark the textfield as required
 - unique (optional) - string array to check the textfield value against
 - regex (optional) - regular expression to be tested against
+- custom (optional) - array with first value to be a custom validation function (passed in argument is the input value, output must be a boolean representation of the validation success) and second value to be the error message which is displayed in failure case
+- before (optional) - hook for functionality triggered before validation
+- after (optional) - hook for functionality triggered after validation (with access to the validation result)
 
 To automatically disable a Material UI Button on validation failure the button can be wrapped into a AutoDisabler component.
 
