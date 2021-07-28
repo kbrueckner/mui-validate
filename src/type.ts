@@ -27,3 +27,5 @@ export type ValidationInfo = {
     setValidations: (validations: ValidationCollection) => void;
     allValid: boolean;
 };
+
+export type InputType = 'textfield' | 'select' | 'autocomplete' | 'picker';

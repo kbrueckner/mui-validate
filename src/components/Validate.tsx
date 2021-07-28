@@ -3,6 +3,8 @@ import { FormControl, FormHelperText } from '@material-ui/core';
 import { ValidationRuleRegex, ValidationRuleRequired, ValidationRules, ValidationRuleUnique, Validation, ValidationRuleCustom } from '../type';
 import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
+import { InputType } from '../type';
+import { detectInputType } from '../fns/helper-fns';
 
 type Props = {
     name: string;
@@ -12,6 +14,7 @@ type Props = {
     custom?: ValidationRuleCustom;
     after?: (result: Validation) => void;
     before?: () => void;
+    inputType?: 'detect' | InputType;
     children: JSX.Element & { fullWidth?: boolean; };
 };
 
@@ -22,9 +25,10 @@ type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required, unique, regex, custom, after, before,
+    children, name, required, unique, regex, custom, after, before, inputType = 'detect',
 }: Props): JSX.Element => {
     const { validations, setValidations } = useValidation();
+    const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
 
     const validationRules: ValidationRules = {};
     if (required) { validationRules.required = required; }
@@ -42,14 +46,29 @@ const Validate = ({
     }
 
     // eslint-disable-next-line
-    const onChange = (event: any, ...rest: any[]): void => {
+    const onChange = (...args: any[]): void => {
         if (children.props.onChange) {
-            children.props.onChange(event, ...rest);
+            children.props.onChange(...args);
         }
 
         if (before) { before(); }
 
-        const { value = '' } = event.target;
+        let value = '';
+        if (detectedInputType === 'autocomplete') {
+            value = args[1] ? 'set' : '';
+        }
+        else if (detectedInputType === 'picker') {
+            try {
+                value = new Date(args[0]).toISOString();
+            } catch (e) {
+                value = '';
+            }
+        }
+        else if (['textfield', 'select'].includes(detectedInputType)) {
+            const { value: eventValue = '' } = args[0].target;
+            value = eventValue;
+        }
+
         const validationResult = validate(value, validationRules);
         setValidations({ ...validations, [name]: validationResult });
 

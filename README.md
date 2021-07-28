@@ -25,6 +25,8 @@ export default () => (
 
 Input components which shall be validated are wrapped within the Validate component.
 
+### Simple usage
+
 ```js
 import { Validate } from 'mui-validate';
 
@@ -50,34 +52,7 @@ export default () => (
 )
 ```
 
-The Validate component has the following attributes and validation rules:
-- name (mandatory) - unique internal identifier for the validation
-- required (optional) - boolean value to mark the textfield as required
-- unique (optional) - string array to check the textfield value against
-- regex (optional) - regular expression to be tested against
-- custom (optional) - array with first value to be a custom validation function (passed in argument is the input value, output must be a boolean representation of the validation success) and second value to be the error message which is displayed in failure case
-- before (optional) - hook for functionality triggered before validation
-- after (optional) - hook for functionality triggered after validation (with access to the validation result)
-
-To automatically disable a Material UI Button on validation failure the button can be wrapped into a AutoDisabler component.
-
-```js
-import { AutoDisabler } from 'mui-validate';
-
-export default () => (
-    <ValidationGroup>
-        <>
-            ...
-            <AutoDisabler>
-                <Button />
-            </AutoDisabler>
-            ...
-        </>
-    </ValidationGroup>
-)
-```
-
-## Custom error messages
+### Custom error messages
 
 To override default error messages just provide the validation rule together with the desired error message.
 The format for this is an array with the first value being the validation rule and the second value represents the custom error message.
@@ -104,6 +79,48 @@ export default () => (
 )
 ```
 
+The Validate component has the following attributes and validation rules:
+
+Attribute|Mandatory|Type|Default|Description
+--|--|--|--|--
+name|x|string| |Unique internal identifier for the validation
+inputType| |'detect', 'textfield', 'select', 'autocomplete' or 'picker'|'detect'|Type of the encapsulated input i.e. textfield or select, when set to detect it will be tried to find the right input type automatically which could be error prone
+required| |bool or [bool, string]|true|Tests for a value to be set
+unique| |string[] or [string[], string]| |Checks the provided value to not be in a list of provided values
+regex| |regexp or [regexp, string]| |Tests against a given regular expression
+custom| |[func, string]| |Array with first value to be a custom validation function (passed in argument is the input value, output must be a boolean representation of the validation success) and second value to be the error message which is displayed in failure case
+before| |func| |Hook for functionality triggered before validation
+after| |func| |Hook for functionality triggered after validation (with access to the validation result)
+
+
+To automatically disable a Material UI Button on validation failure the button can be wrapped into a AutoDisabler component.
+
+```js
+import { AutoDisabler } from 'mui-validate';
+
+export default () => (
+    <ValidationGroup>
+        <>
+            ...
+            <AutoDisabler>
+                <Button />
+            </AutoDisabler>
+            ...
+        </>
+    </ValidationGroup>
+)
+```
+
+## Supported input elements and validators
+Element|required|unique|regex|custom
+--|--|--|--|--
+TextField|x|x|x|x
+Select|x|x|x|x
+Autocomplete|x|-|-|x
+Pickers|x|-|-|x
+
+On some element types not all default validators are supported. This is due to the fact that those types do not return just a single string value but complex objects. To achieve the same validation write a custom validator.
+
 ## Programatic access
 
 If programatic access to the validation is required the hook useValidation() can be used.
@@ -121,6 +138,9 @@ export default () => {
 ```
 
 The returned object contains:
-- allValid - boolean value to hold information if no issues occured in validation group
-- validations - the collection of all validations and their statuses
-- setValidations - setter to update validations object
+
+Attribute|Description
+--|--
+allValid|Boolean value to hold information if no issues occured in validation group
+validations|Collection of all validations and their statuses
+setValidations|Setter to update validations object
