@@ -39,7 +39,7 @@ const Validate = ({
     // check for initial value valid = false conditions
     if (
         required
-        && (children.props.value === '' || children.props.value === undefined)
+        && (children.props.value === '' || children.props.value === undefined || children.props.value === null)
         && validations[name] === undefined
     ) {
         setValidations({ ...validations, [name]: { valid: false } });
