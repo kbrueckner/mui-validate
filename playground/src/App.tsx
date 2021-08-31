@@ -117,6 +117,11 @@ const App = () => {
                                 <Button variant="outlined">Auto disabled if not all fields valid</Button>
                             </AutoDisabler>
                         </Grid>
+                        <Grid item>
+                            <AutoDisabler>
+                                <Button disabled variant="outlined">Always disabled</Button>
+                            </AutoDisabler>
+                        </Grid>
                     </Grid>
                 </Container>
             </MuiPickersUtilsProvider>
