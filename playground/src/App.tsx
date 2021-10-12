@@ -21,11 +21,11 @@ const App = () => {
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Container>
-                <ValidationGroup>
+                <ValidationGroup initialValidation="noisy">
                     <Box style={{ border: '1px solid #000'}} p={2}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <Validate name="required" required before={() => console.log('Validating now')} after={console.log}>
+                                <Validate name="required" required before={() => console.log('Validating now')} after={console.log} initialValidation="silent">
                                     <TextField label="This field is required" fullWidth />
                                 </Validate>
                             </Grid>

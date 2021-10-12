@@ -3,6 +3,7 @@ import { FormControl, FormHelperText } from '@material-ui/core';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
     ValidationRuleUnique, Validation, ValidationRuleCustom, InputType,
+    InitialValidationMode,
 } from '../type';
 import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
@@ -18,7 +19,7 @@ type Props = {
     before?: () => void;
     inputType?: 'detect' | InputType;
     children: JSX.Element & { fullWidth?: boolean; };
-    initialValidation?: 'silent' | 'noisy';
+    initialValidation?: InitialValidationMode;
 };
 
 type AdditionalProps = {
@@ -28,9 +29,10 @@ type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required = false, unique, regex, custom, after, before, inputType = 'detect', initialValidation = 'silent',
+    children, name, required = false, unique, regex, custom, after, before, inputType = 'detect', initialValidation,
 }: Props): JSX.Element => {
-    const { validations, setValidations } = useValidation();
+    const { validations, setValidations, initialValidation: initialValidationGroup } = useValidation();
+    const initialValidationDerrived = initialValidation || initialValidationGroup;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
 
     const validationRules: ValidationRules = {};
@@ -43,7 +45,7 @@ const Validate = ({
     if (validations[name] === undefined && Object.keys(validationRules).length > 0) {
         const value = children.props.value || '';
         const validationResult = validate(value, validationRules);
-        if (initialValidation === 'silent') { validationResult.message = undefined; }
+        if (initialValidationDerrived === 'silent') { validationResult.message = undefined; }
         setValidations({ ...validations, [name]: validationResult });
     }
 

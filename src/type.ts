@@ -22,10 +22,13 @@ export type ValidationRules = {
     custom?: ValidationRuleCustom;
 };
 
+export type InitialValidationMode = 'silent' | 'noisy';
+
 export type ValidationInfo = {
     validations: ValidationCollection;
     setValidations: (validations: ValidationCollection) => void;
     allValid: boolean;
+    initialValidation: InitialValidationMode;
 };
 
 export type InputType = 'textfield' | 'select' | 'autocomplete' | 'picker';
