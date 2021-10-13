@@ -31,8 +31,8 @@ type AdditionalProps = {
 const Validate = ({
     children, name, required = false, unique, regex, custom, after, before, inputType = 'detect', initialValidation,
 }: Props): JSX.Element => {
-    const { validations, setValidations, initialValidation: initialValidationGroup } = useValidation();
-    const initialValidationDerrived = initialValidation || initialValidationGroup;
+    const { validations, setValidations, initialValidation: initialValidationSetting } = useValidation();
+    const initialValidationDerrived = initialValidation || initialValidationSetting;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
 
     const validationRules: ValidationRules = {};
