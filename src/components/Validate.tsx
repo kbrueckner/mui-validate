@@ -35,13 +35,14 @@ const Validate = ({
     const initialValidationDerrived = initialValidation || initialValidationSetting;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
 
+    // Validation rules which will be applied
     const validationRules: ValidationRules = {};
     if (required) { validationRules.required = required; }
     if (unique !== undefined) { validationRules.unique = unique; }
     if (regex !== undefined) { validationRules.regex = regex; }
     if (custom !== undefined) { validationRules.custom = custom; }
 
-    // check if initial value is valid
+    // Initial validations during first child component rendering
     // all supported child types (so far) define an initial value in the component attribut 'value'
     if (validations[name] === undefined && Object.keys(validationRules).length > 0) {
         const value = children.props.value || '';
@@ -90,7 +91,6 @@ const Validate = ({
 
     const addedProps: AdditionalProps = {
         onChange,
-        // ref: childRef,
     };
 
     // This block is specifically for TextFields
