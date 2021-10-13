@@ -42,6 +42,7 @@ const Validate = ({
     if (custom !== undefined) { validationRules.custom = custom; }
 
     // check if initial value is valid
+    // all supported child types (so far) define an initial value in the component attribut 'value'
     if (validations[name] === undefined && Object.keys(validationRules).length > 0) {
         const value = children.props.value || '';
         const validationResult = validate(value, validationRules);

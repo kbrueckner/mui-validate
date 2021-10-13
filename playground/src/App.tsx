@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Select, MenuItem, Button, Container, Grid, Box } from '@material-ui/core';
+import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography } from '@material-ui/core';
 import { ValidationGroup, Validate, AutoDisabler } from './component-lib';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
@@ -23,6 +23,9 @@ const App = () => {
             <Container>
                 <ValidationGroup initialValidation="noisy">
                     <Box style={{ border: '1px solid #000'}} p={2}>
+                        <Box mb={1}>
+                            <Typography>General Validation Tests - Initial Validations Invalid</Typography>
+                        </Box>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
                                 <Validate name="required" required before={() => console.log('Validating now')} after={console.log} initialValidation="silent">
@@ -127,6 +130,9 @@ const App = () => {
                 </ValidationGroup>
                 <ValidationGroup>
                     <Box style={{ border: '1px solid #000'}} p={2} mt={2}>
+                        <Box mb={1}>
+                            <Typography>Initial Validation Valid - simple</Typography>
+                        </Box>
                         <Grid container spacing={1} alignItems="center">
                             <Grid item xs={4}>
                                 <Validate name="autocomplete" required>
@@ -151,6 +157,94 @@ const App = () => {
                                     />
                                 </Validate>
                             </Grid>
+                            <Grid item>
+                                <AutoDisabler>
+                                    <Button variant="outlined">Auto disabled if not all fields valid</Button>
+                                </AutoDisabler>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
+                <ValidationGroup initialValidation="noisy">
+                    <Box style={{ border: '1px solid #000'}} p={2} mt={2}>
+                        <Box mb={1}>
+                            <Typography>Initial Validation Valid - all input types</Typography>
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Validate name="required">
+                                    <TextField label="This field is required" fullWidth value="test" />
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <Validate name="requiredTextfieldSelect" required>
+                                    <TextField select value="A">
+                                        <MenuItem value="">Empty</MenuItem>
+                                        <MenuItem value="A">Option A</MenuItem>
+                                        <MenuItem value="B">Option B</MenuItem>
+                                    </TextField>
+                                </Validate>
+                            </Grid>
+                            <Grid item>
+                                <Validate name="requiredSelect" required>
+                                    <Select value="A">
+                                        <MenuItem value="">Empty</MenuItem>
+                                        <MenuItem value="A">Option A</MenuItem>
+                                        <MenuItem value="B">Option B</MenuItem>
+                                    </Select>
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <Validate
+                                    name="validTo"
+                                    required
+                                >
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        inputVariant="outlined"
+                                        format="dd.MM.yyyy"
+                                        label={'Valid to'}
+                                        value={new Date()}
+                                        onChange={handleDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                        style={{ width: 195 }}
+                                        size="small"
+                                        required
+                                    />
+                                </Validate>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Validate name="autocomplete" required>
+                                    <Autocomplete
+                                        autoComplete
+                                        autoHighlight
+                                        fullWidth
+                                        options={autocompleteOptions}
+                                        getOptionLabel={(option: any) => option.name}
+                                        value={autocompleteOptions[0]}
+                                        // eslint-disable-next-line
+                                        renderInput={(params: any) => (
+                                            <TextField
+                                                {...params}
+                                                name="autocomplete"
+                                                size="small"
+                                                variant="outlined"
+                                                label="Autocomplete"
+                                                required
+                                            />
+                                        )}
+                                    />
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1}>
                             <Grid item>
                                 <AutoDisabler>
                                     <Button variant="outlined">Auto disabled if not all fields valid</Button>
