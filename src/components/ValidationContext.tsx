@@ -3,8 +3,9 @@ import { ValidationInfo } from '../type';
 
 const context = React.createContext<ValidationInfo>({
     validations: {},
-    setValidations: (): void => { },
+    setValidations: (): void => {},
     allValid: true,
+    initialValidation: 'silent',
 });
 
 context.displayName = 'ValidationContext';
