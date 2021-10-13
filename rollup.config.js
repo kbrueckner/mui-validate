@@ -4,33 +4,33 @@ import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
 export default [
-  {
-    input: 'src/index.ts',
-    output: [
-      {
-        file: 'playground/src/component-lib/index.js',
-        format: 'esm',
-        banner: '/* eslint-disable */',
-      },
-      { file: `dist/${pkg.main}`, format: 'cjs' },
-      { file: `dist/${pkg.module}`, format: 'esm' },
-    ],
-    plugins: [
-      del({ targets: ['dist/*', 'playground/src/component-lib'] }),
-      typescript({
-        useTsconfigDeclarationDir: true,
-      }),
-    ],
-    external: Object.keys(pkg.peerDependencies || {}),
-  },
-  {
-    input: 'dist/dts/index.d.ts',
-    output: [
-      { file: 'dist/index.d.ts', format: 'es' },
-      { file: 'playground/src/component-lib/index.d.ts', format: 'es' },
-    ],
-    plugins: [
-      dts(),
-    ],
-  },
+    {
+        input: 'src/index.ts',
+        output: [
+            {
+                file: 'playground/src/component-lib/index.js',
+                format: 'esm',
+                banner: '/* eslint-disable */',
+            },
+            { file: `dist/${pkg.main}`, format: 'cjs' },
+            { file: `dist/${pkg.module}`, format: 'esm' },
+        ],
+        plugins: [
+            del({ targets: ['dist/*', 'playground/src/component-lib'] }),
+            typescript({
+                useTsconfigDeclarationDir: true,
+            }),
+        ],
+        external: Object.keys(pkg.peerDependencies || {}),
+    },
+    {
+        input: 'dist/dts/index.d.ts',
+        output: [
+            { file: 'dist/index.d.ts', format: 'es' },
+            { file: 'playground/src/component-lib/index.d.ts', format: 'es' },
+        ],
+        plugins: [
+            dts(),
+        ],
+    },
 ];
