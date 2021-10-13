@@ -18,8 +18,8 @@ type Props = {
     after?: (result: Validation) => void;
     before?: () => void;
     inputType?: 'detect' | InputType;
-    children: JSX.Element & { fullWidth?: boolean; };
     initialValidation?: InitialValidationMode;
+    children: JSX.Element & { fullWidth?: boolean; };
 };
 
 type AdditionalProps = {
@@ -29,7 +29,7 @@ type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required = false, unique, regex, custom, after, before, inputType = 'detect', initialValidation,
+    children, name, required, unique, regex, custom, after, before, initialValidation, inputType = 'detect',
 }: Props): JSX.Element => {
     const { validations, setValidations, initialValidation: initialValidationSetting } = useValidation();
     const initialValidationDerrived = initialValidation || initialValidationSetting;
