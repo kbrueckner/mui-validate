@@ -253,6 +253,32 @@ const App = () => {
                         </Grid>
                     </Box>
                 </ValidationGroup>
+                <ValidationGroup validation="silent">
+                    <Box style={{ border: '1px solid #000'}} p={2} mt={2}>
+                        <Box mb={1}>
+                            <Typography>Validation silent</Typography>
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Validate name="required" required>
+                                    <TextField label="This field is required - silent" fullWidth />
+                                </Validate>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Validate name="required2" required validation="noisy">
+                                    <TextField label="This field is required - noisy (override)" fullWidth />
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <AutoDisabler>
+                                    <Button variant="outlined">Auto disabled if not all fields valid</Button>
+                                </AutoDisabler>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
             </Container>
         </MuiPickersUtilsProvider>
     );

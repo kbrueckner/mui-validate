@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import ValidationContext from './ValidationContext';
-import { InitialValidationMode, Validation, ValidationCollection } from '../type';
+import { ValidationMode, Validation, ValidationCollection } from '../type';
 
 type Props = {
     children: JSX.Element;
-    initialValidation?: InitialValidationMode;
+    initialValidation?: ValidationMode;
+    validation?: ValidationMode;
 };
 
 const validateAll = (validation: ValidationCollection): boolean => !Object.values(validation).some((field: Validation) => !field.valid);
 
-const ValidationGroup = ({ children, initialValidation = 'silent' }: Props): JSX.Element => {
+const ValidationGroup = ({ children, initialValidation = 'silent', validation = 'noisy' }: Props): JSX.Element => {
     const [validations, setValidations]: [ValidationCollection, (validationsIn: ValidationCollection) => void] = useState({});
     const allValid = validateAll(validations);
 
     return (
         <ValidationContext.Provider value={{
-            validations, setValidations, allValid, initialValidation,
+            validations, setValidations, allValid, initialValidation, validation,
         }}
         >
             {children}
