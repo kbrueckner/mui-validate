@@ -3,7 +3,7 @@ import { FormControl, FormHelperText } from '@material-ui/core';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
     ValidationRuleUnique, Validation, ValidationRuleCustom, InputType,
-    InitialValidationMode,
+    ValidationMode,
 } from '../type';
 import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
@@ -18,7 +18,8 @@ type Props = {
     after?: (result: Validation) => void;
     before?: () => void;
     inputType?: 'detect' | InputType;
-    initialValidation?: InitialValidationMode;
+    initialValidation?: ValidationMode;
+    validation?: ValidationMode;
     children: JSX.Element & { fullWidth?: boolean; };
 };
 
@@ -29,10 +30,16 @@ type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required, unique, regex, custom, after, before, initialValidation, inputType = 'detect',
+    children, name, required, unique, regex, custom, after, before,
+    initialValidation, validation, inputType = 'detect',
 }: Props): JSX.Element => {
-    const { validations, setValidations, initialValidation: initialValidationSetting } = useValidation();
+    const {
+        validations, setValidations,
+        initialValidation: initialValidationSetting,
+        validation: validationSetting,
+    } = useValidation();
     const initialValidationDerrived = initialValidation || initialValidationSetting;
+    const validationDerrived = validation || validationSetting;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
 
     // Validation rules which will be applied
@@ -83,6 +90,7 @@ const Validate = ({
         }
 
         const validationResult = validate(value, validationRules);
+        if (validationDerrived === 'silent') { validationResult.message = undefined; }
         setValidations({ ...validations, [name]: validationResult });
 
         // after hook operations
