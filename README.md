@@ -30,6 +30,7 @@ The ValidationGroup component has the following attributes:
 Attribute|Mandatory|Type|Default|Description
 --|--|--|--|--
 initialValidation|-|'silent' or 'noisy'|'silent'|In noisy mode all validated input elements in the group are highlighted and display the error messages, in silent mode they remain without highlighting and error messages.
+validation|-|'silent' or 'noisy'|'noisy'|In noisy mode all validated input elements in the group are highlighted and display the error messages, in silent mode they remain without highlighting and error messages.
 
 ### Simple usage
 
@@ -98,6 +99,7 @@ custom|-|[func, string]| |Array with first value to be a custom validation funct
 before|-|func| |Hook for functionality triggered before validation
 after|-|func| |Hook for functionality triggered after validation (with access to the validation result)
 initialValidation|-|'silent' or 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
+validation|-|'silent' or 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
 
 
 To automatically disable a Material UI Button on validation failure the button can be wrapped into an AutoDisabler component.
@@ -152,3 +154,4 @@ allValid|Boolean value to hold information if no issues occured in validation gr
 validations|Collection of all validations and their statuses
 setValidations|Setter to update validations object
 initialValidation|Setting for initialValidation on group level
+validation|Setting for validation on group level
