@@ -1,0 +1,27 @@
+{
+    "preset": "jest-playwright-preset",
+    "transform": {
+        "\\.ts$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+        "/node_modules/"
+    ],
+    "testPathIgnorePatterns": [
+        "/node_modules/",
+        "/dist/"
+    ],
+    "reporters": [
+        "default",
+        [
+            "jest-html-reporters",
+            {
+                "publicPath": "./reports/html",
+                "filename": "report.html",
+                "expand": true
+            }
+        ]
+    ],
+    "testMatch": [
+        "**/*.spec.[jt]s"
+    ]
+}

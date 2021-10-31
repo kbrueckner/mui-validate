@@ -11,6 +11,7 @@ import { detectInputType } from '../fns/helper-fns';
 
 type Props = {
     name: string;
+    id?: string;
     required?: ValidationRuleRequired;
     unique?: ValidationRuleUnique;
     regex?: ValidationRuleRegex;
@@ -31,7 +32,7 @@ type AdditionalProps = {
 
 const Validate = ({
     children, name, required, unique, regex, custom, after, before,
-    initialValidation, validation, inputType = 'detect',
+    initialValidation, validation, inputType = 'detect', id,
 }: Props): JSX.Element => {
     const {
         validations, setValidations,
@@ -112,6 +113,9 @@ const Validate = ({
         <FormControl
             error={validations[name]?.message !== undefined}
             classes={{ root: children.props.fullWidth === true ? 'MuiInputBase-fullWidth' : '' }}
+            data-has-error={validations[name]?.valid !== true}
+            data-has-message={validations[name]?.message !== undefined}
+            id={id}
         >
             {React.cloneElement(children, addedProps)}
             <FormHelperText>{validations[name]?.message}</FormHelperText>
