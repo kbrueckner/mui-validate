@@ -6,7 +6,7 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { Autocomplete } from '@material-ui/lab';
 import DateFnsUtils from '@date-io/date-fns';
 import locator from 'test-locator';
-import { SETTINGS_INITIAL_NOISY, SETTINGS_INITIAL_NOISY_GROUP, SETTINGS_INITIAL_SILENT } from '../locators';
+import { DISABLER_BUTTON_AWAYS_OFF, DISABLER_BUTTON_DYNAMIC, DISABLER_INPUT, SETTINGS_INITIAL_NOISY, SETTINGS_INITIAL_NOISY_GROUP, SETTINGS_INITIAL_SILENT, TEXTFIELD_CUSTOM, TEXTFIELD_CUSTOM_INPUT, TEXTFIELD_REGEX, TEXTFIELD_REGEX_INPUT, TEXTFIELD_REQUIRED, TEXTFIELD_REQUIRED_INPUT, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT } from '../locators';
 
 const V4 = () => {
     const [date, setDate]: [string | null | undefined, Function] = useState(null);
@@ -125,18 +125,54 @@ const V4 = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={6}>
                                 <Validate name="Textfield required" required id={locator(['textfield', 'required', 'disabler'])} initialValidation="noisy">
-                                    <TextField id={locator(['textfield', 'required', 'disabler'], 'input')} label="This field is required" fullWidth variant="outlined" size="small" required/>
+                                    <TextField id={DISABLER_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required/>
                                 </Validate>
                             </Grid>
                             <Grid item>
                                 <AutoDisabler>
-                                    <Button id={locator(['textfield', 'required', 'disabler'], 'button')} variant="outlined">Disabled if group invalid</Button>
+                                    <Button id={DISABLER_BUTTON_DYNAMIC} variant="outlined">Disabled if group invalid</Button>
                                 </AutoDisabler>
                             </Grid>
                             <Grid item>
                                 <AutoDisabler>
-                                    <Button id={locator(['textfield', 'required', 'disabler', 'always-off'], 'button')} variant="outlined" disabled>Always disabled by button prop</Button>
+                                    <Button id={DISABLER_BUTTON_AWAYS_OFF} variant="outlined" disabled>Always disabled by button prop</Button>
                                 </AutoDisabler>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
+                <Typography variant="h5">TextField</Typography>
+                <ValidationGroup>
+                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
+                        <Box mb={2}>
+                            <Typography variant="caption">TextField required</Typography>
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Validate name="Textfield required" required id={TEXTFIELD_REQUIRED} initialValidation="noisy">
+                                    <TextField id={TEXTFIELD_REQUIRED_INPUT} label="TextField" fullWidth variant="outlined" size="small" required/>
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Validate name="Textfield unique" unique={['a']} id={TEXTFIELD_UNIQUE} initialValidation="noisy">
+                                    <TextField id={TEXTFIELD_UNIQUE_INPUT} label="TextField" fullWidth variant="outlined" size="small" required/>
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Validate name="Textfield regex" regex={/[0-9]/} id={TEXTFIELD_REGEX} initialValidation="noisy">
+                                    <TextField id={TEXTFIELD_REGEX_INPUT} label="TextField" fullWidth variant="outlined" size="small" required/>
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Validate name="Textfield custom" custom={[(value: string) => value === 'b', 'failed']} id={TEXTFIELD_CUSTOM} initialValidation="noisy">
+                                    <TextField id={TEXTFIELD_CUSTOM_INPUT} label="TextField" fullWidth variant="outlined" size="small" required/>
+                                </Validate>
                             </Grid>
                         </Grid>
                     </Box>

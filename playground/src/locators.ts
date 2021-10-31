@@ -14,3 +14,19 @@ export const SETTINGS_SILENT_INPUT = locator(['textfield', 'required', 'silent']
 
 export const SETTINGS_SILENT_GROUP = locator(['textfield', 'required', 'silent', 'by-group']);
 export const SETTINGS_SILENT_GROUP_INPUT = locator(['textfield', 'required', 'silent', 'by-group'], 'input');
+
+export const DISABLER_INPUT = locator(['textfield', 'required', 'disabler'], 'input');
+export const DISABLER_BUTTON_DYNAMIC = locator(['textfield', 'required', 'disabler'], 'button');
+export const DISABLER_BUTTON_AWAYS_OFF = locator(['textfield', 'required', 'disabler', 'always-off'], 'button');
+
+export const TEXTFIELD_REQUIRED = locator(['textfield', 'required']);
+export const TEXTFIELD_REQUIRED_INPUT = locator(['textfield', 'required'], 'input');
+
+export const TEXTFIELD_UNIQUE = locator(['textfield', 'unique']);
+export const TEXTFIELD_UNIQUE_INPUT = locator(['textfield', 'unique'], 'input');
+
+export const TEXTFIELD_REGEX = locator(['textfield', 'regex']);
+export const TEXTFIELD_REGEX_INPUT = locator(['textfield', 'regex'], 'input');
+
+export const TEXTFIELD_CUSTOM = locator(['textfield', 'custom']);
+export const TEXTFIELD_CUSTOM_INPUT = locator(['textfield', 'custom'], 'input');
