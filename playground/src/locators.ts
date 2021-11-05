@@ -92,3 +92,15 @@ export const AUTOCOMPLETE_CUSTOM_INPUT_OPTION_A = `${locator(['autocomplete', 'c
 export const AUTOCOMPLETE_CUSTOM_INPUT_OPTION_B = `${locator(['autocomplete', 'custom'], 'input')}-option-1`;
 
 export const AUTOCOMPLETE_CUSTOM_INITIAL = locator(['autocomplete', 'custom', 'initial']);
+
+export const PICKER_REQUIRED = locator(['picker', 'required']);
+export const PICKER_REQUIRED_INPUT = locator(['picker', 'required'], 'input');
+
+export const PICKER_UNIQUE = locator(['picker', 'unique']);
+export const PICKER_UNIQUE_INPUT = locator(['picker', 'unique'], 'input');
+
+export const PICKER_REGEX = locator(['picker', 'regex']);
+export const PICKER_REGEX_INPUT = locator(['picker', 'regex'], 'input');
+
+export const PICKER_CUSTOM = locator(['picker', 'custom']);
+export const PICKER_CUSTOM_INPUT = locator(['picker', 'custom'], 'input');

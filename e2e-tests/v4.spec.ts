@@ -19,6 +19,14 @@ import {
     DISABLER_BUTTON_AWAYS_OFF,
     DISABLER_BUTTON_DYNAMIC,
     DISABLER_INPUT,
+    PICKER_CUSTOM,
+    PICKER_CUSTOM_INPUT,
+    PICKER_REGEX,
+    PICKER_REGEX_INPUT,
+    PICKER_REQUIRED,
+    PICKER_REQUIRED_INPUT,
+    PICKER_UNIQUE,
+    PICKER_UNIQUE_INPUT,
     SELECT_CUSTOM,
     SELECT_CUSTOM_INPUT,
     SELECT_CUSTOM_INPUT_OPTION_A,
@@ -420,6 +428,50 @@ describe(' Material-UI v4 tests', () => {
      */
 
     // test for required
+    it('Picker: required', async () => {
+        const control = `#${PICKER_REQUIRED}`;
+        const input = `#${PICKER_REQUIRED_INPUT}`;
+
+        await page.fill(input, '11.11.2020');
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.fill(input, '11.11');
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for unique
+    it('Picker: unique', async () => {
+        const control = `#${PICKER_UNIQUE}`;
+        const input = `#${PICKER_UNIQUE_INPUT}`;
+
+        await page.fill(input, '11.11.2020');
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.fill(input, '11.11.2021');
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for regex
+    it('Picker: regex', async () => {
+        const control = `#${PICKER_REGEX}`;
+        const input = `#${PICKER_REGEX_INPUT}`;
+
+        await page.fill(input, '11.11.2020');
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.fill(input, '11.11.2021');
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
 
     // test for custom
+    it('Picker: custom', async () => {
+        const control = `#${PICKER_CUSTOM}`;
+        const input = `#${PICKER_CUSTOM_INPUT}`;
+
+        await page.fill(input, '11.11.2020');
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.fill(input, '11.11.2021');
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
 });
