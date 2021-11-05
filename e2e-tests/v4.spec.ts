@@ -1,8 +1,40 @@
-import locator from 'test-locator';
 import {
+    AUTOCOMPLETE_CUSTOM,
+    AUTOCOMPLETE_CUSTOM_INITIAL,
+    AUTOCOMPLETE_CUSTOM_INPUT,
+    AUTOCOMPLETE_CUSTOM_INPUT_OPTION_A,
+    AUTOCOMPLETE_CUSTOM_INPUT_OPTION_B,
+    AUTOCOMPLETE_REGEX,
+    AUTOCOMPLETE_REGEX_INPUT,
+    AUTOCOMPLETE_REGEX_INPUT_OPTION_A,
+    AUTOCOMPLETE_REGEX_INPUT_OPTION_B,
+    AUTOCOMPLETE_REQUIRED,
+    AUTOCOMPLETE_REQUIRED_INPUT,
+    AUTOCOMPLETE_REQUIRED_INPUT_OPTION_A,
+    AUTOCOMPLETE_REQUIRED_INPUT_OPTION_EMPTY,
+    AUTOCOMPLETE_UNIQUE,
+    AUTOCOMPLETE_UNIQUE_INPUT,
+    AUTOCOMPLETE_UNIQUE_INPUT_OPTION_A,
+    AUTOCOMPLETE_UNIQUE_INPUT_OPTION_B,
     DISABLER_BUTTON_AWAYS_OFF,
     DISABLER_BUTTON_DYNAMIC,
     DISABLER_INPUT,
+    SELECT_CUSTOM,
+    SELECT_CUSTOM_INPUT,
+    SELECT_CUSTOM_INPUT_OPTION_A,
+    SELECT_CUSTOM_INPUT_OPTION_B,
+    SELECT_REGEX,
+    SELECT_REGEX_INPUT,
+    SELECT_REGEX_INPUT_OPTION_A,
+    SELECT_REGEX_INPUT_OPTION_B,
+    SELECT_REQUIRED,
+    SELECT_REQUIRED_INPUT,
+    SELECT_REQUIRED_INPUT_OPTION_A,
+    SELECT_REQUIRED_INPUT_OPTION_EMPTY,
+    SELECT_UNIQUE,
+    SELECT_UNIQUE_INPUT,
+    SELECT_UNIQUE_INPUT_OPTION_A,
+    SELECT_UNIQUE_INPUT_OPTION_B,
     SETTINGS_INITIAL_NOISY, SETTINGS_INITIAL_NOISY_GROUP, SETTINGS_INITIAL_SILENT, SETTINGS_NOISY,
     SETTINGS_NOISY_INPUT, SETTINGS_SILENT, SETTINGS_SILENT_GROUP, SETTINGS_SILENT_GROUP_INPUT,
     SETTINGS_SILENT_INPUT,
@@ -12,6 +44,22 @@ import {
     TEXTFIELD_REGEX_INPUT,
     TEXTFIELD_REQUIRED,
     TEXTFIELD_REQUIRED_INPUT,
+    TEXTFIELD_SELECT_CUSTOM,
+    TEXTFIELD_SELECT_CUSTOM_INPUT,
+    TEXTFIELD_SELECT_CUSTOM_INPUT_OPTION_A,
+    TEXTFIELD_SELECT_CUSTOM_INPUT_OPTION_B,
+    TEXTFIELD_SELECT_REGEX,
+    TEXTFIELD_SELECT_REGEX_INPUT,
+    TEXTFIELD_SELECT_REGEX_INPUT_OPTION_A,
+    TEXTFIELD_SELECT_REGEX_INPUT_OPTION_B,
+    TEXTFIELD_SELECT_REQUIRED,
+    TEXTFIELD_SELECT_REQUIRED_INPUT,
+    TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A,
+    TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_EMPTY,
+    TEXTFIELD_SELECT_UNIQUE,
+    TEXTFIELD_SELECT_UNIQUE_INPUT,
+    TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
+    TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B,
     TEXTFIELD_UNIQUE,
     TEXTFIELD_UNIQUE_INPUT,
 } from '../playground/src/locators';
@@ -155,4 +203,223 @@ describe(' Material-UI v4 tests', () => {
         await page.fill(input, 'b');
         expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
     });
+
+    /**
+     * TextField select validation methods
+     */
+
+    // test for required
+    it('TextField (select): required', async () => {
+        const control = `#${TEXTFIELD_SELECT_REQUIRED}`;
+        const input = `#${TEXTFIELD_SELECT_REQUIRED_INPUT}`;
+        const optionA = `#${TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A}`;
+        const optionEmpty = `#${TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_EMPTY}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionEmpty);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for unique
+    it('TextField (select): unique', async () => {
+        const control = `#${TEXTFIELD_SELECT_UNIQUE}`;
+        const input = `#${TEXTFIELD_SELECT_UNIQUE_INPUT}`;
+        const optionA = `#${TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A}`;
+        const optionB = `#${TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for regex
+    it('TextField (select): regex', async () => {
+        const control = `#${TEXTFIELD_SELECT_REGEX}`;
+        const input = `#${TEXTFIELD_SELECT_REGEX_INPUT}`;
+        const optionA = `#${TEXTFIELD_SELECT_REGEX_INPUT_OPTION_A}`;
+        const optionB = `#${TEXTFIELD_SELECT_REGEX_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for custom
+    it('TextField (select): custom', async () => {
+        const control = `#${TEXTFIELD_SELECT_CUSTOM}`;
+        const input = `#${TEXTFIELD_SELECT_CUSTOM_INPUT}`;
+        const optionA = `#${TEXTFIELD_SELECT_CUSTOM_INPUT_OPTION_A}`;
+        const optionB = `#${TEXTFIELD_SELECT_CUSTOM_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    /**
+     * Select validation methods
+     */
+
+    // test for required
+    it('Select: required', async () => {
+        const control = `#${SELECT_REQUIRED}`;
+        const input = `#${SELECT_REQUIRED_INPUT}`;
+        const optionA = `#${SELECT_REQUIRED_INPUT_OPTION_A}`;
+        const optionEmpty = `#${SELECT_REQUIRED_INPUT_OPTION_EMPTY}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionEmpty);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for unique
+    it('Select: unique', async () => {
+        const control = `#${SELECT_UNIQUE}`;
+        const input = `#${SELECT_UNIQUE_INPUT}`;
+        const optionA = `#${SELECT_UNIQUE_INPUT_OPTION_A}`;
+        const optionB = `#${SELECT_UNIQUE_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for regex
+    it('Select: regex', async () => {
+        const control = `#${SELECT_REGEX}`;
+        const input = `#${SELECT_REGEX_INPUT}`;
+        const optionA = `#${SELECT_REGEX_INPUT_OPTION_A}`;
+        const optionB = `#${SELECT_REGEX_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for custom
+    it('Select: custom', async () => {
+        const control = `#${SELECT_CUSTOM}`;
+        const input = `#${SELECT_CUSTOM_INPUT}`;
+        const optionA = `#${SELECT_CUSTOM_INPUT_OPTION_A}`;
+        const optionB = `#${SELECT_CUSTOM_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    /**
+     * Autocomplete validation methods
+     */
+
+    // test for required
+    it('Autocomplete: required', async () => {
+        const control = `#${AUTOCOMPLETE_REQUIRED}`;
+        const input = `#${AUTOCOMPLETE_REQUIRED_INPUT}`;
+        const optionA = `#${AUTOCOMPLETE_REQUIRED_INPUT_OPTION_A}`;
+        const optionEmpty = `#${AUTOCOMPLETE_REQUIRED_INPUT_OPTION_EMPTY}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionEmpty);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for unique
+    it('Autocomplete: unique', async () => {
+        const control = `#${AUTOCOMPLETE_UNIQUE}`;
+        const input = `#${AUTOCOMPLETE_UNIQUE_INPUT}`;
+        const optionA = `#${AUTOCOMPLETE_UNIQUE_INPUT_OPTION_A}`;
+        const optionB = `#${AUTOCOMPLETE_UNIQUE_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for regex
+    it('Autocomplete: regex', async () => {
+        const control = `#${AUTOCOMPLETE_REGEX}`;
+        const input = `#${AUTOCOMPLETE_REGEX_INPUT}`;
+        const optionA = `#${AUTOCOMPLETE_REGEX_INPUT_OPTION_A}`;
+        const optionB = `#${AUTOCOMPLETE_REGEX_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionB);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for custom
+    it('Autocomplete: custom', async () => {
+        const control = `#${AUTOCOMPLETE_CUSTOM}`;
+        const input = `#${AUTOCOMPLETE_CUSTOM_INPUT}`;
+        const optionA = `#${AUTOCOMPLETE_CUSTOM_INPUT_OPTION_A}`;
+        const optionEmpty = `#${AUTOCOMPLETE_CUSTOM_INPUT_OPTION_B}`;
+
+        await page.click(input);
+        await page.click(optionA);
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.click(input);
+        await page.click(optionEmpty);
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    // test for initial validation
+    it('Autocomplete: custom initial valid', async () => {
+        const control = `#${AUTOCOMPLETE_CUSTOM_INITIAL}`;
+
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+    });
+
+    /**
+     * Pickers validation methods
+     */
+
+    // test for required
+
+    // test for custom
 });

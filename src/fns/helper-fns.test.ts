@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import { detectInputType } from './helper-fns';
+import { detectInputType, getValueFromAutocomplete } from './helper-fns';
 
 describe('helper-fns', () => {
     describe('detectInputType', () => {
@@ -17,6 +17,20 @@ describe('helper-fns', () => {
 
         test('textfield', () => {
             expect(detectInputType({})).toEqual('textfield');
+        });
+    });
+
+    describe('getValueFromAutocomplete', () => {
+        test('options simple string type', () => {
+            expect(getValueFromAutocomplete('A', {})).toBe('A');
+            expect(getValueFromAutocomplete(null, {})).toBe('');
+        });
+
+        test('options complex object type', () => {
+            // eslint-disable-next-line
+            expect(getValueFromAutocomplete({ name: 'A' }, { props: { getOptionLabel: (option: any) => option.name } })).toBe('A');
+            // eslint-disable-next-line
+            expect(getValueFromAutocomplete(null, { props: { getOptionLabel: (option: any) => option.name } })).toBe('');
         });
     });
 });

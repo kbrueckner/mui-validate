@@ -125,10 +125,11 @@ Element|required|unique|regex|custom
 --|--|--|--|--
 TextField|x|x|x|x
 Select|x|x|x|x
-Autocomplete|x|-|-|x
+Autocomplete|x|x|x|x
 Pickers|x|-|-|x
 
 On some element types not all default validators are supported. This is due to the fact that those types do not return just a single string value but complex objects. To achieve the same validation, write a custom validator.
+Exception is Autocomplete which is one of the elements which internally works with complex types. For validation it will return the simple string representation defined by the lookup function getOptionLabel.
 
 ## Programatic access
 

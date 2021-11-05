@@ -6,3 +6,18 @@ export const detectInputType = (props: any): InputType => {
     if (props.allowKeyboardControl !== undefined || props.KeyboardButtonProps !== undefined) { return 'picker'; }
     return 'textfield';
 };
+
+// eslint-disable-next-line
+export const getValueFromAutocomplete = (option: any, children: any): string => {
+    let value;
+
+    if (!option) {
+        value = '';
+    } else {
+        // eslint-disable-next-line
+        // @ts-ignore-next-line
+        value = children?.props?.getOptionLabel ? children.props.getOptionLabel(option) : option;
+    }
+
+    return value;
+};
