@@ -6,28 +6,36 @@ const readline = require('readline').createInterface({
 });
 const package = require('../package.json');
 
+const confirmToProceed = (message, callback) => {
+    readline.question(`${message} (y/n): `, (answer) => {
+        if (answer.toLowerCase() !== 'y') {
+            readline.close();
+            console.log('Cancelled release');
+            return;
+        }
+
+        callback();
+    });
+};
+
 console.log(`Current package version: ${package.version}`);
 
-readline.question('Is the set version correct for this release? (y/n): ', (answer) => {
-    readline.close();
+confirmToProceed('Is the set version correct for this release?', () => {
+    confirmToProceed('Did all integration tests pass?', () => {
+        const releasePackage = { ...package };
+        delete releasePackage.devDependencies;
+        delete releasePackage.scripts;
 
-    if (answer.toLowerCase() !== 'y') {
-        console.log(`Cancelled release`);
-        return;
-    }
+        try {
+            fs.writeFileSync('dist/package.json', JSON.stringify(releasePackage));
+            fs.copyFileSync('README.md', 'dist/README.md');
 
-    const releasePackage = { ...package };
-    delete releasePackage.devDependencies;
-    delete releasePackage.scripts;
+            require('child_process').execSync('npm publish dist');
+        } catch (err) {
+            console.error(err);
+        }
 
-    try {
-        fs.writeFileSync('dist/package.json', JSON.stringify(releasePackage));
-        fs.copyFileSync('README.md', 'dist/README.md');
-
-        require('child_process').execSync('npm publish dist');
-    } catch (err) {
-        console.error(err);
-    }
-
-    console.log('Package released');
+        readline.close();
+        console.log('Package released');
+    });
 });

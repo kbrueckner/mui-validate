@@ -21,13 +21,20 @@
     "jsx": "react-jsx",
     "outDir": "./dist",
     "declaration": true,
-    "declarationDir": "dist/dts"
+    "declarationDir": "dist/dts",
+    "types": [
+      "@types/jest",
+      "jest-playwright-preset",
+      "expect-playwright",
+    ],
   },
   "include": [
-    "src"
+    "src",
+    "e2e-tests"
   ],
   "exclude": [
     "node_modules",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }

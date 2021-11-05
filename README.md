@@ -125,10 +125,12 @@ Element|required|unique|regex|custom
 --|--|--|--|--
 TextField|x|x|x|x
 Select|x|x|x|x
-Autocomplete|x|-|-|x
-Pickers|x|-|-|x
+Autocomplete|x|x*|x*|x*
+Pickers|x|x**|x**|x**
 
-On some element types not all default validators are supported. This is due to the fact that those types do not return just a single string value but complex objects. To achieve the same validation, write a custom validator.
+\* Value passed to the validation function will either be a simple string when options are filled with strings or the string value calculated by getOptionLabel for complex options.
+
+** Value passed to the validation function is for valid dates the ISO string representation of the date or an empty string for invalid dates
 
 ## Programatic access
 

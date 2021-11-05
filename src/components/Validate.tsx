@@ -7,10 +7,11 @@ import {
 } from '../type';
 import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
-import { detectInputType } from '../fns/helper-fns';
+import { detectInputType, getValueFromAutocomplete } from '../fns/helper-fns';
 
 type Props = {
     name: string;
+    id?: string;
     required?: ValidationRuleRequired;
     unique?: ValidationRuleUnique;
     regex?: ValidationRuleRegex;
@@ -31,7 +32,7 @@ type AdditionalProps = {
 
 const Validate = ({
     children, name, required, unique, regex, custom, after, before,
-    initialValidation, validation, inputType = 'detect',
+    initialValidation, validation, inputType = 'detect', id,
 }: Props): JSX.Element => {
     const {
         validations, setValidations,
@@ -52,7 +53,12 @@ const Validate = ({
     // Initial validations during first child component rendering
     // all supported child types (so far) define an initial value in the component attribut 'value'
     if (validations[name] === undefined && Object.keys(validationRules).length > 0) {
-        const value = children.props.value || '';
+        let value;
+        if (detectedInputType === 'autocomplete') {
+            value = getValueFromAutocomplete(children.props.value, children);
+        } else {
+            value = children.props.value || '';
+        }
         const validationResult = validate(value, validationRules);
         if (initialValidationDerrived === 'silent') { validationResult.message = undefined; }
         setValidations({ ...validations, [name]: validationResult });
@@ -73,7 +79,7 @@ const Validate = ({
         // autocomplete sends the attached option in the second parameter
         // in case no option is selected null is sent instead
         if (detectedInputType === 'autocomplete') {
-            value = args[1] ? 'value selected' : '';
+            value = getValueFromAutocomplete(args[1], children);
         }
         // picker send a date object or 'Invalid Date' as the first parameter
         else if (detectedInputType === 'picker') {
@@ -112,6 +118,9 @@ const Validate = ({
         <FormControl
             error={validations[name]?.message !== undefined}
             classes={{ root: children.props.fullWidth === true ? 'MuiInputBase-fullWidth' : '' }}
+            data-has-error={validations[name]?.valid !== true}
+            data-has-message={validations[name]?.message !== undefined}
+            id={id}
         >
             {React.cloneElement(children, addedProps)}
             <FormHelperText>{validations[name]?.message}</FormHelperText>
