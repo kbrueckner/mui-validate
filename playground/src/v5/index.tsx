@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography } from '@material-ui/core';
+import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete } from '@mui/material';
 import { ValidationGroup, Validate, AutoDisabler } from '../component-lib';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import { Autocomplete } from '@material-ui/lab';
-import DateFnsUtils from '@date-io/date-fns';
+import { LocalizationProvider, DatePicker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import locator from 'test-locator';
 import {
     AUTOCOMPLETE_CUSTOM, AUTOCOMPLETE_CUSTOM_INITIAL, AUTOCOMPLETE_CUSTOM_INPUT,
@@ -30,29 +28,29 @@ import {
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
 } from './locators';
 
-const V4 = () => {
+const V5 = () => {
     const [dateRequired, setDateRequired]: [string | null | undefined, Function] = useState(null);
-    const handleDateRequiredChange = (date: MaterialUiPickersDate, value?: string | null | undefined) => {
+    const handleDateRequiredChange = (date: unknown, value?: string | null | undefined) => {
         setDateRequired(date);
     };
 
     const [dateUnique, setDateUnique]: [string | null | undefined, Function] = useState(null);
-    const handleDateUniqueChange = (date: MaterialUiPickersDate, value?: string | null | undefined) => {
+    const handleDateUniqueChange = (date: unknown, value?: string | null | undefined) => {
         setDateUnique(date);
     };
 
     const [dateRegex, setDateRegex]: [string | null | undefined, Function] = useState(null);
-    const handleDateRegexChange = (date: MaterialUiPickersDate, value?: string | null | undefined) => {
+    const handleDateRegexChange = (date: unknown, value?: string | null | undefined) => {
         setDateRegex(date);
     };
 
     const [dateCustom, setDateCustom]: [string | null | undefined, Function] = useState(null);
-    const handleDateCustomChange = (date: MaterialUiPickersDate, value?: string | null | undefined) => {
+    const handleDateCustomChange = (date: unknown, value?: string | null | undefined) => {
         setDateCustom(date);
     };
 
     return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Container>
                 <Typography variant="h5">Validation mode seetings</Typography>
                 <Grid container spacing={1}>
@@ -551,26 +549,27 @@ const V4 = () => {
                         <ValidationGroup>
                             <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
                                 <Box mb={2}>
-                                    <Typography variant="caption">KeyboardDatePicker required</Typography>
+                                    <Typography variant="caption">DatePicker required</Typography>
                                 </Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Validate name="KeyboardDatePicker required" required id={PICKER_REQUIRED} initialValidation="noisy">
-                                            <KeyboardDatePicker
-                                                id={PICKER_REQUIRED_INPUT}
-                                                disableToolbar
-                                                variant="inline"
-                                                inputVariant="outlined"
-                                                format="dd.MM.yyyy"
+                                        <Validate name="DatePicker required" required id={PICKER_REQUIRED} initialValidation="noisy">
+                                            <DatePicker
+                                                // id={PICKER_REQUIRED_INPUT}
+                                                // disableToolbar
+                                                // variant="inline"
+                                                // inputVariant="outlined"
+                                                inputFormat="dd.MM.yyyy"
                                                 label={'Valid to'}
                                                 value={dateRequired}
                                                 onChange={handleDateRequiredChange}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'change date',
-                                                }}
-                                                style={{ width: 195 }}
-                                                size="small"
-                                                required
+                                                renderInput={(params) => <TextField {...params} id={PICKER_REQUIRED_INPUT} />}
+                                                // KeyboardButtonProps={{
+                                                //     'aria-label': 'change date',
+                                                // }}
+                                                // style={{ width: 195 }}
+                                                // size="small"
+                                                // required
                                             />
                                         </Validate>
                                     </Grid>
@@ -580,26 +579,27 @@ const V4 = () => {
                         <ValidationGroup>
                             <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
                                 <Box mb={2}>
-                                    <Typography variant="caption">KeyboardDatePicker unique</Typography>
+                                    <Typography variant="caption">DatePicker unique</Typography>
                                 </Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Validate name="KeyboardDatePicker unique" unique={['2021-11-10T23:00:00.000Z']} id={PICKER_UNIQUE} initialValidation="noisy">
-                                            <KeyboardDatePicker
-                                                id={PICKER_UNIQUE_INPUT}
-                                                disableToolbar
-                                                variant="inline"
-                                                inputVariant="outlined"
-                                                format="dd.MM.yyyy"
+                                        <Validate name="DatePicker unique" unique={['2021-11-10T23:00:00.000Z']} id={PICKER_UNIQUE} initialValidation="noisy">
+                                            <DatePicker
+                                                // id={PICKER_UNIQUE_INPUT}
+                                                // disableToolbar
+                                                // variant="inline"
+                                                // inputVariant="outlined"
+                                                inputFormat="dd.MM.yyyy"
                                                 label={'Valid to'}
                                                 value={dateUnique}
                                                 onChange={handleDateUniqueChange}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'change date',
-                                                }}
-                                                style={{ width: 195 }}
-                                                size="small"
-                                                required
+                                                renderInput={(params) => <TextField {...params} id={PICKER_UNIQUE_INPUT} />}
+                                                // KeyboardButtonProps={{
+                                                //     'aria-label': 'change date',
+                                                // }}
+                                                // style={{ width: 195 }}
+                                                // size="small"
+                                                // required
                                             />
                                         </Validate>
                                     </Grid>
@@ -608,29 +608,30 @@ const V4 = () => {
                         </ValidationGroup>
                     </Grid>
                     <Grid item xs={6}>
-                    <ValidationGroup>
+                        <ValidationGroup>
                             <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
                                 <Box mb={2}>
-                                    <Typography variant="caption">KeyboardDatePicker regex</Typography>
+                                    <Typography variant="caption">DatePicker regex</Typography>
                                 </Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Validate name="KeyboardDatePicker reegex" regex={/2020-11-10T23:00:00\.000Z/} id={PICKER_REGEX} initialValidation="noisy">
-                                            <KeyboardDatePicker
-                                                id={PICKER_REGEX_INPUT}
-                                                disableToolbar
-                                                variant="inline"
-                                                inputVariant="outlined"
-                                                format="dd.MM.yyyy"
+                                        <Validate name="DatePicker reegex" regex={/2020-11-10T23:00:00\.000Z/} id={PICKER_REGEX} initialValidation="noisy">
+                                            <DatePicker
+                                                // id={PICKER_REGEX_INPUT}
+                                                // disableToolbar
+                                                // variant="inline"
+                                                // inputVariant="outlined"
+                                                inputFormat="dd.MM.yyyy"
                                                 label={'Valid to'}
                                                 value={dateRegex}
                                                 onChange={handleDateRegexChange}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'change date',
-                                                }}
-                                                style={{ width: 195 }}
-                                                size="small"
-                                                required
+                                                renderInput={(params) => <TextField {...params} id={PICKER_REGEX_INPUT} />}
+                                                // KeyboardButtonProps={{
+                                                //     'aria-label': 'change date',
+                                                // }}
+                                                // style={{ width: 195 }}
+                                                // size="small"
+                                                // required
                                             />
                                         </Validate>
                                     </Grid>
@@ -640,26 +641,27 @@ const V4 = () => {
                         <ValidationGroup>
                             <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
                                 <Box mb={2}>
-                                    <Typography variant="caption">KeyboardDatePicker custom</Typography>
+                                    <Typography variant="caption">DatePicker custom</Typography>
                                 </Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Validate name="KeyboardDatePicker custom" custom={[(value: string) => value === '2020-11-10T23:00:00.000Z', 'failed']} id={PICKER_CUSTOM} initialValidation="noisy">
-                                            <KeyboardDatePicker
-                                                id={PICKER_CUSTOM_INPUT}
-                                                disableToolbar
-                                                variant="inline"
-                                                inputVariant="outlined"
-                                                format="dd.MM.yyyy"
+                                        <Validate name="DatePicker custom" custom={[(value: string) => value === '2020-11-10T23:00:00.000Z', 'failed']} id={PICKER_CUSTOM} initialValidation="noisy">
+                                            <DatePicker
+                                                // id={PICKER_CUSTOM_INPUT}
+                                                // disableToolbar
+                                                // variant="inline"
+                                                // inputVariant="outlined"
+                                                inputFormat="dd.MM.yyyy"
                                                 label={'Valid to'}
                                                 value={dateCustom}
                                                 onChange={handleDateCustomChange}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'change date',
-                                                }}
-                                                style={{ width: 195 }}
-                                                size="small"
-                                                required
+                                                renderInput={(params) => <TextField {...params} id={PICKER_CUSTOM_INPUT} />}
+                                                // KeyboardButtonProps={{
+                                                //     'aria-label': 'change date',
+                                                // }}
+                                                // style={{ width: 195 }}
+                                                // size="small"
+                                                // required
                                             />
                                         </Validate>
                                     </Grid>
@@ -669,9 +671,9 @@ const V4 = () => {
                     </Grid>
                 </Grid>
             </Container>
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
     );
 };
 
-V4.displayName = 'V4';
-export default V4;
+V5.displayName = 'V5';
+export default V5;
