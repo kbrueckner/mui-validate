@@ -3,7 +3,6 @@ import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, 
 import { ValidationGroup, Validate, AutoDisabler } from '../component-lib';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import locator from 'test-locator';
 import {
     AUTOCOMPLETE_CUSTOM, AUTOCOMPLETE_CUSTOM_INITIAL, AUTOCOMPLETE_CUSTOM_INPUT,
     AUTOCOMPLETE_REGEX, AUTOCOMPLETE_REGEX_INPUT, AUTOCOMPLETE_REQUIRED,
@@ -26,6 +25,8 @@ import {
     TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A, TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_EMPTY,
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
+    SETTINGS_NOISY, SETTINGS_NOISY_INPUT, SETTINGS_SILENT, SETTINGS_SILENT_GROUP,
+    SETTINGS_SILENT_GROUP_INPUT, SETTINGS_SILENT_INPUT
 } from './locators';
 
 const V5 = () => {
@@ -108,8 +109,8 @@ const V5 = () => {
                                 </Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={locator(['textfield', 'required', 'noisy'])}>
-                                            <TextField id={locator(['textfield', 'required', 'noisy'], 'input')} label="This field is required" fullWidth variant="outlined" size="small" required />
+                                        <Validate name="Textfield required" required id={SETTINGS_NOISY}>
+                                            <TextField id={SETTINGS_NOISY_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required />
                                         </Validate>
                                     </Grid>
                                 </Grid>
@@ -122,8 +123,8 @@ const V5 = () => {
                                 </Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={locator(['textfield', 'required', 'silent'])} validation="silent">
-                                            <TextField id={locator(['textfield', 'required', 'silent'], 'input')} label="This field is required" fullWidth variant="outlined" size="small" required />
+                                        <Validate name="Textfield required" required id={SETTINGS_SILENT} validation="silent">
+                                            <TextField id={SETTINGS_SILENT_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required />
                                         </Validate>
                                     </Grid>
                                 </Grid>
@@ -136,8 +137,8 @@ const V5 = () => {
                                 </Box>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={locator(['textfield', 'required', 'silent', 'by-group'])}>
-                                            <TextField id={locator(['textfield', 'required', 'silent', 'by-group'], 'input')} label="This field is required" fullWidth variant="outlined" size="small" required />
+                                        <Validate name="Textfield required" required id={SETTINGS_SILENT_GROUP}>
+                                            <TextField id={SETTINGS_SILENT_GROUP_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required />
                                         </Validate>
                                     </Grid>
                                 </Grid>
@@ -153,7 +154,7 @@ const V5 = () => {
                         </Box>
                         <Grid container spacing={1}>
                             <Grid item xs={6}>
-                                <Validate name="Textfield required" required id={locator(['textfield', 'required', 'disabler'])} initialValidation="noisy">
+                                <Validate name="Textfield required" required initialValidation="noisy">
                                     <TextField id={DISABLER_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required/>
                                 </Validate>
                             </Grid>
