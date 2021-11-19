@@ -3,7 +3,14 @@ import { InputType } from '../type';
 // eslint-disable-next-line
 export const detectInputType = (props: any): InputType => {
     if (props.autoComplete !== undefined || props.getOptionLabel !== undefined) { return 'autocomplete'; }
-    if (props.allowKeyboardControl !== undefined || props.KeyboardButtonProps !== undefined) { return 'picker'; }
+    if ([
+        props.allowKeyboardControl, props.KeyboardButtonProps, props.inputFormat,
+        props.mask, props.minDate, props.maxDate, props.disableMaskedInput, props.disableOpenPicker,
+        props.disableHighlightToday, props.desktopModeMediaQuery, props.defaultCalendarMonth,
+        props.allowSameDateSelection, props.onMonthChange, props.onYearChange, props.showDaysOutsideCurrentMonth,
+        props.OpenPickerButtonProps, props.renderDay, props.shouldDisableDate, props.shouldDisableYear,
+        props.showTodayButton, props.todayText,
+    ].some((val) => val !== undefined)) { return 'picker'; }
     return 'textfield';
 };
 

@@ -23,7 +23,6 @@ console.log(`Current package version: ${package.version}`);
 confirmToProceed('Is the set version correct for this release?', () => {
     confirmToProceed('Did all integration tests pass?', () => {
         const releasePackage = { ...package };
-        delete releasePackage.devDependencies;
         delete releasePackage.scripts;
 
         try {

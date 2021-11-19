@@ -21,9 +21,9 @@ import {
     TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A, TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_EMPTY,
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
-} from '../playground/src/v4/locators';
+} from '../playground/src/v5/locators';
 
-describe(' Material-UI V4 tests', () => {
+describe(' Material-UI V5 tests', () => {
     beforeAll(async () => {
         await page.goto('http://localhost:3000');
     });

@@ -83,10 +83,12 @@ const Validate = ({
         }
         // picker send a date object or 'Invalid Date' as the first parameter
         else if (detectedInputType === 'picker') {
-            try {
-                value = new Date(args[0]).toISOString();
-            } catch (e) {
-                value = '';
+            if (args[0]) {
+                try {
+                    value = new Date(args[0]).toISOString();
+                } catch (e) {
+                    value = '';
+                }
             }
         }
         // textfield and select send a regular event as first parameter
@@ -117,7 +119,7 @@ const Validate = ({
     return (
         <FormControl
             error={validations[name]?.message !== undefined}
-            classes={{ root: children.props.fullWidth === true ? 'MuiInputBase-fullWidth' : '' }}
+            style={{ width: children.props.fullWidth === true ? '100%' : undefined }}
             data-has-error={validations[name]?.valid !== true}
             data-has-message={validations[name]?.message !== undefined}
             id={id}
