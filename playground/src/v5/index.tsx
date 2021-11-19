@@ -556,21 +556,12 @@ const V5 = () => {
                                     <Grid item xs={12}>
                                         <Validate name="DatePicker required" required id={PICKER_REQUIRED} initialValidation="noisy">
                                             <DatePicker
-                                                // id={PICKER_REQUIRED_INPUT}
-                                                // disableToolbar
-                                                // variant="inline"
-                                                // inputVariant="outlined"
                                                 inputFormat="dd.MM.yyyy"
+                                                mask="__.__.____"
                                                 label={'Valid to'}
                                                 value={dateRequired}
                                                 onChange={handleDateRequiredChange}
                                                 renderInput={(params) => <TextField {...params} id={PICKER_REQUIRED_INPUT} />}
-                                                // KeyboardButtonProps={{
-                                                //     'aria-label': 'change date',
-                                                // }}
-                                                // style={{ width: 195 }}
-                                                // size="small"
-                                                // required
                                             />
                                         </Validate>
                                     </Grid>
@@ -586,21 +577,12 @@ const V5 = () => {
                                     <Grid item xs={12}>
                                         <Validate name="DatePicker unique" unique={['2021-11-10T23:00:00.000Z']} id={PICKER_UNIQUE} initialValidation="noisy">
                                             <DatePicker
-                                                // id={PICKER_UNIQUE_INPUT}
-                                                // disableToolbar
-                                                // variant="inline"
-                                                // inputVariant="outlined"
                                                 inputFormat="dd.MM.yyyy"
+                                                mask="__.__.____"
                                                 label={'Valid to'}
                                                 value={dateUnique}
                                                 onChange={handleDateUniqueChange}
                                                 renderInput={(params) => <TextField {...params} id={PICKER_UNIQUE_INPUT} />}
-                                                // KeyboardButtonProps={{
-                                                //     'aria-label': 'change date',
-                                                // }}
-                                                // style={{ width: 195 }}
-                                                // size="small"
-                                                // required
                                             />
                                         </Validate>
                                     </Grid>
@@ -618,21 +600,12 @@ const V5 = () => {
                                     <Grid item xs={12}>
                                         <Validate name="DatePicker reegex" regex={/2020-11-10T23:00:00\.000Z/} id={PICKER_REGEX} initialValidation="noisy">
                                             <DatePicker
-                                                // id={PICKER_REGEX_INPUT}
-                                                // disableToolbar
-                                                // variant="inline"
-                                                // inputVariant="outlined"
                                                 inputFormat="dd.MM.yyyy"
+                                                mask="__.__.____"
                                                 label={'Valid to'}
                                                 value={dateRegex}
                                                 onChange={handleDateRegexChange}
                                                 renderInput={(params) => <TextField {...params} id={PICKER_REGEX_INPUT} />}
-                                                // KeyboardButtonProps={{
-                                                //     'aria-label': 'change date',
-                                                // }}
-                                                // style={{ width: 195 }}
-                                                // size="small"
-                                                // required
                                             />
                                         </Validate>
                                     </Grid>
@@ -648,21 +621,12 @@ const V5 = () => {
                                     <Grid item xs={12}>
                                         <Validate name="DatePicker custom" custom={[(value: string) => value === '2020-11-10T23:00:00.000Z', 'failed']} id={PICKER_CUSTOM} initialValidation="noisy">
                                             <DatePicker
-                                                // id={PICKER_CUSTOM_INPUT}
-                                                // disableToolbar
-                                                // variant="inline"
-                                                // inputVariant="outlined"
                                                 inputFormat="dd.MM.yyyy"
+                                                mask="__.__.____"
                                                 label={'Valid to'}
                                                 value={dateCustom}
                                                 onChange={handleDateCustomChange}
                                                 renderInput={(params) => <TextField {...params} id={PICKER_CUSTOM_INPUT} />}
-                                                // KeyboardButtonProps={{
-                                                //     'aria-label': 'change date',
-                                                // }}
-                                                // style={{ width: 195 }}
-                                                // size="small"
-                                                // required
                                             />
                                         </Validate>
                                     </Grid>
