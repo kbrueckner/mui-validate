@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, FormHelperText } from '@material-ui/core';
+import { FormControl, FormHelperText } from '../mui-loader';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
     ValidationRuleUnique, Validation, ValidationRuleCustom, InputType,
