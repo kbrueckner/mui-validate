@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import React, { useState } from 'react';
 import ValidationContext from './ValidationContext';
 import { ValidationMode, Validation, ValidationCollection } from '../type';
