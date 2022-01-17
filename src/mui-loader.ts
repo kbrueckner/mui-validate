@@ -11,7 +11,7 @@ let debugMessage = 'mui-validate: No Material UI package found, using fallback m
 try {
     // eslint-disable-next-line
     Mui5Module = require('@mui/material');
-    debugMessage = 'mui-validate: Loded @mui/material for internal usage.';
+    debugMessage = 'mui-validate: Loaded @mui/material for internal usage.';
     anyModuleLoaded = true;
 // eslint-disable-next-line
 } catch (e: any) { console.info('mui-validate: ' + e.message); }
@@ -21,7 +21,7 @@ if (!anyModuleLoaded) {
     try {
         // eslint-disable-next-line
         Mui4Module = require('@material-ui/core');
-        debugMessage = 'mui-validate: Loded @material-ui/core for internal usage.';
+        debugMessage = 'mui-validate: Loaded @material-ui/core for internal usage.';
         anyModuleLoaded = true;
     // eslint-disable-next-line
     } catch (e: any) { console.info('mui-validate: ' + e.message); }
