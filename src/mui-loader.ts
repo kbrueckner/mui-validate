@@ -13,7 +13,7 @@ try {
     debugMessage = 'mui-validate: Loded @mui/material for internal usage.';
     anyModuleLoaded = true;
 // eslint-disable-next-line
-} catch (e: any) { console.debug(e); }
+} catch (e: any) { console.info('mui-validate: ' + e.message); }
 
 if (!anyModuleLoaded) {
 // try loading Material UI v4
@@ -23,12 +23,13 @@ if (!anyModuleLoaded) {
         debugMessage = 'mui-validate: Loded @material-ui/core for internal usage.';
         anyModuleLoaded = true;
     // eslint-disable-next-line
-    } catch (e: any) { console.debug(e); }
+    } catch (e: any) { console.info('mui-validate: ' + e.message); }
 }
 
 // eslint-disable-next-line
 console.info(debugMessage);
 
 export const { FormControl, FormHelperText } = (
-    Mui5Module || Mui4Module || { FormControl: React.Fragment, FormHelperText: React.Fragment }
+    // eslint-disable-next-line
+    Mui5Module || Mui4Module || { FormControl: (props: any) => React.Fragment, FormHelperText: (props: any) => React.Fragment }
 );
