@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete } from '@mui/material';
-import { ValidationGroup, Validate, AutoDisabler } from '../component-lib';
+import { ValidationGroup, Validate, AutoDisabler, ErrorList } from '../component-lib';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import {
@@ -26,7 +26,8 @@ import {
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
     SETTINGS_NOISY, SETTINGS_NOISY_INPUT, SETTINGS_SILENT, SETTINGS_SILENT_GROUP,
-    SETTINGS_SILENT_GROUP_INPUT, SETTINGS_SILENT_INPUT
+    SETTINGS_SILENT_GROUP_INPUT, SETTINGS_SILENT_INPUT,
+    ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
 } from './locators';
 
 const V5 = () => {
@@ -146,6 +147,36 @@ const V5 = () => {
                         </ValidationGroup>
                     </Grid>
                 </Grid>
+                <Typography variant="h5">ErrorList</Typography>
+                <ValidationGroup>
+                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
+                        <Box mb={2}>
+                            <Typography variant="caption">ErrorList</Typography>
+                        </Box>
+                        <Box mb={2}>
+                            <Grid container spacing={1}>
+                                <Grid item id={ERRORLIST1}>
+                                    <ErrorList title="Detected errors" titleAlwaysOn />
+                                </Grid>
+                                <Grid item id={ERRORLIST2}>
+                                    <ErrorList title="Detected errors - hidden if no errors" />
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <Validate name="Textfield1" required initialValidation="noisy">
+                                    <TextField id={ERRORLIST_INPUT1} label="This field is required" fullWidth variant="outlined" size="small" required/>
+                                </Validate>
+                            </Grid>
+                            <Grid item>
+                                <Validate name="Textfield2" required initialValidation="noisy">
+                                    <TextField id={ERRORLIST_INPUT2} label="This field is required" fullWidth variant="outlined" size="small" required/>
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
                 <Typography variant="h5">AutoDisablers</Typography>
                 <ValidationGroup>
                     <Box style={{ border: '1px solid #000'}} p={1} mt={2}>

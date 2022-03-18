@@ -30,7 +30,15 @@ if (!anyModuleLoaded) {
 // eslint-disable-next-line
 console.info(debugMessage);
 
-export const { FormControl, FormHelperText } = (
+export const {
+    FormControl, FormHelperText, Typography,
+} = (
     // eslint-disable-next-line
-    Mui5Module || Mui4Module || { FormControl: (props: any) => React.Fragment, FormHelperText: (props: any) => React.Fragment }
+    Mui5Module
+    || Mui4Module
+    || {
+        FormControl: (props: any) => React.Fragment,
+        FormHelperText: (props: any) => React.Fragment,
+        Typography: (props: any) => React.Fragment,
+    }
 );

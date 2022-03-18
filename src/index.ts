@@ -1,10 +1,9 @@
-import { useValidation as uv } from './components/ValidationContext';
-import VG from './components/ValidationGroup';
-import V from './components/Validate';
-import AD from './components/AutoDisabler';
+import { useValidation } from './components/ValidationContext';
+import ValidationGroup from './components/ValidationGroup';
+import Validate from './components/Validate';
+import AutoDisabler from './components/AutoDisabler';
+import ErrorList from './components/ErrorList';
 
-export const ValidationGroup = VG;
-export const Validate = V;
-export const AutoDisabler = AD;
-
-export const useValidation = uv;
+export {
+    useValidation, ValidationGroup, Validate, AutoDisabler, ErrorList,
+};
