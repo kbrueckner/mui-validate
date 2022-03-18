@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line
 import React from 'react';
 import { FormControl, FormHelperText } from '../mui-loader';
 import {
@@ -10,7 +10,7 @@ import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
 import { detectInputType, getValueFromAutocomplete } from '../fns/helper-fns';
 
-type Props = {
+export type ValidateProps = {
     name: string;
     id?: string;
     required?: ValidationRuleRequired;
@@ -25,7 +25,7 @@ type Props = {
     children: JSX.Element & { fullWidth?: boolean; };
 };
 
-type AdditionalProps = {
+export type AdditionalProps = {
     onChange: Function;
     helperText?: string;
     error?: boolean;
@@ -34,9 +34,9 @@ type AdditionalProps = {
 const Validate = ({
     children, name, required, unique, regex, custom, after, before,
     initialValidation, validation, inputType = 'detect', id,
-}: Props): JSX.Element => {
+}: ValidateProps): JSX.Element => {
     const {
-        validations, setValidations,
+        validations, updateValidation,
         initialValidation: initialValidationSetting,
         validation: validationSetting,
     } = useValidation();
@@ -62,7 +62,7 @@ const Validate = ({
         }
         const validationResult = validate(value, validationRules);
         if (initialValidationDerrived === 'silent') { validationResult.message = undefined; }
-        setValidations({ ...validations, [name]: validationResult });
+        updateValidation(name, validationResult);
     }
 
     // eslint-disable-next-line
@@ -81,6 +81,7 @@ const Validate = ({
         // in case no option is selected null is sent instead
         if (detectedInputType === 'autocomplete') {
             value = getValueFromAutocomplete(args[1], children);
+        // eslint-disable-next-line
         }
         // picker send a date object or 'Invalid Date' as the first parameter
         else if (detectedInputType === 'picker') {
@@ -91,6 +92,7 @@ const Validate = ({
                     value = '';
                 }
             }
+        // eslint-disable-next-line
         }
         // textfield and select send a regular event as first parameter
         else if (['textfield', 'select'].includes(detectedInputType)) {
@@ -100,7 +102,7 @@ const Validate = ({
 
         const validationResult = validate(value, validationRules);
         if (validationDerrived === 'silent') { validationResult.message = undefined; }
-        setValidations({ ...validations, [name]: validationResult });
+        updateValidation(name, validationResult);
 
         // after hook operations
         if (after) { after(validationResult); }

@@ -27,9 +27,11 @@ export type ValidationMode = 'silent' | 'noisy';
 export type ValidationInfo = {
     validations: ValidationCollection;
     setValidations: (validations: ValidationCollection) => void;
+    updateValidation: (key: string, value: Validation) => void;
     allValid: boolean;
     initialValidation: ValidationMode;
     validation: ValidationMode;
+    initialState: ValidationCollection;
 };
 
 export type InputType = 'textfield' | 'select' | 'autocomplete' | 'picker';

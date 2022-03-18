@@ -2,11 +2,11 @@
 import React from 'react';
 import { useValidation } from './ValidationContext';
 
-type Props = {
+export type AutoDisablerProps = {
     children: JSX.Element;
 };
 
-const AutoDisabler = ({ children }: Props): JSX.Element => {
+const AutoDisabler = ({ children }: AutoDisablerProps): JSX.Element => {
     const { allValid } = useValidation();
 
     return React.cloneElement(children, {
