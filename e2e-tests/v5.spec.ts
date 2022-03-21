@@ -21,6 +21,7 @@ import {
     TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A, TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_EMPTY,
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
+    ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
 } from '../playground/src/v5/locators';
 
 describe(' Material-UI V5 tests', () => {
@@ -44,6 +45,38 @@ describe(' Material-UI V5 tests', () => {
         await page.fill(input, 'test');
         expect(await page.isDisabled(button)).toBe(false);
         expect(await page.isDisabled(buttonAlwaysOff)).toBe(true);
+    });
+
+    /**
+     * ErrorList tests
+     */
+
+    it('ErrorList', async () => {
+        // both lists display with title
+        expect(await page.waitForSelector(`#${ERRORLIST1} .error-list__title`)).toBeTruthy();
+        expect(await page.waitForSelector(`#${ERRORLIST2} .error-list__title`)).toBeTruthy();
+        // each shows 2 error messages
+        expect(await page.locator(`#${ERRORLIST1} .error-list__error-message`).count()).toBe(2);
+        expect(await page.locator(`#${ERRORLIST2} .error-list__error-message`).count()).toBe(2);
+
+        await page.fill(`#${ERRORLIST_INPUT1}`, 'test');
+
+        // both lists display with title
+        expect(await page.waitForSelector(`#${ERRORLIST1} .error-list__title`)).toBeTruthy();
+        expect(await page.waitForSelector(`#${ERRORLIST2} .error-list__title`)).toBeTruthy();
+        // each shows 1 error message
+        expect(await page.locator(`#${ERRORLIST1} .error-list__error-message`).count()).toBe(1);
+        expect(await page.locator(`#${ERRORLIST2} .error-list__error-message`).count()).toBe(1);
+
+        await page.fill(`#${ERRORLIST_INPUT2}`, 'test');
+
+        // only list 1 should be visible
+        expect(await page.waitForSelector(`#${ERRORLIST1} .error-list__title`)).toBeTruthy();
+        expect(await page.locator(`#${ERRORLIST2} .error-list__title`).count()).toBe(0);
+        // list 1 should display message for no issues, list 2 is invisible
+        expect(await page.locator(`#${ERRORLIST1} .error-list__error-message`).count()).toBe(0);
+        expect(await page.locator(`#${ERRORLIST1} .error-list__no-errors-message`).count()).toBe(1);
+        expect(await page.locator(`#${ERRORLIST2} .error-list__error-message`).count()).toBe(0);
     });
 
     /**

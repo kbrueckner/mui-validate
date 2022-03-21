@@ -18,7 +18,7 @@ type TypographyVariant = 'body1'
     | 'subtitle1'
     | 'subtitle2';
 
-type ErrorListProps = {
+export type ErrorListProps = {
     title?: string;
     titleAlwaysOn?: boolean;
     noErrorsText?: string;

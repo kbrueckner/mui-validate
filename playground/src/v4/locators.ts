@@ -19,10 +19,10 @@ export const DISABLER_INPUT = locator(['v4', 'textfield', 'required', 'disabler'
 export const DISABLER_BUTTON_DYNAMIC = locator(['v4', 'textfield', 'required', 'disabler'], 'button');
 export const DISABLER_BUTTON_AWAYS_OFF = locator(['v4', 'textfield', 'required', 'disabler', 'always-off'], 'button');
 
-export const ERRORLIST_INPUT1 = locator(['v4', 'errorlist', 'input1'], 'input');
-export const ERRORLIST_INPUT2 = locator(['v4', 'errorlist', 'input2'], 'input');
-export const ERRORLIST1 = locator(['v4', 'errorlist1'], 'list');
-export const ERRORLIST2 = locator(['v4', 'errorlist2'], 'list');
+export const ERRORLIST_INPUT1 = locator(['v4', 'error-list', 'input1'], 'input');
+export const ERRORLIST_INPUT2 = locator(['v4', 'error-list', 'input2'], 'input');
+export const ERRORLIST1 = locator(['v4', 'error-list1'], 'list');
+export const ERRORLIST2 = locator(['v4', 'error-list2'], 'list');
 
 export const TEXTFIELD_REQUIRED = locator(['v4', 'textfield', 'required']);
 export const TEXTFIELD_REQUIRED_INPUT = locator(['v4', 'textfield', 'required'], 'input');
