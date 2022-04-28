@@ -5,6 +5,7 @@ import pkg from './package.json';
 
 export default [
     {
+        cache: false,
         input: 'src/index.ts',
         output: [
             {
