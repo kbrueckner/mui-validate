@@ -36,6 +36,8 @@ describe('helper-fns', () => {
 
         test('textfield', () => {
             expect(detectInputType({})).toEqual('textfield');
+            // #10 bug: detection of textfield does not work
+            expect(detectInputType({ autoComplete: 'some text' })).toEqual('textfield');
         });
     });
 
