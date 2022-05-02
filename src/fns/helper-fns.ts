@@ -2,7 +2,7 @@ import { InputType } from '../type';
 
 // eslint-disable-next-line
 export const detectInputType = (props: any): InputType => {
-    if (props.autoComplete !== undefined || props.getOptionLabel !== undefined) { return 'autocomplete'; }
+    if (typeof props.autoComplete === 'boolean' || props.getOptionLabel !== undefined) { return 'autocomplete'; }
     if ([
         props.allowKeyboardControl, props.KeyboardButtonProps, props.inputFormat,
         props.mask, props.minDate, props.maxDate, props.disableMaskedInput, props.disableOpenPicker,
@@ -11,7 +11,7 @@ export const detectInputType = (props: any): InputType => {
         props.OpenPickerButtonProps, props.renderDay, props.shouldDisableDate, props.shouldDisableYear,
         props.showTodayButton, props.todayText,
     ].some((val) => val !== undefined)) { return 'picker'; }
-    return 'textfield';
+    return 'textfield'; // select and textfield have the same behavior in the lib
 };
 
 // eslint-disable-next-line

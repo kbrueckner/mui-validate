@@ -19,6 +19,7 @@
   "peerDependencies": {
     "react": "16.x || 17.x"
   },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.33",
