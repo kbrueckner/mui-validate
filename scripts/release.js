@@ -29,7 +29,7 @@ confirmToProceed('Is the set version correct for this release?', () => {
             fs.writeFileSync('dist/package.json', JSON.stringify(releasePackage));
             fs.copyFileSync('README.md', 'dist/README.md');
 
-            require('child_process').execSync('npm publish dist');
+            require('child_process').execSync('npm publish ./dist');
         } catch (err) {
             console.error(err);
         }
