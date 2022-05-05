@@ -20,24 +20,24 @@ type TypographyVariant = 'body1'
 
 export type ErrorListProps = {
     title?: string;
-    titleAlwaysOn?: boolean;
+    alwaysVisible?: boolean;
     noErrorsText?: string;
     titleVariant?: TypographyVariant;
     messageVariant?: TypographyVariant;
 };
 
 const ErrorList = ({
-    title, titleAlwaysOn = false, noErrorsText = 'There are no errors detected', titleVariant = 'subtitle1', messageVariant = 'caption',
+    title, alwaysVisible = false, noErrorsText = 'No errors detected', titleVariant = 'subtitle1', messageVariant = 'caption',
 }: ErrorListProps): JSX.Element | null => {
     const { validations } = useValidation();
     const errors = Object.entries(validations).filter((dataset) => !dataset[1].valid);
     return (
         <div className="error-list" data-error-count={errors.length}>
-            { (errors.length > 0 || titleAlwaysOn) && <Typography variant={titleVariant} className="error-list__title">{ title }</Typography> }
+            { (errors.length > 0 || alwaysVisible) && <Typography variant={titleVariant} className="error-list__title">{ title }</Typography> }
             { errors.map(([name, validation]) => (
                 <Typography key={name} component="p" className="error-list__error-message" color="error" variant={messageVariant}>{`${name}: ${validation.message}`}</Typography>
             ))}
-            { titleAlwaysOn && errors.length === 0 && <Typography component="p" className="error-list__no-errors-message" variant={messageVariant}>{ noErrorsText }</Typography> }
+            { alwaysVisible && errors.length === 0 && <Typography component="p" className="error-list__no-errors-message" variant={messageVariant}>{ noErrorsText }</Typography> }
         </div>
     );
 };

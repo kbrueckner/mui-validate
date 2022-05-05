@@ -156,7 +156,7 @@ const V5 = () => {
                         <Box mb={2}>
                             <Grid container spacing={1}>
                                 <Grid item id={ERRORLIST1}>
-                                    <ErrorList title="Detected errors" titleAlwaysOn />
+                                    <ErrorList title="Detected errors" alwaysVisible />
                                 </Grid>
                                 <Grid item id={ERRORLIST2}>
                                     <ErrorList title="Detected errors - hidden if no errors" />
