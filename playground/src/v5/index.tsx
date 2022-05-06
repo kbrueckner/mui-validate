@@ -165,7 +165,7 @@ const V5 = () => {
                         </Box>
                         <Grid container spacing={1}>
                             <Grid item>
-                                <Validate name="Textfield1" required initialValidation="noisy">
+                                <Validate name="Textfield1" required regex={/test/} initialValidation="noisy">
                                     <TextField id={ERRORLIST_INPUT1} label="This field is required" fullWidth variant="outlined" size="small" required/>
                                 </Validate>
                             </Grid>

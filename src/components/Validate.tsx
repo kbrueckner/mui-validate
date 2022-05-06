@@ -61,7 +61,7 @@ const Validate = ({
             value = children.props.value || '';
         }
         const validationResult = validate(value, validationRules);
-        if (initialValidationDerrived === 'silent') { validationResult.message = undefined; }
+        if (initialValidationDerrived === 'silent') { validationResult.display = false; }
         updateValidation(name, validationResult);
     }
 
@@ -101,7 +101,7 @@ const Validate = ({
         }
 
         const validationResult = validate(value, validationRules);
-        if (validationDerrived === 'silent') { validationResult.message = undefined; }
+        if (validationDerrived === 'silent') { validationResult.display = false; }
         updateValidation(name, validationResult);
 
         // after hook operations
@@ -112,8 +112,15 @@ const Validate = ({
         onChange,
     };
 
+    // lookup if error exists
+    const hasError = validations[name]?.valid === false;
+    // lookup if error exists and shall be displayed
+    const displayError = hasError && validations[name]?.display;
+    // calculate the message to be displayed
+    const message = displayError ? validations[name].messages[0].text : '';
+
     // This block is specifically for TextFields
-    if (validations[name]?.message) {
+    if (displayError) {
         addedProps.helperText = '';
         addedProps.error = true;
     }
@@ -121,14 +128,14 @@ const Validate = ({
     // Additionally for FormControl based elements (i.e. Select) we need to wrap them into a FormControl
     return (
         <FormControl
-            error={validations[name]?.message !== undefined}
+            error={displayError}
             style={{ width: children.props.fullWidth === true ? '100%' : undefined }}
-            data-has-error={validations[name]?.valid !== true}
-            data-has-message={validations[name]?.message !== undefined}
+            data-has-error={hasError}
+            data-has-message={message !== ''}
             id={id}
         >
             {React.cloneElement(children, addedProps)}
-            <FormHelperText>{validations[name]?.message}</FormHelperText>
+            <FormHelperText>{message}</FormHelperText>
         </FormControl>
     );
 };

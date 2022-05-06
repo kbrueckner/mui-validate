@@ -35,7 +35,9 @@ const ErrorList = ({
         <div className="error-list" data-error-count={errors.length}>
             { (errors.length > 0 || alwaysVisible) && <Typography variant={titleVariant} className="error-list__title">{ title }</Typography> }
             { errors.map(([name, validation]) => (
-                <Typography key={name} component="p" className="error-list__error-message" color="error" variant={messageVariant}>{`${name}: ${validation.message}`}</Typography>
+                validation.messages.map((message) => (
+                    <Typography key={name} component="p" className="error-list__error-message" color="error" variant={messageVariant}>{`${name}: ${message.text}`}</Typography>
+                ))
             ))}
             { alwaysVisible && errors.length === 0 && <Typography component="p" className="error-list__no-errors-message" variant={messageVariant}>{ noErrorsText }</Typography> }
         </div>

@@ -33,12 +33,14 @@ console.info(debugMessage);
 export const {
     FormControl, FormHelperText, Typography,
 } = (
-    // eslint-disable-next-line
     Mui5Module
     || Mui4Module
     || {
+        // eslint-disable-next-line
         FormControl: (props: any) => React.Fragment,
+        // eslint-disable-next-line
         FormHelperText: (props: any) => React.Fragment,
+        // eslint-disable-next-line
         Typography: (props: any) => React.Fragment,
     }
 );

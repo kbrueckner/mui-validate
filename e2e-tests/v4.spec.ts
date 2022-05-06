@@ -56,8 +56,8 @@ describe(' Material-UI V4 tests', () => {
         expect(await page.waitForSelector(`#${ERRORLIST1} .error-list__title`)).toBeTruthy();
         expect(await page.waitForSelector(`#${ERRORLIST2} .error-list__title`)).toBeTruthy();
         // each shows 2 error messages
-        expect(await page.locator(`#${ERRORLIST1} .error-list__error-message`).count()).toBe(2);
-        expect(await page.locator(`#${ERRORLIST2} .error-list__error-message`).count()).toBe(2);
+        expect(await page.locator(`#${ERRORLIST1} .error-list__error-message`).count()).toBe(3);
+        expect(await page.locator(`#${ERRORLIST2} .error-list__error-message`).count()).toBe(3);
 
         await page.fill(`#${ERRORLIST_INPUT1}`, 'test');
 

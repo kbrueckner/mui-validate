@@ -1,6 +1,14 @@
+export type ValidationMessageKey = 'required' | 'unique' | 'regex' | 'custom';
+
+export type ValidationMessage = {
+    type: ValidationMessageKey;
+    text: string;
+}
+
 export type Validation = {
     valid: boolean;
-    message?: string;
+    messages: ValidationMessage[];
+    display: boolean;
 }
 
 export type ValidationCollection = {
