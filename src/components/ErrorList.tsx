@@ -30,7 +30,7 @@ const ErrorList = ({
     title, alwaysVisible = false, noErrorsText = 'No errors detected', titleVariant = 'subtitle1', messageVariant = 'caption',
 }: ErrorListProps): JSX.Element | null => {
     const { validations } = useValidation();
-    const errors = Object.entries(validations).filter((dataset) => !dataset[1].valid);
+    const errors = Object.entries(validations).filter((dataset) => !dataset[1].valid && dataset[1].display);
     return (
         <div className="error-list" data-error-count={errors.length}>
             { (errors.length > 0 || alwaysVisible) && <Typography variant={titleVariant} className="error-list__title">{ title }</Typography> }

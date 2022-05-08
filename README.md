@@ -139,6 +139,10 @@ export default () => (
 )
 ```
 
+Attribute|Mandatory|Type|Default|Description
+--|--|--|--|--
+firstDisplayErrors|-|boolean|false|If set to true the button will be enabled on silent errors but on the first hit of the button it will disable and all error message which were in silent mode are shown immediately. If at least one error is noisy - means one error message is diplayed - the button will be disabled even if there was no first click on it yet.
+
 ## Show consolidated error list
 
 The ErrorList renders all errors in list format at a single spot in addition to the corresponding error messages directly on the validated elements.
