@@ -28,11 +28,13 @@ export const DISABLER_DISPLAY_ERRORLIST = locator(['v5', 'disabler', 'display', 
 export const DISABLER_DISPLAY_CONTROL = locator(['v5', 'disabler', 'display', 'control']);
 export const DISABLER_DISPLAY_INPUT = locator(['v5', 'disabler', 'display'], 'input');
 export const DISABLER_DISPLAY_BUTTON = locator(['v5', 'disabler', 'display'], 'button');
+export const DISABLER_DISPLAY_BUTTON_2 = locator(['v5', 'disabler', 'display', 'b2'], 'button');
 
 export const DISABLER_DISPLAY_2_ERRORLIST = locator(['v5', 'disabler', 'display', '2', 'errors'], 'list');
 export const DISABLER_DISPLAY_2_CONTROL = locator(['v5', 'disabler', 'display', '2', 'control']);
 export const DISABLER_DISPLAY_2_INPUT = locator(['v5', 'disabler', 'display', '2'], 'input');
 export const DISABLER_DISPLAY_2_BUTTON = locator(['v5', 'disabler', 'display', '2'], 'button');
+export const DISABLER_DISPLAY_2_BUTTON_2 = locator(['v5', 'disabler', 'display', '2', 'b2'], 'button');
 
 export const TEXTFIELD_REQUIRED = locator(['v5', 'textfield', 'required']);
 export const TEXTFIELD_REQUIRED_INPUT = locator(['v5', 'textfield', 'required'], 'input');

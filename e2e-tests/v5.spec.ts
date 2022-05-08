@@ -22,8 +22,8 @@ import {
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
     ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
-    DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL,
-    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL,
+    DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
+    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
 } from '../playground/src/v5/locators';
 
 describe(' Material-UI V5 tests', () => {
@@ -52,29 +52,35 @@ describe(' Material-UI V5 tests', () => {
     it('AutoDisablers (firstDisplayErrors)', async () => {
         const control = `#${DISABLER_DISPLAY_CONTROL}`;
         const button = `#${DISABLER_DISPLAY_BUTTON}`;
+        const button2 = `#${DISABLER_DISPLAY_BUTTON_2}`;
         const list = `#${DISABLER_DISPLAY_ERRORLIST}`;
 
         expect(await page.locator(`${list} .error-list__error-message`).count()).toBe(0);
         expect(await page.waitForSelector(`${control}[data-has-message="false"]`)).toBeTruthy();
         expect(await page.isDisabled(button)).toBe(false);
+        expect(await page.isDisabled(button2)).toBe(false);
         await page.click(button);
         expect(await page.locator(`${list} .error-list__error-message`).count()).toBe(1);
         expect(await page.waitForSelector(`${control}[data-has-message="true"]`)).toBeTruthy();
         expect(await page.isDisabled(button)).toBe(true);
+        expect(await page.isDisabled(button2)).toBe(true);
     });
 
     it('AutoDisablers (firstDisplayErrors) - disabled when error message already shown', async () => {
         const control = `#${DISABLER_DISPLAY_2_CONTROL}`;
         const input = `#${DISABLER_DISPLAY_2_INPUT}`;
         const button = `#${DISABLER_DISPLAY_2_BUTTON}`;
+        const button2 = `#${DISABLER_DISPLAY_2_BUTTON_2}`;
         const list = `#${DISABLER_DISPLAY_2_ERRORLIST}`;
 
         expect(await page.locator(`${list} .error-list__error-message`).count()).toBe(0);
         expect(await page.waitForSelector(`${control}[data-has-message="false"]`)).toBeTruthy();
         expect(await page.isDisabled(button)).toBe(false);
+        expect(await page.isDisabled(button2)).toBe(false);
         await page.fill(input, 'test');
         await page.fill(input, '');
         expect(await page.isDisabled(button)).toBe(true);
+        expect(await page.isDisabled(button2)).toBe(true);
     });
 
     /**

@@ -30,8 +30,8 @@ import {
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
     ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
-    DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL,
-    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL,
+    DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
+    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
 } from './locators';
 
 const V4 = () => {
@@ -226,6 +226,11 @@ const V4 = () => {
                                     <Button id={DISABLER_DISPLAY_BUTTON} variant="outlined">Button</Button>
                                 </AutoDisabler>
                             </Grid>
+                            <Grid item>
+                                <AutoDisabler firstDisplayErrors>
+                                    <Button id={DISABLER_DISPLAY_BUTTON_2} variant="outlined">Button</Button>
+                                </AutoDisabler>
+                            </Grid>
                         </Grid>
                     </Box>
                 </ValidationGroup>
@@ -246,6 +251,11 @@ const V4 = () => {
                             <Grid item>
                                 <AutoDisabler firstDisplayErrors>
                                     <Button id={DISABLER_DISPLAY_2_BUTTON} variant="outlined">Button</Button>
+                                </AutoDisabler>
+                            </Grid>
+                            <Grid item>
+                                <AutoDisabler firstDisplayErrors>
+                                    <Button id={DISABLER_DISPLAY_2_BUTTON_2} variant="outlined">Button</Button>
                                 </AutoDisabler>
                             </Grid>
                         </Grid>

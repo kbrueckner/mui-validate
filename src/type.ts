@@ -40,6 +40,8 @@ export type ValidationInfo = {
     initialValidation: ValidationMode;
     validation: ValidationMode;
     initialState: ValidationCollection;
+    autoDisablersWereTriggered: boolean;
+    setAutoDisablersWereTriggered: (triggered: boolean) => void;
 };
 
 export type InputType = 'textfield' | 'select' | 'autocomplete' | 'picker';

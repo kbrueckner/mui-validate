@@ -179,7 +179,10 @@ If programatic access to the validation is required the hook useValidation() can
 import { useValidation } from 'mui-validate';
 
 export default () => {
-    const { validations, setValidations, allValid, initialValidation, updateValidation } = useValidation();
+    const {
+        validations, setValidations, allValid, initialValidation, updateValidation,
+        autoDisablersWereTriggered, setAutoDisablersWereTriggered
+    } = useValidation();
 
     return (
         <SomeComponent />
@@ -197,6 +200,8 @@ updateValidation|Setter for a single validation inside validations (recommended 
 setValidations|Setter to update validations object
 initialValidation|Setting for initialValidation on group level
 validation|Setting for validation on group level
+autoDisablersWereTriggered|Indicator wheather at least one enabled AutoDisabler has been clicked
+setAutoDisablersWereTriggered|Setter for AutoDisabler indicator
 
 ## Support the project
 

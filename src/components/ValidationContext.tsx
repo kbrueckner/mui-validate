@@ -10,6 +10,8 @@ const context = React.createContext<ValidationInfo>({
     initialValidation: 'silent',
     validation: 'noisy',
     initialState: {},
+    autoDisablersWereTriggered: false,
+    setAutoDisablersWereTriggered: (): void => {},
 });
 
 context.displayName = 'ValidationContext';

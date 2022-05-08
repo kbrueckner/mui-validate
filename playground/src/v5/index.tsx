@@ -28,8 +28,8 @@ import {
     SETTINGS_NOISY, SETTINGS_NOISY_INPUT, SETTINGS_SILENT, SETTINGS_SILENT_GROUP,
     SETTINGS_SILENT_GROUP_INPUT, SETTINGS_SILENT_INPUT,
     ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
-    DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL,
-    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL,
+    DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
+    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
 } from './locators';
 
 const V5 = () => {
@@ -224,6 +224,11 @@ const V5 = () => {
                                     <Button id={DISABLER_DISPLAY_BUTTON} variant="outlined">Button</Button>
                                 </AutoDisabler>
                             </Grid>
+                            <Grid item>
+                                <AutoDisabler firstDisplayErrors>
+                                    <Button id={DISABLER_DISPLAY_BUTTON_2} variant="outlined">Button</Button>
+                                </AutoDisabler>
+                            </Grid>
                         </Grid>
                     </Box>
                 </ValidationGroup>
@@ -244,6 +249,11 @@ const V5 = () => {
                             <Grid item>
                                 <AutoDisabler firstDisplayErrors>
                                     <Button id={DISABLER_DISPLAY_2_BUTTON} variant="outlined">Button</Button>
+                                </AutoDisabler>
+                            </Grid>
+                            <Grid item>
+                                <AutoDisabler firstDisplayErrors>
+                                    <Button id={DISABLER_DISPLAY_2_BUTTON_2} variant="outlined">Button</Button>
                                 </AutoDisabler>
                             </Grid>
                         </Grid>

@@ -16,6 +16,7 @@ const ValidationGroup = ({
     children, initialValidation = 'silent', validation = 'noisy', initialState = {},
 }: ValidationGroupProps): JSX.Element => {
     const [validations, setValidations]: [ValidationCollection, (validationsIn: ValidationCollection) => void] = useState(initialState);
+    const [autoDisablersWereTriggered, setAutoDisablersWereTriggered] = useState(false);
     const allValid = validateAll(validations);
 
     const updateValidation = (key: string, val: Validation): void => {
@@ -27,7 +28,7 @@ const ValidationGroup = ({
 
     return (
         <ValidationContext.Provider value={{
-            validations, setValidations, allValid, initialValidation, validation, updateValidation, initialState,
+            validations, setValidations, allValid, initialValidation, validation, updateValidation, initialState, autoDisablersWereTriggered, setAutoDisablersWereTriggered,
         }}
         >
             {children}
