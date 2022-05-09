@@ -18,28 +18,38 @@ type TypographyVariant = 'body1'
     | 'subtitle1'
     | 'subtitle2';
 
+type TypographyColor = 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'textPrimary'
+    | 'textSecondary'
+    | 'error';
+
 export type ErrorListProps = {
     title?: string;
     alwaysVisible?: boolean;
     noErrorsText?: string;
     titleVariant?: TypographyVariant;
-    messageVariant?: TypographyVariant;
+    errorVariant?: TypographyVariant;
+    titleColor?: TypographyColor;
+    errorColor?: TypographyColor;
 };
 
 const ErrorList = ({
-    title, alwaysVisible = false, noErrorsText = 'No errors detected', titleVariant = 'subtitle1', messageVariant = 'caption',
+    title, alwaysVisible = false, noErrorsText = 'No errors detected', titleVariant = 'subtitle1', errorVariant = 'caption',
+    titleColor = 'inherit', errorColor = 'error',
 }: ErrorListProps): JSX.Element | null => {
     const { validations } = useValidation();
     const errors = Object.entries(validations).filter((dataset) => !dataset[1].valid && dataset[1].display);
     return (
         <div className="error-list" data-error-count={errors.length}>
-            { (errors.length > 0 || alwaysVisible) && <Typography variant={titleVariant} className="error-list__title">{ title }</Typography> }
+            { (errors.length > 0 || alwaysVisible) && <Typography variant={titleVariant} className="error-list__title" color={titleColor}>{ title }</Typography> }
             { errors.map(([name, validation]) => (
                 validation.messages.map((message) => (
-                    <Typography key={name} component="p" className="error-list__error-message" color="error" variant={messageVariant}>{`${name}: ${message.text}`}</Typography>
+                    <Typography key={name} component="p" className="error-list__error-message" color={errorColor} variant={errorVariant}>{`${name}: ${message.text}`}</Typography>
                 ))
             ))}
-            { alwaysVisible && errors.length === 0 && <Typography component="p" className="error-list__no-errors-message" variant={messageVariant}>{ noErrorsText }</Typography> }
+            { alwaysVisible && errors.length === 0 && <Typography component="p" className="error-list__no-errors-message" color={titleColor} variant={errorVariant}>{ noErrorsText }</Typography> }
         </div>
     );
 };

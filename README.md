@@ -169,7 +169,9 @@ title|-|string|-|Optional title displayed above the error listing.
 alwaysVisible|-|boolean|false|In general the ErrorList is only rendered when there are errors detected. To permanently make it visible with a text indicating that there are no errors set alwaysVisible to true.
 noErrorsText|-|string|'No errors detected'|Text displayed when no errors are detected - only rendered when alwaysVisible is set to true.
 titleVariant|-|'body1' \| 'body2' \| 'button' \| 'caption' \| 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'inherit' \| 'overline' \| 'subtitle1' \| 'subtitle2'|'subtitle1'|Specifies the title typography variant based on Material UI Typography variant definitions.
-messageVariant|-|'body1' \| 'body2' \| 'button' \| 'caption' \| 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'inherit' \| 'overline' \| 'subtitle1' \| 'subtitle2'|'caption'|Specifies the error messages typography variant based on Material UI Typography variant definitions.
+errorVariant|-|'body1' \| 'body2' \| 'button' \| 'caption' \| 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'inherit' \| 'overline' \| 'subtitle1' \| 'subtitle2'|'caption'|Specifies the error messages typography variant based on Material UI Typography variant definitions.
+titleColor|-|'inherit' \| 'primary' \| 'secondary' \| 'textPrimary' \| 'textSecondary' \| 'error'|'inherit'|Color definition for list title and no errors message
+errorColor|-|'inherit' \| 'primary' \| 'secondary' \| 'textPrimary' \| 'textSecondary' \| 'error'|'error'|Color definition for error messages in the list
 
 ## Programatic access to validation context
 
