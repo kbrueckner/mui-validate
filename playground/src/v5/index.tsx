@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete } from '@mui/material';
+import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete, FormControl, InputLabel } from '@mui/material';
 import { ValidationGroup, Validate, AutoDisabler, ErrorList } from '../component-lib';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -53,9 +53,52 @@ const V5 = () => {
         setDateCustom(date);
     };
 
+    const [selectIssueVal, setSelectIssueVal]: [string, Function] = useState('');
+
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Container>
+            <Typography variant="h5">Fixes</Typography>
+                <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                        <ValidationGroup>
+                            <Box style={{ border: '1px solid #000'}} p={1}>
+                                <Box mb={2}>
+                                    <Typography variant="caption">Issue with surrounded FromControl</Typography>
+                                </Box>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={12}>
+                                        <FormControl fullWidth>
+                                            <InputLabel 
+                                                required 
+                                                id="desiredRealisationDateLabel"
+                                            >
+                                                select something else than test
+                                            </InputLabel>
+                                            <Validate 
+                                                name="desiredRealisationDate" 
+                                                inputType="select"
+                                                required={[true, 'is required']}>
+                                                <Select
+                                                    value={selectIssueVal}
+                                                    required
+                                                    fullWidth
+                                                    name="desiredRealisationDate"
+                                                    labelId="desiredRealisationDateLabel"
+                                                    label="inputs.desiredRealisationDate"
+                                                    onChange={(val) => setSelectIssueVal(val)}
+                                                >
+                                                    <MenuItem value="">test - test - test</MenuItem>
+                                                    <MenuItem value="something else is selected">something else</MenuItem>
+                                                </Select>
+                                            </Validate>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </ValidationGroup>
+                    </Grid>
+                </Grid>
                 <Typography variant="h5">Validation mode seetings</Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={6}>
