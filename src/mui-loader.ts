@@ -31,7 +31,7 @@ if (!anyModuleLoaded) {
 console.info(debugMessage);
 
 export const {
-    FormControl, FormHelperText, Typography,
+    FormControl, FormHelperText, Typography, Box,
 } = (
     Mui5Module
     || Mui4Module
@@ -42,5 +42,7 @@ export const {
         FormHelperText: (props: any) => React.Fragment,
         // eslint-disable-next-line
         Typography: (props: any) => React.Fragment,
+        // eslint-disable-next-line
+        Box: (props: any) => React.Fragment,
     }
 );

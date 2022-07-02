@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import React from 'react';
-import { FormControl, FormHelperText } from '../mui-loader';
+import { FormControl, FormHelperText, Box } from '../mui-loader';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
     ValidationRuleUnique, Validation, ValidationRuleCustom, InputType,
@@ -22,7 +22,7 @@ export type ValidateProps = {
     inputType?: 'detect' | InputType;
     initialValidation?: ValidationMode;
     validation?: ValidationMode;
-    children: JSX.Element & { fullWidth?: boolean; };
+    children: JSX.Element & { fullWidth?: boolean; labelId?: string; };
 };
 
 export type AdditionalProps = {
@@ -125,18 +125,32 @@ const Validate = ({
         addedProps.error = true;
     }
 
-    // Additionally for FormControl based elements (i.e. Select) we need to wrap them into a FormControl
+    // in case there is a labelId set on the validation child, we can assume
+    // that it is inside a form control, thus we cannot wrap with an own control
+    // but must reuse the existing one
+    const { labelId } = children.props;
+    const formControlProps = {
+        className: 'MuiFormControl-root',
+        error: labelId ? undefined : displayError,
+        style: {
+            width: children.props.fullWidth === true ? '100%' : undefined,
+            display: labelId ? 'inline-block' : undefined,
+        },
+        'data-has-error': hasError,
+        'data-has-message': message !== '',
+        id,
+    };
+    // Form control needs to always be present so that the alignment of the
+    // helper text is correct
+    const Wrapper = labelId ? Box : FormControl;
+
     return (
-        <FormControl
-            error={displayError}
-            style={{ width: children.props.fullWidth === true ? '100%' : undefined }}
-            data-has-error={hasError}
-            data-has-message={message !== ''}
-            id={id}
+        <Wrapper
+            {...formControlProps}
         >
             {React.cloneElement(children, addedProps)}
-            <FormHelperText>{message}</FormHelperText>
-        </FormControl>
+            <FormHelperText error={displayError}>{message}</FormHelperText>
+        </Wrapper>
     );
 };
 
