@@ -143,6 +143,33 @@ Attribute|Mandatory|Type|Default|Description
 --|--|--|--|--
 firstDisplayErrors|-|boolean|false|If set to true the button will be enabled on silent errors but on the first hit of the button it will disable and all error message which were in silent mode are shown immediately. If at least one error is noisy - means one error message is diplayed - the button will be disabled even if there was no first click on it yet.
 
+## Automatically hide components based on validation state
+
+To automatically hide elements on validation failures components can be wrapped into an AutoHide component.
+A typical use case for that is FormHelperTexts in a FormControl which you only want to display when there is no validation error.
+
+```js
+import { AutoHide } from 'mui-validate';
+
+export default () => (
+    <ValidationGroup>
+        <>
+            ...
+            <AutoHide validationName="validationKey">
+                <FormHelperText>
+                    This text is only displayed when the validation result is valid
+                </FormHelperText>
+            </AutoHide>
+            ...
+        </>
+    </ValidationGroup>
+)
+```
+
+Attribute|Mandatory|Type|Default|Description
+--|--|--|--|--
+validationName|x|string|-|Validation key as defined in the name field of Validate
+
 ## Show consolidated error list
 
 The ErrorList renders all errors in list format at a single spot in addition to the corresponding error messages directly on the validated elements.

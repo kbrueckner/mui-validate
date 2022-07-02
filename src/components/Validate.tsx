@@ -129,7 +129,7 @@ const Validate = ({
     // that it is inside a form control, thus we cannot wrap with an own control
     // but must reuse the existing one
     const { labelId } = children.props;
-    const formControlProps = {
+    const wrapperProps = {
         className: 'MuiFormControl-root',
         error: labelId ? undefined : displayError,
         style: {
@@ -146,7 +146,7 @@ const Validate = ({
 
     return (
         <Wrapper
-            {...formControlProps}
+            {...wrapperProps}
         >
             {React.cloneElement(children, addedProps)}
             <FormHelperText error={displayError}>{message}</FormHelperText>

@@ -90,6 +90,7 @@ const V4 = () => {
                                                     labelId={FIXES_LABEL_TEST}
                                                     label="select something else than test"
                                                     onChange={(event) => setSelectIssueVal(event.target.value)}
+                                                    variant="outlined"
                                                 >
                                                     <MenuItem value="">test - test - test</MenuItem>
                                                     <MenuItem value="something else is selected">something else</MenuItem>
