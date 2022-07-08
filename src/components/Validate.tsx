@@ -130,7 +130,6 @@ const Validate = ({
     // but must reuse the existing one
     const { labelId } = children.props;
     const wrapperProps = {
-        className: 'MuiFormControl-root',
         error: labelId ? undefined : displayError,
         style: {
             width: children.props.fullWidth === true ? '100%' : undefined,
