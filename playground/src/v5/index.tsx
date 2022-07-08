@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete } from '@mui/material';
-import { ValidationGroup, Validate, AutoDisabler, ErrorList } from '../component-lib';
+import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete, FormControl, InputLabel, FormHelperText } from '@mui/material';
+import { ValidationGroup, Validate, AutoDisabler, ErrorList, AutoHide } from '../component-lib';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import {
@@ -29,7 +29,7 @@ import {
     SETTINGS_SILENT_GROUP_INPUT, SETTINGS_SILENT_INPUT,
     ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
     DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
-    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
+    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2, FIXES_LABEL_TEST,
 } from './locators';
 
 const V5 = () => {
@@ -53,9 +53,54 @@ const V5 = () => {
         setDateCustom(date);
     };
 
+    const [selectIssueVal, setSelectIssueVal]: [string, Function] = useState('');
+
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Container>
+                <Typography variant="h5">Fixes</Typography>
+                <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                        <ValidationGroup>
+                            <Box style={{ border: '1px solid #000'}} p={1}>
+                                <Box mb={2}>
+                                    <Typography variant="caption">Issue with surrounding FromControl</Typography>
+                                </Box>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={12}>
+                                        <FormControl fullWidth>
+                                            <InputLabel 
+                                                required 
+                                                id={FIXES_LABEL_TEST}
+                                            >select something else than test</InputLabel>
+                                            <Validate 
+                                                name="labelIssueFix" 
+                                                inputType="select"
+                                                required={true}
+                                            >
+                                                <Select
+                                                    value={selectIssueVal}
+                                                    required
+                                                    fullWidth
+                                                    name="some test"
+                                                    labelId={FIXES_LABEL_TEST}
+                                                    label="select something else than test"
+                                                    onChange={(event) => setSelectIssueVal(event.target.value)}
+                                                >
+                                                    <MenuItem value="">test - test - test</MenuItem>
+                                                    <MenuItem value="something else is selected">something else</MenuItem>
+                                                </Select>
+                                            </Validate>
+                                            <AutoHide validationName="labelIssueFix">
+                                                <FormHelperText>Hide based on validation result</FormHelperText>
+                                            </AutoHide>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </ValidationGroup>
+                    </Grid>
+                </Grid>
                 <Typography variant="h5">Validation mode seetings</Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={6}>

@@ -1,5 +1,7 @@
 import locator from 'test-locator';
 
+export const FIXES_LABEL_TEST = locator(['v4', 'fixes', 'label', 'test']);
+
 export const SETTINGS_INITIAL_SILENT = locator(['v4', 'textfield', 'required', 'initial-silent']);
 
 export const SETTINGS_INITIAL_NOISY = locator(['v4', 'textfield', 'required', 'initial-noisy']);
