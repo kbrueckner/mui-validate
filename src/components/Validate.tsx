@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React from 'react';
+import React, { RefObject, useImperativeHandle } from 'react';
 import { FormControl, FormHelperText, Box } from '../mui-loader';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
@@ -23,6 +23,10 @@ export type ValidateProps = {
     initialValidation?: ValidationMode;
     validation?: ValidationMode;
     children: JSX.Element & { fullWidth?: boolean; labelId?: string; };
+    // eslint-disable-next-line
+    reference?: RefObject<any>; // the name ref is reserved for html object referencing
+    // eslint-disable-next-line
+    triggers?: RefObject<any> | RefObject<any>[];
 };
 
 export type AdditionalProps = {
@@ -32,8 +36,8 @@ export type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required, unique, regex, custom, after, before,
-    initialValidation, validation, inputType = 'detect', id,
+    children, name, required, unique, regex, custom, after, before, triggers = [],
+    initialValidation, validation, inputType = 'detect', id, reference = { current: {} },
 }: ValidateProps): JSX.Element => {
     const {
         validations, updateValidation,
@@ -50,6 +54,9 @@ const Validate = ({
     if (unique !== undefined) { validationRules.unique = unique; }
     if (regex !== undefined) { validationRules.regex = regex; }
     if (custom !== undefined) { validationRules.custom = custom; }
+
+    // map triggerRefs into array if not already one
+    const triggerRefsArray = Array.isArray(triggers) ? triggers : [triggers];
 
     // Initial validations during first child component rendering
     // all supported child types (so far) define an initial value in the component attribut 'value'
@@ -106,7 +113,20 @@ const Validate = ({
 
         // after hook operations
         if (after) { after(validationResult); }
+
+        // triggerRef to trigger validations of linked validates
+        // eslint-disable-next-line
+        // @ts-ignore
+        triggerRefsArray.forEach((tRef: RefObject<any>) => {
+            console.log(tRef);
+            tRef.current.validate();
+        });
     };
+
+    useImperativeHandle(reference, () => ({
+        // validate: onChange,
+        validate: () => console.log('tada'),
+    }));
 
     const addedProps: AdditionalProps = {
         onChange,
