@@ -30,7 +30,7 @@ import {
     ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
     DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
     DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2, FIXES_LABEL_TEST,
-    TEXTFIELD_LINKED_1, TEXTFIELD_LINKED_2,
+    TEXTFIELD_LINKED_1, TEXTFIELD_LINKED_2, TEXTFIELD_LINKED_3,
 } from './locators';
 
 const V5 = () => {
@@ -57,7 +57,8 @@ const V5 = () => {
     const [selectIssueVal, setSelectIssueVal]: [string, Function] = useState('');
 
     const [linkedValue, setLinkedValue]: [string, Function] = useState('');
-    const linkedRef = useRef();
+    const linkedRef1 = useRef();
+    const linkedRef2 = useRef();
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -69,14 +70,19 @@ const V5 = () => {
                                 <Typography variant="caption">Re-trigger validation via linked component</Typography>
                             </Box>
                             <Grid container spacing={1}>
-                                <Grid item xs={6}>
-                                    <Validate name="tf1" required id={TEXTFIELD_LINKED_1} reference={linkedRef}>
-                                        <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} />
+                                <Grid item xs={3}>
+                                    <Validate name="tf1" required id={TEXTFIELD_LINKED_1} reference={linkedRef1}>
+                                        <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} />
+                                    </Validate>
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <Validate name="tf2" required id={TEXTFIELD_LINKED_2} reference={linkedRef2}>
+                                        <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} />
                                     </Validate>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Validate name="tf2" required id={TEXTFIELD_LINKED_2} triggers={linkedRef}>
-                                        <TextField label="Textfield 2 - duplicates value to Textfield 1" fullWidth variant="outlined" size="small" required onChange={(evt => setLinkedValue(evt.target.value))}/>
+                                    <Validate name="tf3" required id={TEXTFIELD_LINKED_3} >
+                                        <TextField label="Textfield 3 - duplicates value to Textfield 1 and 2" fullWidth variant="outlined" size="small" required onChange={(evt) => {setLinkedValue(evt.target.value)}}/>
                                     </Validate>
                                 </Grid>
                             </Grid>

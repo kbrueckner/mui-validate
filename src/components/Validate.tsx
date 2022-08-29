@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { RefObject, useImperativeHandle } from 'react';
+import React, { RefObject, useEffect, useImperativeHandle, useState } from 'react';
 import { FormControl, FormHelperText, Box } from '../mui-loader';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
@@ -39,6 +39,9 @@ const Validate = ({
     children, name, required, unique, regex, custom, after, before, triggers = [],
     initialValidation, validation, inputType = 'detect', id, reference = { current: {} },
 }: ValidateProps): JSX.Element => {
+    const [val, setVal]: [string, Function] = useState(children.props.value || '');
+
+    // eslint-disable-next-line
     const {
         validations, updateValidation,
         initialValidation: initialValidationSetting,
@@ -47,6 +50,34 @@ const Validate = ({
     const initialValidationDerrived = initialValidation || initialValidationSetting;
     const validationDerrived = validation || validationSetting;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
+
+    useEffect(() => {
+        if (children.props.value !== undefined) {
+            let value = '';
+
+            if (detectedInputType === 'autocomplete') {
+                value = getValueFromAutocomplete(children.props.value, children);
+            // eslint-disable-next-line
+            }
+            // picker
+            else if (detectedInputType === 'picker') {
+                if (children.props.value) {
+                    try {
+                        value = new Date(children.props.value).toISOString();
+                    } catch (e) {
+                        value = '';
+                    }
+                }
+            // eslint-disable-next-line
+            }
+            // textfield and select
+            else if (['textfield', 'select'].includes(detectedInputType)) {
+                value = children.props.value;
+            }
+            console.log('new prop val', value);
+            setVal(value);
+        }
+    }, [children.props.value]);
 
     // Validation rules which will be applied
     const validationRules: ValidationRules = {};
@@ -72,15 +103,18 @@ const Validate = ({
         updateValidation(name, validationResult);
     }
 
+    const doValidation = (): Validation => {
+        console.log(val, validationRules);
+        const validationResult = validate(val, validationRules);
+        if (validationDerrived === 'silent') { validationResult.display = false; }
+        updateValidation(name, validationResult);
+
+        // console.log(name, validationResult.valid, validations[name]?.valid);
+        return validationResult;
+    };
+
     // eslint-disable-next-line
-    const onChange = (...args: any[]): void => {
-        if (children.props.onChange) {
-            children.props.onChange(...args);
-        }
-
-        // before hook operations
-        if (before) { before(); }
-
+    const getValue = (args: any[]): String => {
         // value to be found from underlying component
         let value = '';
 
@@ -107,9 +141,23 @@ const Validate = ({
             value = eventValue;
         }
 
-        const validationResult = validate(value, validationRules);
-        if (validationDerrived === 'silent') { validationResult.display = false; }
-        updateValidation(name, validationResult);
+        return value;
+    };
+
+    // eslint-disable-next-line
+    const onChange = (...args: any[]): void => {
+        if (children.props.onChange) {
+            children.props.onChange(...args);
+        }
+
+        // before hook operations
+        if (before) { before(); }
+
+        setVal(getValue(args));
+    };
+
+    useEffect(() => {
+        const validationResult = doValidation();
 
         // after hook operations
         if (after) { after(validationResult); }
@@ -117,27 +165,56 @@ const Validate = ({
         // triggerRef to trigger validations of linked validates
         // eslint-disable-next-line
         // @ts-ignore
-        triggerRefsArray.forEach((tRef: RefObject<any>) => {
-            console.log(tRef);
+        setTimeout(() => triggerRefsArray.forEach((tRef: RefObject<any>) => {
             tRef.current.validate();
-        });
-    };
+            console.log(tRef);
+        }), 50);
+    }, [val]);
 
     useImperativeHandle(reference, () => ({
-        // validate: onChange,
-        validate: () => console.log('tada'),
+        validate: () => { console.log('cross triggered'); doValidation(); },
+        name,
+        // eslint-ignore-next-line
+        // @ts-ignore
+        value: children.props.value,
     }));
 
     const addedProps: AdditionalProps = {
         onChange,
     };
 
-    // lookup if error exists
-    const hasError = validations[name]?.valid === false;
-    // lookup if error exists and shall be displayed
-    const displayError = hasError && validations[name]?.display;
-    // calculate the message to be displayed
-    const message = displayError ? validations[name].messages[0].text : '';
+    type ValidationState = {
+        hasError: boolean;
+        displayError: boolean;
+        message: string;
+    };
+
+    const [validationState, setValidationState]: [ValidationState, Function] = useState({
+        hasError: false,
+        displayError: false,
+        message: '',
+    });
+
+    // testing
+    useEffect(() => {
+        console.log(name, validations[name]);
+        // lookup if error exists
+        const hasError = validations[name]?.valid === false;
+        // lookup if error exists and shall be displayed
+        const displayError = hasError && validations[name]?.display;
+        // calculate the message to be displayed
+        const message = displayError ? validations[name].messages[0].text : '';
+
+        setValidationState({ hasError, displayError, message });
+    }, [validations[name]]);
+
+    // // lookup if error exists
+    // const hasError = validations[name]?.valid === false;
+    // // lookup if error exists and shall be displayed
+    // const displayError = hasError && validations[name]?.display;
+    // // calculate the message to be displayed
+    // const message = displayError ? validations[name].messages[0].text : '';
+    const { hasError, displayError, message } = validationState;
 
     // This block is specifically for TextFields
     if (displayError) {
@@ -162,7 +239,7 @@ const Validate = ({
     // Form control needs to always be present so that the alignment of the
     // helper text is correct
     const Wrapper = labelId ? Box : FormControl;
-
+    // console.log('props', wrapperProps);
     return (
         <Wrapper
             {...wrapperProps}

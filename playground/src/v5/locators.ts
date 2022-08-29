@@ -124,5 +124,6 @@ export const PICKER_REGEX_INPUT = locator(['v5', 'picker', 'regex'], 'input');
 export const PICKER_CUSTOM = locator(['v5', 'picker', 'custom']);
 export const PICKER_CUSTOM_INPUT = locator(['v5', 'picker', 'custom'], 'input');
 
-export const  TEXTFIELD_LINKED_1 = locator(['v5', 'textfield', '1'], 'input');
-export const  TEXTFIELD_LINKED_2 = locator(['v5', 'textfield', '2'], 'input');
+export const  TEXTFIELD_LINKED_1 = locator(['v5', 'textfield', 'linked', '1'], 'input');
+export const  TEXTFIELD_LINKED_2 = locator(['v5', 'textfield', 'linked', '2'], 'input');
+export const  TEXTFIELD_LINKED_3 = locator(['v5', 'textfield', 'linked', '3'], 'input');
