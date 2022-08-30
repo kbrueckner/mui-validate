@@ -91,6 +91,35 @@ export default () => (
 )
 ```
 
+#### Trigger linked Validate after validation of another Input Component
+
+We might encounter the case where custom validations are depending on 2 or more input elements. Thus the linked inputs need to be (re-)validated together or trigger oneanother. This can be achieved via reference and triggers in combination as shown below. 
+
+```js
+import { useRef, useState } from 'react';
+import { Validate } from 'mui-validate';
+
+export default () => {
+    const [linkedValue, setLinkedValue]: [string, Function] = useState('');
+    const linkedRef = useRef();
+    
+    return (
+        <ValidationGroup>
+            <>
+                ...
+                <Validate name="internal key 1" custom={[() => !!linkedValue, 'Textfield 2 is empty']} reference={linkedRef}>
+                    <TextField />
+                </Validate>
+                <Validate name="internal key 2" triggers={linkedRef}>
+                    <TextField value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)}} />
+                </Validate>
+                ...
+            </>
+        </ValidationGroup>
+    );
+}
+```
+
 The Validate component has the following attributes and validation rules:
 
 Attribute|Mandatory|Type|Default|Description
@@ -105,6 +134,8 @@ before|-|func| |Hook for functionality triggered before validation
 after|-|func| |Hook for functionality triggered after validation (with access to the validation result)
 initialValidation|-|'silent' \| 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
 validation|-|'silent' \| 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
+reference|-|RefObject|-|React RefObject which enables cross validation triggering
+triggers|-|RefObject \| RefObject[]|-|React RefObject(s) which will be automatically triggered for (re-)validation if current objects validation fiinished.
 
 ### Supported input elements and validators
 

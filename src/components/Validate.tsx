@@ -10,6 +10,12 @@ import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
 import { detectInputType, getValueFromAutocomplete } from '../fns/helper-fns';
 
+type ValidationState = {
+    hasError: boolean;
+    displayError: boolean;
+    message: string;
+};
+
 export type ValidateProps = {
     name: string;
     id?: string;
@@ -39,7 +45,16 @@ const Validate = ({
     children, name, required, unique, regex, custom, after, before, triggers = [],
     initialValidation, validation, inputType = 'detect', id, reference = { current: {} },
 }: ValidateProps): JSX.Element => {
+    // val reflects the actual value, which is updated on every cvhange event
+    // it needs to be persisted so that cross-triggers do have a calculation base
     const [val, setVal]: [string, Function] = useState(children.props.value || '');
+
+    // visualization state used to render the visual elements
+    const [validationState, setValidationState]: [ValidationState, Function] = useState({
+        hasError: false,
+        displayError: false,
+        message: '',
+    });
 
     // eslint-disable-next-line
     const {
@@ -51,6 +66,7 @@ const Validate = ({
     const validationDerrived = validation || validationSetting;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
 
+    // wheneever ther incoming value changes the most recent value needs to be persisted into val
     useEffect(() => {
         if (children.props.value !== undefined) {
             let value = '';
@@ -74,7 +90,7 @@ const Validate = ({
             else if (['textfield', 'select'].includes(detectedInputType)) {
                 value = children.props.value;
             }
-            console.log('new prop val', value);
+
             setVal(value);
         }
     }, [children.props.value]);
@@ -85,9 +101,6 @@ const Validate = ({
     if (unique !== undefined) { validationRules.unique = unique; }
     if (regex !== undefined) { validationRules.regex = regex; }
     if (custom !== undefined) { validationRules.custom = custom; }
-
-    // map triggerRefs into array if not already one
-    const triggerRefsArray = Array.isArray(triggers) ? triggers : [triggers];
 
     // Initial validations during first child component rendering
     // all supported child types (so far) define an initial value in the component attribut 'value'
@@ -103,16 +116,16 @@ const Validate = ({
         updateValidation(name, validationResult);
     }
 
+    // validate and return validation result
     const doValidation = (): Validation => {
-        console.log(val, validationRules);
         const validationResult = validate(val, validationRules);
         if (validationDerrived === 'silent') { validationResult.display = false; }
         updateValidation(name, validationResult);
 
-        // console.log(name, validationResult.valid, validations[name]?.valid);
         return validationResult;
     };
 
+    // extract value from event paload
     // eslint-disable-next-line
     const getValue = (args: any[]): String => {
         // value to be found from underlying component
@@ -156,25 +169,33 @@ const Validate = ({
         setVal(getValue(args));
     };
 
+    // validate on every change of val
+    // this appears after change event has been fired
+    // or value is changed from outside for controlled components
     useEffect(() => {
         const validationResult = doValidation();
 
         // after hook operations
         if (after) { after(validationResult); }
 
-        // triggerRef to trigger validations of linked validates
+        // map triggers into array if not already one
+        const triggerRefsArray = Array.isArray(triggers) ? triggers : [triggers];
+
+        // trigger validations of linked validates
+        // we give us a little buffer time before the trigger so that all external value changhes
+        // have already been processed before the -re-validation
         // eslint-disable-next-line
         // @ts-ignore
         setTimeout(() => triggerRefsArray.forEach((tRef: RefObject<any>) => {
             tRef.current.validate();
-            console.log(tRef);
         }), 50);
     }, [val]);
 
+    // enrich passed in reference object to make revalidation available
     useImperativeHandle(reference, () => ({
-        validate: () => { console.log('cross triggered'); doValidation(); },
+        validate: () => { doValidation(); },
         name,
-        // eslint-ignore-next-line
+        // eslint-disable-next-line
         // @ts-ignore
         value: children.props.value,
     }));
@@ -183,21 +204,8 @@ const Validate = ({
         onChange,
     };
 
-    type ValidationState = {
-        hasError: boolean;
-        displayError: boolean;
-        message: string;
-    };
-
-    const [validationState, setValidationState]: [ValidationState, Function] = useState({
-        hasError: false,
-        displayError: false,
-        message: '',
-    });
-
-    // testing
+    // update visualization state on validation result change
     useEffect(() => {
-        console.log(name, validations[name]);
         // lookup if error exists
         const hasError = validations[name]?.valid === false;
         // lookup if error exists and shall be displayed
@@ -208,12 +216,7 @@ const Validate = ({
         setValidationState({ hasError, displayError, message });
     }, [validations[name]]);
 
-    // // lookup if error exists
-    // const hasError = validations[name]?.valid === false;
-    // // lookup if error exists and shall be displayed
-    // const displayError = hasError && validations[name]?.display;
-    // // calculate the message to be displayed
-    // const message = displayError ? validations[name].messages[0].text : '';
+    // read the visualization state
     const { hasError, displayError, message } = validationState;
 
     // This block is specifically for TextFields
@@ -239,7 +242,7 @@ const Validate = ({
     // Form control needs to always be present so that the alignment of the
     // helper text is correct
     const Wrapper = labelId ? Box : FormControl;
-    // console.log('props', wrapperProps);
+
     return (
         <Wrapper
             {...wrapperProps}
