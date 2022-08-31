@@ -135,7 +135,7 @@ after|-|func| |Hook for functionality triggered after validation (with access to
 initialValidation|-|'silent' \| 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
 validation|-|'silent' \| 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
 reference|-|RefObject|-|React RefObject which enables cross validation triggering
-triggers|-|RefObject \| RefObject[]|-|React RefObject(s) which will be automatically triggered for (re-)validation if current objects validation fiinished.
+triggers|-|RefObject \| RefObject[]|-|React RefObject(s) which will be automatically triggered for (re-)validation if current objects validation finished.
 
 ### Supported input elements and validators
 

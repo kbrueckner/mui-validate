@@ -49,6 +49,9 @@ const Validate = ({
     // it needs to be persisted so that cross-triggers do have a calculation base
     const [val, setVal]: [string, Function] = useState(children.props.value || '');
 
+    // state required for judging if initial validation is passed
+    const [initialValidationPassed, setInitialValidationPassed]: [boolean, Function] = useState(false);
+
     // visualization state used to render the visual elements
     const [validationState, setValidationState]: [ValidationState, Function] = useState({
         hasError: false,
@@ -119,8 +122,13 @@ const Validate = ({
     // validate and return validation result
     const doValidation = (): Validation => {
         const validationResult = validate(val, validationRules);
-        if (validationDerrived === 'silent') { validationResult.display = false; }
+        if (validationDerrived === 'silent' || (initialValidationDerrived === 'silent' && !initialValidationPassed)) { validationResult.display = false; }
         updateValidation(name, validationResult);
+
+        // set initialValidationPassed if nort yet done
+        if (!initialValidationPassed) {
+            setInitialValidationPassed(true);
+        }
 
         return validationResult;
     };
@@ -173,6 +181,7 @@ const Validate = ({
     // this appears after change event has been fired
     // or value is changed from outside for controlled components
     useEffect(() => {
+        if (val === undefined) { return; }
         const validationResult = doValidation();
 
         // after hook operations
@@ -214,7 +223,7 @@ const Validate = ({
         const message = displayError ? validations[name].messages[0].text : '';
 
         setValidationState({ hasError, displayError, message });
-    }, [validations[name]]);
+    }, [validations]);
 
     // read the visualization state
     const { hasError, displayError, message } = validationState;

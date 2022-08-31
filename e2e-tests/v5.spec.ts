@@ -76,7 +76,7 @@ describe(' Material-UI V5 tests', () => {
         expect(await page.isDisabled(buttonAlwaysOff)).toBe(true);
     });
 
-    it.only('AutoDisablers (firstDisplayErrors)', async () => {
+    it('AutoDisablers (firstDisplayErrors)', async () => {
         const control = `#${DISABLER_DISPLAY_CONTROL}`;
         const button = `#${DISABLER_DISPLAY_BUTTON}`;
         const button2 = `#${DISABLER_DISPLAY_BUTTON_2}`;
