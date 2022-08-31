@@ -24,11 +24,38 @@ import {
     ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
     DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
     DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
+    TEXTFIELD_LINKED_1, TEXTFIELD_LINKED_2, TEXTFIELD_LINKED_3_INPUT,
+    TEXTFIELD_LINKED_EXAMPLE_1, TEXTFIELD_LINKED_EXAMPLE_2_INPUT,
 } from '../playground/src/v5/locators';
 
 describe(' Material-UI V5 tests', () => {
     beforeAll(async () => {
         await page.goto('http://localhost:3000');
+    });
+
+    /**
+     * Linked validations
+     */
+
+    it('Linked Validations - README example', async () => {
+        const control1 = `#${TEXTFIELD_LINKED_EXAMPLE_1}`;
+        const input2 = `#${TEXTFIELD_LINKED_EXAMPLE_2_INPUT}`;
+
+        expect(await page.waitForSelector(`${control1}[data-has-error="true"]`)).toBeTruthy();
+        await page.fill(input2, 'test');
+        expect(await page.waitForSelector(`${control1}[data-has-error="false"]`)).toBeTruthy();
+    });
+
+    it('Linked Validations - multiple links', async () => {
+        const control1 = `#${TEXTFIELD_LINKED_1}`;
+        const control2 = `#${TEXTFIELD_LINKED_2}`;
+        const input3 = `#${TEXTFIELD_LINKED_3_INPUT}`;
+
+        expect(await page.waitForSelector(`${control1}[data-has-error="true"]`)).toBeTruthy();
+        expect(await page.waitForSelector(`${control2}[data-has-error="true"]`)).toBeTruthy();
+        await page.fill(input3, 'test');
+        expect(await page.waitForSelector(`${control1}[data-has-error="false"]`)).toBeTruthy();
+        expect(await page.waitForSelector(`${control2}[data-has-error="false"]`)).toBeTruthy();
     });
 
     /**
