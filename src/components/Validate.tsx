@@ -196,7 +196,7 @@ const Validate = ({
         // eslint-disable-next-line
         // @ts-ignore
         setTimeout(() => triggerRefsArray.forEach((tRef: RefObject<any>) => {
-            tRef.current.validate();
+            if (tRef.current && tRef.current.validate) { tRef.current.validate(); }
         }), 50);
     }, [val]);
 
