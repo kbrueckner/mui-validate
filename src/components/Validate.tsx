@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { RefObject, useEffect, useImperativeHandle, useState } from 'react';
+import React, { RefObject, useEffect, useImperativeHandle, useLayoutEffect, useState } from 'react';
 import { FormControl, FormHelperText, Box } from '../mui-loader';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
@@ -105,19 +105,21 @@ const Validate = ({
     if (regex !== undefined) { validationRules.regex = regex; }
     if (custom !== undefined) { validationRules.custom = custom; }
 
-    // Initial validations during first child component rendering
+    // Initial validations before first child component rendering
     // all supported child types (so far) define an initial value in the component attribut 'value'
-    if (validations[name] === undefined && Object.keys(validationRules).length > 0) {
-        let value;
-        if (detectedInputType === 'autocomplete') {
-            value = getValueFromAutocomplete(children.props.value, children);
-        } else {
-            value = children.props.value || '';
+    useLayoutEffect(() => {
+        if (validations[name] === undefined && Object.keys(validationRules).length > 0) {
+            let value;
+            if (detectedInputType === 'autocomplete') {
+                value = getValueFromAutocomplete(children.props.value, children);
+            } else {
+                value = children.props.value || '';
+            }
+            const validationResult = validate(value, validationRules);
+            if (initialValidationDerrived === 'silent') { validationResult.display = false; }
+            updateValidation(name, validationResult);
         }
-        const validationResult = validate(value, validationRules);
-        if (initialValidationDerrived === 'silent') { validationResult.display = false; }
-        updateValidation(name, validationResult);
-    }
+    });
 
     // validate and return validation result
     const doValidation = (): Validation => {
@@ -244,7 +246,7 @@ const Validate = ({
             width: children.props.fullWidth === true ? '100%' : undefined,
             display: labelId ? 'inline-block' : undefined,
         },
-        'data-has-error': hasError,
+        'data-has-error': hasError.toString(),
         'data-has-message': message !== '',
         id,
     };
