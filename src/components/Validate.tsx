@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import React, { RefObject, useEffect, useImperativeHandle, useLayoutEffect, useState } from 'react';
-import { FormControl, FormHelperText, Box } from '../mui-loader';
+import { FormControl, FormHelperText, Box } from '@mui/material';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
     ValidationRuleUnique, Validation, ValidationRuleCustom, InputType,

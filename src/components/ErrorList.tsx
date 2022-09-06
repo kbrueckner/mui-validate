@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-use-before-define
 import React from 'react';
-import { Typography } from '../mui-loader';
+import { Typography } from '@mui/material';
 import { useValidation } from './ValidationContext';
 
 type TypographyVariant = 'body1'
