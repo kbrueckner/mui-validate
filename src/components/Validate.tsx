@@ -33,6 +33,10 @@ export type ValidateProps = {
     reference?: RefObject<any>; // the name ref is reserved for html object referencing
     // eslint-disable-next-line
     triggers?: RefObject<any> | RefObject<any>[];
+    classes?: {
+        root?: string;
+        message?: string;
+    }
 };
 
 export type AdditionalProps = {
@@ -42,7 +46,7 @@ export type AdditionalProps = {
 };
 
 const Validate = ({
-    children, name, required, unique, regex, custom, after, before, triggers = [],
+    children, name, required, unique, regex, custom, after, before, triggers = [], classes = {},
     initialValidation, validation, inputType = 'detect', id, reference = { current: {} },
 }: ValidateProps): JSX.Element => {
     // val reflects the actual value, which is updated on every cvhange event
@@ -68,6 +72,9 @@ const Validate = ({
     const initialValidationDerrived = initialValidation || initialValidationSetting;
     const validationDerrived = validation || validationSetting;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
+
+    const ROOT_CLASS_NAME = ['mui-validate__validate-root', classes.root].join(' ');
+    const MESSAGE_CLASS_NAME = ['mui-validate__validate-message', classes.message].join(' ');
 
     // wheneever ther incoming value changes the most recent value needs to be persisted into val
     useEffect(() => {
@@ -232,7 +239,7 @@ const Validate = ({
 
     // This block is specifically for TextFields
     if (displayError) {
-        addedProps.helperText = '';
+        addedProps.helperText = undefined;
         addedProps.error = true;
     }
 
@@ -249,6 +256,7 @@ const Validate = ({
         'data-has-error': hasError.toString(),
         'data-has-message': message !== '',
         id,
+        className: ROOT_CLASS_NAME,
     };
     // Form control needs to always be present so that the alignment of the
     // helper text is correct
@@ -259,7 +267,7 @@ const Validate = ({
             {...wrapperProps}
         >
             {React.cloneElement(children, addedProps)}
-            <FormHelperText error={displayError}>{message}</FormHelperText>
+            { displayError && <FormHelperText error className={MESSAGE_CLASS_NAME}>{message}</FormHelperText> }
         </Wrapper>
     );
 };
