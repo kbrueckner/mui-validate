@@ -124,18 +124,19 @@ The Validate component has the following attributes and validation rules:
 
 Attribute|Mandatory|Type|Default|Description
 --|--|--|--|--
-name|x|string| |Unique internal identifier for the validation
+name|x|string|-|Unique internal identifier for the validation
 inputType|-|'detect' \| 'textfield' \| 'select' \| 'autocomplete' \| 'picker'|'detect'|Type of the encapsulated input i.e. textfield or select, when set to detect it will be tried to find the right input type automatically which could be error prone.
 required|-|bool \| [bool, string]|true|Tests for a value to be set
-unique|-|string[] \| [string[], string]| |Checks the provided value to not be in a list of provided values
-regex|-|regexp \| [regexp, string]| |Tests against a given regular expression
-custom|-|[func, string]| |Array with first value to be a custom validation function (passed in argument is the input value, output must be a boolean representation of the validation success) and second value to be the error message which is displayed in failure case
-before|-|func| |Hook for functionality triggered before validation
-after|-|func| |Hook for functionality triggered after validation (with access to the validation result)
-initialValidation|-|'silent' \| 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
-validation|-|'silent' \| 'noisy'| |This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
+unique|-|string[] \| [string[], string]|-|Checks the provided value to not be in a list of provided values
+regex|-|regexp \| [regexp, string]|-|Tests against a given regular expression
+custom|-|[func, string]|-|Array with first value to be a custom validation function (passed in argument is the input value, output must be a boolean representation of the validation success) and second value to be the error message which is displayed in failure case
+before|-|func|-|Hook for functionality triggered before validation
+after|-|func|-|Hook for functionality triggered after validation (with access to the validation result)
+initialValidation|-|'silent' \| 'noisy'|-|This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
+validation|-|'silent' \| 'noisy'|-|This overrides the definition made on ValidationGroup level. In noisy mode the validated input element is highlighted and displays the error message, in silent mode it remains without highlighting and error message.
 reference|-|RefObject|-|React RefObject which enables cross validation triggering
 triggers|-|RefObject \| RefObject[]|-|React RefObject(s) which will be automatically triggered for (re-)validation if current objects validation finished.
+classes|-|{ root?: string, message?: string }|-|Object to define custom classes for the root and message element
 
 ### Supported input elements and validators
 

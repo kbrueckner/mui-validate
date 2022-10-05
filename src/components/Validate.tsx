@@ -73,8 +73,8 @@ const Validate = ({
     const validationDerrived = validation || validationSetting;
     const detectedInputType: InputType = inputType === 'detect' ? detectInputType(children.props) : inputType;
 
-    const ROOT_CLASS_NAME = ['mui-validate__validate-root', classes.root].join(' ');
-    const MESSAGE_CLASS_NAME = ['mui-validate__validate-message', classes.message].join(' ');
+    const ROOT_CLASS_NAME = `mui-validate__validate-root${classes?.root ? ` ${classes.root}` : ''}`;
+    const MESSAGE_CLASS_NAME = `mui-validate__validate-message${classes?.message ? ` ${classes.message}` : ''}`;
 
     // wheneever ther incoming value changes the most recent value needs to be persisted into val
     useEffect(() => {
