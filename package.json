@@ -1,6 +1,6 @@
 {
   "name": "mui-validate",
-  "version": "0.3.3",
+  "version": "1.0.0-alpha.1",
   "description": "Validation tools for Material UI components and component groups",
   "main": "index.cjs.js",
   "module": "index.esm.js",
