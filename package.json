@@ -20,7 +20,6 @@
     "@mui/material": "5.x",
     "react": ">= 16.8"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.33",
