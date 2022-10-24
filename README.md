@@ -1,8 +1,8 @@
 # MUI Validate
 
-This validation module allows you to validate inputs for [Material-UI (v4)](https://www.npmjs.com/package/@material-ui/core) and [Material-UI (v5)](https://www.npmjs.com/package/@mui/material) input components such as TextField and Select.
+This validation module allows you to validate inputs for [Material-UI](https://www.npmjs.com/package/@mui/material) input components such as TextField and Select.
 Multiple inputs can be grouped together into a validation group.
-Based on the validity of a validation group buttons in the group can be enabled/disabled automatically.
+Based on the validity of a validation group buttons in the group can be enabled/disabled and elements can be hidden automatically.
 The current state of a validation group can be accessed via a react hook.
 
 Goal of this project is to wrap Material-UI components with validators instead of creating them via validation components. The advantage of this is that you can stay Material-UI native while writing templates.

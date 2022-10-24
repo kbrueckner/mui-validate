@@ -50,7 +50,6 @@
     "validate",
     "mui",
     "material-ui",
-    "@material-ui/core",
     "@mui/material"
   ],
   "repository": {
