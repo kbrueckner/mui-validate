@@ -1,6 +1,6 @@
 {
   "name": "mui-validate",
-  "version": "0.3.3",
+  "version": "1.0.0-alpha.1",
   "description": "Validation tools for Material UI components and component groups",
   "main": "index.cjs.js",
   "module": "index.esm.js",
@@ -17,9 +17,9 @@
     "release": "npm run lint && npm run test:unit && npm run build && node scripts/release.js"
   },
   "peerDependencies": {
+    "@mui/material": "5.x",
     "react": ">= 16.8"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.33",
@@ -50,7 +50,6 @@
     "validate",
     "mui",
     "material-ui",
-    "@material-ui/core",
     "@mui/material"
   ],
   "repository": {

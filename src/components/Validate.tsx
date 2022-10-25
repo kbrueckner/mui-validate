@@ -1,6 +1,6 @@
 // eslint-disable-next-line
-import React, { RefObject, useEffect, useImperativeHandle, useLayoutEffect, useState } from 'react';
-import { FormControl, FormHelperText, Box } from '../mui-loader';
+import React, { RefObject, useEffect, useImperativeHandle, useLayoutEffect, useState, ElementType } from 'react';
+import { FormControl, FormHelperText, Box } from '@mui/material';
 import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
     ValidationRuleUnique, Validation, ValidationRuleCustom, InputType,
@@ -260,7 +260,7 @@ const Validate = ({
     };
     // Form control needs to always be present so that the alignment of the
     // helper text is correct
-    const Wrapper = labelId ? Box : FormControl;
+    const Wrapper: ElementType = labelId ? Box : FormControl;
 
     return (
         <Wrapper
