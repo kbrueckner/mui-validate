@@ -36,6 +36,7 @@ export type ValidationInfo = {
     validations: ValidationCollection;
     setValidations: (validations: ValidationCollection) => void;
     updateValidation: (key: string, value: Validation) => void;
+    removeValidation: (key: string) => void;
     allValid: boolean;
     initialValidation: ValidationMode;
     validation: ValidationMode;

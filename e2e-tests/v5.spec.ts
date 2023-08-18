@@ -26,12 +26,27 @@ import {
     DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
     TEXTFIELD_LINKED_1, TEXTFIELD_LINKED_2, TEXTFIELD_LINKED_3_INPUT,
     TEXTFIELD_LINKED_EXAMPLE_1, TEXTFIELD_LINKED_EXAMPLE_2_INPUT,
+    UNREG_UNREGISTER_BUTTON, UNREG_REGISTER_BUTTON, UNREG_CHECK_BUTTON,
 } from '../playground/src/v5/locators';
 
 describe(' Material-UI V5 tests', () => {
     beforeAll(async () => {
         await page.goto('http://localhost:3000');
     });
+
+    /**
+     * Unregister Validate
+     */
+
+    // it.only('Linked Validations - README example', async () => {
+    //     const unregisterButton = `#${UNREG_UNREGISTER_BUTTON}`;
+    //     const registerButton = `#${UNREG_REGISTER_BUTTON}`;
+    //     const checkButton = `#${UNREG_CHECK_BUTTON}`;
+
+    //     expect(await page.locator(checkButton)).toBe.;
+    //     await page.fill(input2, 'test');
+    //     expect(await page.waitForSelector(`${control1}[data-has-error="false"]`)).toBeTruthy();
+    // });
 
     /**
      * Linked validations
