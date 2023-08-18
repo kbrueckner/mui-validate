@@ -1,3 +1,4 @@
+import { test, expect } from '@playwright/test';
 import {
     AUTOCOMPLETE_CUSTOM, AUTOCOMPLETE_CUSTOM_INITIAL, AUTOCOMPLETE_CUSTOM_INPUT,
     AUTOCOMPLETE_CUSTOM_INPUT_OPTION_A, AUTOCOMPLETE_CUSTOM_INPUT_OPTION_B, AUTOCOMPLETE_REGEX,
@@ -29,8 +30,8 @@ import {
     UNREG_UNREGISTER_BUTTON, UNREG_REGISTER_BUTTON, UNREG_CHECK_BUTTON,
 } from '../playground/src/v5/locators';
 
-describe(' Material-UI V5 tests', () => {
-    beforeAll(async () => {
+test.describe(' Material-UI V5 tests', () => {
+    test.beforeEach(async ({ page }) => {
         await page.goto('http://localhost:3000');
     });
 
@@ -38,21 +39,23 @@ describe(' Material-UI V5 tests', () => {
      * Unregister Validate
      */
 
-    // it.only('Linked Validations - README example', async () => {
-    //     const unregisterButton = `#${UNREG_UNREGISTER_BUTTON}`;
-    //     const registerButton = `#${UNREG_REGISTER_BUTTON}`;
-    //     const checkButton = `#${UNREG_CHECK_BUTTON}`;
+    test('Unregister validate', async ({ page }) => {
+        const unregisterButton = `#${UNREG_UNREGISTER_BUTTON}`;
+        const registerButton = `#${UNREG_REGISTER_BUTTON}`;
+        const checkButton = `#${UNREG_CHECK_BUTTON}`;
 
-    //     expect(await page.locator(checkButton)).toBe.;
-    //     await page.fill(input2, 'test');
-    //     expect(await page.waitForSelector(`${control1}[data-has-error="false"]`)).toBeTruthy();
-    // });
+        expect(await page.locator(checkButton)).toBeDisabled();
+        await page.click(unregisterButton);
+        expect(await page.locator(checkButton)).toBeEnabled();
+        await page.click(registerButton);
+        expect(await page.locator(checkButton)).toBeDisabled();
+    });
 
     /**
      * Linked validations
      */
 
-    it('Linked Validations - README example', async () => {
+    test('Linked Validations - README example', async ({ page }) => {
         const control1 = `#${TEXTFIELD_LINKED_EXAMPLE_1}`;
         const input2 = `#${TEXTFIELD_LINKED_EXAMPLE_2_INPUT}`;
 
@@ -61,7 +64,7 @@ describe(' Material-UI V5 tests', () => {
         expect(await page.waitForSelector(`${control1}[data-has-error="false"]`)).toBeTruthy();
     });
 
-    it('Linked Validations - multiple links', async () => {
+    test('Linked Validations - multiple links', async ({ page }) => {
         const control1 = `#${TEXTFIELD_LINKED_1}`;
         const control2 = `#${TEXTFIELD_LINKED_2}`;
         const input3 = `#${TEXTFIELD_LINKED_3_INPUT}`;
@@ -77,7 +80,7 @@ describe(' Material-UI V5 tests', () => {
      * AutoDisabler tests
      */
 
-    it('AutoDisablers', async () => {
+    test('AutoDisablers', async ({ page }) => {
         const input = `#${DISABLER_INPUT}`;
         // button is disabled based on group validation state
         const button = `#${DISABLER_BUTTON_DYNAMIC}`;
@@ -91,7 +94,7 @@ describe(' Material-UI V5 tests', () => {
         expect(await page.isDisabled(buttonAlwaysOff)).toBe(true);
     });
 
-    it('AutoDisablers (firstDisplayErrors)', async () => {
+    test('AutoDisablers (firstDisplayErrors)', async ({ page }) => {
         const control = `#${DISABLER_DISPLAY_CONTROL}`;
         const button = `#${DISABLER_DISPLAY_BUTTON}`;
         const button2 = `#${DISABLER_DISPLAY_BUTTON_2}`;
@@ -108,7 +111,7 @@ describe(' Material-UI V5 tests', () => {
         expect(await page.isDisabled(button2)).toBe(true);
     });
 
-    it('AutoDisablers (firstDisplayErrors) - disabled when error message already shown', async () => {
+    test('AutoDisablers (firstDisplayErrors) - disabled when error message already shown', async ({ page }) => {
         const control = `#${DISABLER_DISPLAY_2_CONTROL}`;
         const input = `#${DISABLER_DISPLAY_2_INPUT}`;
         const button = `#${DISABLER_DISPLAY_2_BUTTON}`;
@@ -129,7 +132,7 @@ describe(' Material-UI V5 tests', () => {
      * ErrorList tests
      */
 
-    it('ErrorList', async () => {
+    test('ErrorList', async ({ page }) => {
         // both lists display with title
         expect(await page.waitForSelector(`#${ERRORLIST1} .error-list__title`)).toBeTruthy();
         expect(await page.waitForSelector(`#${ERRORLIST2} .error-list__title`)).toBeTruthy();
@@ -162,7 +165,7 @@ describe(' Material-UI V5 tests', () => {
      */
 
     // test for initialValidation silent
-    it('Initial validation mode: silent', async () => {
+    test('Initial validation mode: silent', async ({ page }) => {
         const control = `#${SETTINGS_INITIAL_SILENT}`;
 
         expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
@@ -170,7 +173,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for initialValidation noisy - Validate setting
-    it('Initial validation mode: noisy by Validation setting', async () => {
+    test('Initial validation mode: noisy by Validation setting', async ({ page }) => {
         const control = `#${SETTINGS_INITIAL_NOISY}`;
 
         expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
@@ -180,7 +183,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for initialValidation noisy - ValidationGroup setting
-    it('Initial validation mode: noisy by ValidationGroup setting', async () => {
+    test('Initial validation mode: noisy by ValidationGroup setting', async ({ page }) => {
         const control = `#${SETTINGS_INITIAL_NOISY_GROUP}`;
 
         expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
@@ -190,7 +193,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for validation noisy
-    it('Validation mode: noisy', async () => {
+    test('Validation mode: noisy', async ({ page }) => {
         const control = `#${SETTINGS_NOISY}`;
         const input = `#${SETTINGS_NOISY_INPUT}`;
 
@@ -201,7 +204,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for validation silent - Validate setting
-    it('Validation mode: silent by Validation setting', async () => {
+    test('Validation mode: silent by Validation setting', async ({ page }) => {
         const control = `#${SETTINGS_SILENT}`;
         const input = `#${SETTINGS_SILENT_INPUT}`;
 
@@ -212,7 +215,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for validation silent - ValidationGroup setting
-    it('Validation mode: silent by ValidationGroup setting', async () => {
+    test('Validation mode: silent by ValidationGroup setting', async ({ page }) => {
         const control = `#${SETTINGS_SILENT_GROUP}`;
         const input = `#${SETTINGS_SILENT_GROUP_INPUT}`;
 
@@ -227,7 +230,7 @@ describe(' Material-UI V5 tests', () => {
      */
 
     // test for required
-    it('TextField: required', async () => {
+    test('TextField: required', async ({ page }) => {
         const control = `#${TEXTFIELD_REQUIRED}`;
         const input = `#${TEXTFIELD_REQUIRED_INPUT}`;
 
@@ -239,7 +242,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for unique
-    it('TextField: unique', async () => {
+    test('TextField: unique', async ({ page }) => {
         const control = `#${TEXTFIELD_UNIQUE}`;
         const input = `#${TEXTFIELD_UNIQUE_INPUT}`;
 
@@ -251,7 +254,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for regex
-    it('TextField: regex', async () => {
+    test('TextField: regex', async ({ page }) => {
         const control = `#${TEXTFIELD_REGEX}`;
         const input = `#${TEXTFIELD_REGEX_INPUT}`;
 
@@ -263,7 +266,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for custom
-    it('TextField: custom', async () => {
+    test('TextField: custom', async ({ page }) => {
         const control = `#${TEXTFIELD_CUSTOM}`;
         const input = `#${TEXTFIELD_CUSTOM_INPUT}`;
 
@@ -279,7 +282,7 @@ describe(' Material-UI V5 tests', () => {
      */
 
     // test for required
-    it('TextField (select): required', async () => {
+    test('TextField (select): required', async ({ page }) => {
         const control = `#${TEXTFIELD_SELECT_REQUIRED}`;
         const input = `#${TEXTFIELD_SELECT_REQUIRED_INPUT}`;
         const optionA = `#${TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A}`;
@@ -295,7 +298,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for unique
-    it('TextField (select): unique', async () => {
+    test('TextField (select): unique', async ({ page }) => {
         const control = `#${TEXTFIELD_SELECT_UNIQUE}`;
         const input = `#${TEXTFIELD_SELECT_UNIQUE_INPUT}`;
         const optionA = `#${TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A}`;
@@ -311,7 +314,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for regex
-    it('TextField (select): regex', async () => {
+    test('TextField (select): regex', async ({ page }) => {
         const control = `#${TEXTFIELD_SELECT_REGEX}`;
         const input = `#${TEXTFIELD_SELECT_REGEX_INPUT}`;
         const optionA = `#${TEXTFIELD_SELECT_REGEX_INPUT_OPTION_A}`;
@@ -327,7 +330,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for custom
-    it('TextField (select): custom', async () => {
+    test('TextField (select): custom', async ({ page }) => {
         const control = `#${TEXTFIELD_SELECT_CUSTOM}`;
         const input = `#${TEXTFIELD_SELECT_CUSTOM_INPUT}`;
         const optionA = `#${TEXTFIELD_SELECT_CUSTOM_INPUT_OPTION_A}`;
@@ -347,7 +350,7 @@ describe(' Material-UI V5 tests', () => {
      */
 
     // test for required
-    it('Select: required', async () => {
+    test('Select: required', async ({ page }) => {
         const control = `#${SELECT_REQUIRED}`;
         const input = `#${SELECT_REQUIRED_INPUT}`;
         const optionA = `#${SELECT_REQUIRED_INPUT_OPTION_A}`;
@@ -363,7 +366,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for unique
-    it('Select: unique', async () => {
+    test('Select: unique', async ({ page }) => {
         const control = `#${SELECT_UNIQUE}`;
         const input = `#${SELECT_UNIQUE_INPUT}`;
         const optionA = `#${SELECT_UNIQUE_INPUT_OPTION_A}`;
@@ -379,7 +382,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for regex
-    it('Select: regex', async () => {
+    test('Select: regex', async ({ page }) => {
         const control = `#${SELECT_REGEX}`;
         const input = `#${SELECT_REGEX_INPUT}`;
         const optionA = `#${SELECT_REGEX_INPUT_OPTION_A}`;
@@ -395,7 +398,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for custom
-    it('Select: custom', async () => {
+    test('Select: custom', async ({ page }) => {
         const control = `#${SELECT_CUSTOM}`;
         const input = `#${SELECT_CUSTOM_INPUT}`;
         const optionA = `#${SELECT_CUSTOM_INPUT_OPTION_A}`;
@@ -415,7 +418,7 @@ describe(' Material-UI V5 tests', () => {
      */
 
     // test for required
-    it('Autocomplete: required', async () => {
+    test('Autocomplete: required', async ({ page }) => {
         const control = `#${AUTOCOMPLETE_REQUIRED}`;
         const input = `#${AUTOCOMPLETE_REQUIRED_INPUT}`;
         const optionA = `#${AUTOCOMPLETE_REQUIRED_INPUT_OPTION_A}`;
@@ -431,7 +434,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for unique
-    it('Autocomplete: unique', async () => {
+    test('Autocomplete: unique', async ({ page }) => {
         const control = `#${AUTOCOMPLETE_UNIQUE}`;
         const input = `#${AUTOCOMPLETE_UNIQUE_INPUT}`;
         const optionA = `#${AUTOCOMPLETE_UNIQUE_INPUT_OPTION_A}`;
@@ -447,7 +450,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for regex
-    it('Autocomplete: regex', async () => {
+    test('Autocomplete: regex', async ({ page }) => {
         const control = `#${AUTOCOMPLETE_REGEX}`;
         const input = `#${AUTOCOMPLETE_REGEX_INPUT}`;
         const optionA = `#${AUTOCOMPLETE_REGEX_INPUT_OPTION_A}`;
@@ -463,7 +466,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for custom
-    it('Autocomplete: custom', async () => {
+    test('Autocomplete: custom', async ({ page }) => {
         const control = `#${AUTOCOMPLETE_CUSTOM}`;
         const input = `#${AUTOCOMPLETE_CUSTOM_INPUT}`;
         const optionA = `#${AUTOCOMPLETE_CUSTOM_INPUT_OPTION_A}`;
@@ -479,7 +482,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for initial validation
-    it('Autocomplete: custom initial valid', async () => {
+    test('Autocomplete: custom initial valid', async ({ page }) => {
         const control = `#${AUTOCOMPLETE_CUSTOM_INITIAL}`;
 
         expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
@@ -490,7 +493,7 @@ describe(' Material-UI V5 tests', () => {
      */
 
     // test for required
-    it('Picker: required', async () => {
+    test('Picker: required', async ({ page }) => {
         const control = `#${PICKER_REQUIRED}`;
         const input = `#${PICKER_REQUIRED_INPUT}`;
 
@@ -502,7 +505,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for unique
-    it('Picker: unique', async () => {
+    test('Picker: unique', async ({ page }) => {
         const control = `#${PICKER_UNIQUE}`;
         const input = `#${PICKER_UNIQUE_INPUT}`;
 
@@ -514,7 +517,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for regex
-    it('Picker: regex', async () => {
+    test('Picker: regex', async ({ page }) => {
         const control = `#${PICKER_REGEX}`;
         const input = `#${PICKER_REGEX_INPUT}`;
 
@@ -526,7 +529,7 @@ describe(' Material-UI V5 tests', () => {
     });
 
     // test for custom
-    it('Picker: custom', async () => {
+    test('Picker: custom', async ({ page }) => {
         const control = `#${PICKER_CUSTOM}`;
         const input = `#${PICKER_CUSTOM_INPUT}`;
 

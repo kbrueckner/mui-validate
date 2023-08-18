@@ -24,8 +24,6 @@
     "declarationDir": "dist/dts",
     "types": [
       "@types/jest",
-      "jest-playwright-preset",
-      "expect-playwright",
     ],
   },
   "include": [

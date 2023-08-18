@@ -1,8 +1,0 @@
-{
-    "launchOptions": {
-        "headless": true
-    },
-    "browsers": [
-        "chromium"
-    ]
-}

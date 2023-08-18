@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import { ValidationGroup, Validate, AutoDisabler, ErrorList, AutoHide } from '../component-lib';
-import { LocalizationProvider, DatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import { DatePicker } from '@mui/lab';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import {
     AUTOCOMPLETE_CUSTOM, AUTOCOMPLETE_CUSTOM_INITIAL, AUTOCOMPLETE_CUSTOM_INPUT,
     AUTOCOMPLETE_REGEX, AUTOCOMPLETE_REGEX_INPUT, AUTOCOMPLETE_REQUIRED,
@@ -37,7 +38,7 @@ import {
 
 const V5 = () => {
     const [dateRequired, setDateRequired]: [string | null | undefined, Function] = useState(null);
-    const handleDateRequiredChange = (date: unknown, value?: string | null | undefined) => {
+    const handleDateRequiredChange = (value: string | null | undefined) => {
         setDateRequired(date);
     };
 
@@ -781,7 +782,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateRequired}
                                                 onChange={handleDateRequiredChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_REQUIRED_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_REQUIRED_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>
@@ -802,7 +803,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateUnique}
                                                 onChange={handleDateUniqueChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_UNIQUE_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_UNIQUE_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>
@@ -825,7 +826,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateRegex}
                                                 onChange={handleDateRegexChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_REGEX_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_REGEX_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>
@@ -846,7 +847,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateCustom}
                                                 onChange={handleDateCustomChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_CUSTOM_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_CUSTOM_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>
