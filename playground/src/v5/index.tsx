@@ -38,7 +38,7 @@ import {
 
 const V5 = () => {
     const [dateRequired, setDateRequired]: [string | null | undefined, Function] = useState(null);
-    const handleDateRequiredChange = (value: string | null | undefined) => {
+    const handleDateRequiredChange = (date: unknown, value: string | null | undefined) => {
         setDateRequired(date);
     };
 
