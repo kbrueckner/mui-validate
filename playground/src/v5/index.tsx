@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete, FormControl, InputLabel, FormHelperText } from '@mui/material';
-import { ValidationGroup, Validate, AutoDisabler, ErrorList } from '../component-lib';
+import { TextField, Select, MenuItem, Container, Grid, Box, Typography, Autocomplete } from '@mui/material';
+import { ValidationGroup, Validate } from '../component-lib';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import {
     AUTOCOMPLETE_CUSTOM, AUTOCOMPLETE_CUSTOM_INITIAL, AUTOCOMPLETE_CUSTOM_INPUT,
     AUTOCOMPLETE_REGEX, AUTOCOMPLETE_REGEX_INPUT, AUTOCOMPLETE_REQUIRED,
-    AUTOCOMPLETE_REQUIRED_INPUT, AUTOCOMPLETE_UNIQUE, AUTOCOMPLETE_UNIQUE_INPUT,
-    DISABLER_BUTTON_AWAYS_OFF, DISABLER_BUTTON_DYNAMIC, DISABLER_INPUT, PICKER_CUSTOM,
+    AUTOCOMPLETE_REQUIRED_INPUT, AUTOCOMPLETE_UNIQUE, AUTOCOMPLETE_UNIQUE_INPUT,PICKER_CUSTOM,
     PICKER_CUSTOM_INPUT, PICKER_REGEX, PICKER_REGEX_INPUT, PICKER_REQUIRED,
     PICKER_REQUIRED_INPUT, PICKER_UNIQUE, PICKER_UNIQUE_INPUT, SELECT_CUSTOM,
     SELECT_CUSTOM_INPUT, SELECT_CUSTOM_INPUT_OPTION_A, SELECT_CUSTOM_INPUT_OPTION_B,
@@ -24,14 +23,13 @@ import {
     TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A, TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_EMPTY,
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
-    ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
-    DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
-    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
 } from './locators';
 import UnregisterValidation from './unregister-validation';
 import LinkedValidations from './linked-validations';
 import Fixes from './fixes';
 import ValidationModeSettings from './validation-mode-settings';
+import ErrorLists from './error-lists';
+import AutoDisablers from './auto-disablers';
 
 const V5 = () => {
     const [dateRequired, setDateRequired]: [string | null | undefined, Function] = useState(null);
@@ -61,116 +59,8 @@ const V5 = () => {
                 <LinkedValidations />
                 <Fixes />
                 <ValidationModeSettings />
-                <Typography variant="h5">ErrorList</Typography>
-                <ValidationGroup>
-                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                        <Box mb={2}>
-                            <Typography variant="caption">ErrorList</Typography>
-                        </Box>
-                        <Box mb={2}>
-                            <Grid container spacing={1}>
-                                <Grid item id={ERRORLIST1}>
-                                    <ErrorList title="Detected errors" alwaysVisible />
-                                </Grid>
-                                <Grid item id={ERRORLIST2}>
-                                    <ErrorList title="Detected errors - hidden if no errors (cutom error message rendering)" renderErrorMessage={(name, message) => `${name} >> ${message}`} />
-                                </Grid>
-                            </Grid>
-                        </Box>
-                        <Grid container spacing={1}>
-                            <Grid item>
-                                <Validate name="Textfield1" required regex={/test/} initialValidation="noisy">
-                                    <TextField id={ERRORLIST_INPUT1} label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                </Validate>
-                            </Grid>
-                            <Grid item>
-                                <Validate name="Textfield2" required initialValidation="noisy">
-                                    <TextField id={ERRORLIST_INPUT2} label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                </Validate>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </ValidationGroup>
-                <Typography variant="h5">AutoDisablers</Typography>
-                <ValidationGroup>
-                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                        <Box mb={2}>
-                            <Typography variant="caption">AutoDisbalers</Typography>
-                        </Box>
-                        <Grid container spacing={1}>
-                            <Grid item xs={6}>
-                                <Validate name="Textfield required" required initialValidation="noisy">
-                                    <TextField id={DISABLER_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                </Validate>
-                            </Grid>
-                            <Grid item>
-                                <AutoDisabler>
-                                    <Button id={DISABLER_BUTTON_DYNAMIC} variant="outlined">Disabled if group invalid</Button>
-                                </AutoDisabler>
-                            </Grid>
-                            <Grid item>
-                                <AutoDisabler>
-                                    <Button id={DISABLER_BUTTON_AWAYS_OFF} variant="outlined" disabled>Always disabled by button prop</Button>
-                                </AutoDisabler>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </ValidationGroup>
-                <Typography variant="h5">AutoDisablers (firstDisplayErrors)</Typography>
-                <ValidationGroup>
-                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                        <Box mb={2}>
-                            <Typography variant="caption">AutoDisbalers (firstDisplayErrors) - First displays errors then disables if group invalid</Typography>
-                        </Box>
-                        <Grid container spacing={1}>
-                            <Grid xs={4} item id={DISABLER_DISPLAY_ERRORLIST}>
-                                <ErrorList title="Detected errors" alwaysVisible />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Validate name="Textfield required" required id={DISABLER_DISPLAY_CONTROL}>
-                                    <TextField id={DISABLER_DISPLAY_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                </Validate>
-                            </Grid>
-                            <Grid item>
-                                <AutoDisabler firstDisplayErrors>
-                                    <Button id={DISABLER_DISPLAY_BUTTON} variant="outlined">Button</Button>
-                                </AutoDisabler>
-                            </Grid>
-                            <Grid item>
-                                <AutoDisabler firstDisplayErrors>
-                                    <Button id={DISABLER_DISPLAY_BUTTON_2} variant="outlined">Button</Button>
-                                </AutoDisabler>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </ValidationGroup>
-                <ValidationGroup>
-                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                        <Box mb={2}>
-                            <Typography variant="caption">AutoDisbalers (firstDisplayErrors) - Disable button after an error message is shown</Typography>
-                        </Box>
-                        <Grid container spacing={1}>
-                            <Grid xs={4} item id={DISABLER_DISPLAY_2_ERRORLIST}>
-                                <ErrorList title="Detected errors" alwaysVisible />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Validate name="Textfield required" required id={DISABLER_DISPLAY_2_CONTROL}>
-                                    <TextField id={DISABLER_DISPLAY_2_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                </Validate>
-                            </Grid>
-                            <Grid item>
-                                <AutoDisabler firstDisplayErrors>
-                                    <Button id={DISABLER_DISPLAY_2_BUTTON} variant="outlined">Button</Button>
-                                </AutoDisabler>
-                            </Grid>
-                            <Grid item>
-                                <AutoDisabler firstDisplayErrors>
-                                    <Button id={DISABLER_DISPLAY_2_BUTTON_2} variant="outlined">Button</Button>
-                                </AutoDisabler>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </ValidationGroup>
+                <ErrorLists />
+                <AutoDisablers />
                 <Typography variant="h5">TextField</Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={6}>

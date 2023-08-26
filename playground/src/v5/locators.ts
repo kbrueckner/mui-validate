@@ -1,26 +1,5 @@
 import locator from 'test-locator';
 
-export const DISABLER_INPUT = locator(['v5', 'textfield', 'required', 'disabler'], 'input');
-export const DISABLER_BUTTON_DYNAMIC = locator(['v5', 'textfield', 'required', 'disabler'], 'button');
-export const DISABLER_BUTTON_AWAYS_OFF = locator(['v5', 'textfield', 'required', 'disabler', 'always-off'], 'button');
-
-export const ERRORLIST_INPUT1 = locator(['v5', 'error-list', 'input1'], 'input');
-export const ERRORLIST_INPUT2 = locator(['v5', 'error-list', 'input2'], 'input');
-export const ERRORLIST1 = locator(['v5', 'error-list1'], 'list');
-export const ERRORLIST2 = locator(['v5', 'error-list2'], 'list');
-
-export const DISABLER_DISPLAY_ERRORLIST = locator(['v5', 'disabler', 'display', 'errors'], 'list');
-export const DISABLER_DISPLAY_CONTROL = locator(['v5', 'disabler', 'display', 'control']);
-export const DISABLER_DISPLAY_INPUT = locator(['v5', 'disabler', 'display'], 'input');
-export const DISABLER_DISPLAY_BUTTON = locator(['v5', 'disabler', 'display'], 'button');
-export const DISABLER_DISPLAY_BUTTON_2 = locator(['v5', 'disabler', 'display', 'b2'], 'button');
-
-export const DISABLER_DISPLAY_2_ERRORLIST = locator(['v5', 'disabler', 'display', '2', 'errors'], 'list');
-export const DISABLER_DISPLAY_2_CONTROL = locator(['v5', 'disabler', 'display', '2', 'control']);
-export const DISABLER_DISPLAY_2_INPUT = locator(['v5', 'disabler', 'display', '2'], 'input');
-export const DISABLER_DISPLAY_2_BUTTON = locator(['v5', 'disabler', 'display', '2'], 'button');
-export const DISABLER_DISPLAY_2_BUTTON_2 = locator(['v5', 'disabler', 'display', '2', 'b2'], 'button');
-
 export const TEXTFIELD_REQUIRED = locator(['v5', 'textfield', 'required']);
 export const TEXTFIELD_REQUIRED_INPUT = locator(['v5', 'textfield', 'required'], 'input');
 
@@ -111,3 +90,5 @@ export * from './linked-validations/locators';
 export * from './unregister-validation/locators';
 export * from './fixes/locators';
 export * from './validation-mode-settings/locators';
+export * from './error-lists/locators';
+export * from './auto-disablers/locators';
