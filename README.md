@@ -231,6 +231,7 @@ titleVariant|-|'body1' \| 'body2' \| 'button' \| 'caption' \| 'h1' \| 'h2' \| 'h
 errorVariant|-|'body1' \| 'body2' \| 'button' \| 'caption' \| 'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'inherit' \| 'overline' \| 'subtitle1' \| 'subtitle2'|'caption'|Specifies the error messages typography variant based on Material UI Typography variant definitions.
 titleColor|-|'inherit' \| 'primary' \| 'secondary' \| 'textPrimary' \| 'textSecondary' \| 'error'|'inherit'|Color definition for list title and no errors message
 errorColor|-|'inherit' \| 'primary' \| 'secondary' \| 'textPrimary' \| 'textSecondary' \| 'error'|'error'|Color definition for error messages in the list
+renderErrorMessage|-|(validationName: string, errorMessage: string) => string|'validationName: errorMessage'|Function to override default error list item message
 
 ## Programatic access to validation context
 

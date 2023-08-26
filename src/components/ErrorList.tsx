@@ -33,11 +33,14 @@ export type ErrorListProps = {
     errorVariant?: TypographyVariant;
     titleColor?: TypographyColor;
     errorColor?: TypographyColor;
+    renderErrorMessage?: (validationName: string, errorMessage: string) => string;
 };
+
+const defaultErrorMessageRendering = (validationName: string, errorMessage: string): string => `${validationName}: ${errorMessage}`;
 
 const ErrorList = ({
     title, alwaysVisible = false, noErrorsText = 'No errors detected', titleVariant = 'subtitle1', errorVariant = 'caption',
-    titleColor = 'inherit', errorColor = 'error',
+    titleColor = 'inherit', errorColor = 'error', renderErrorMessage = defaultErrorMessageRendering,
 }: ErrorListProps): JSX.Element | null => {
     const { validations } = useValidation();
     const errors = Object.entries(validations).filter((dataset) => !dataset[1].valid && dataset[1].display);
@@ -46,7 +49,7 @@ const ErrorList = ({
             { (errors.length > 0 || alwaysVisible) && <Typography variant={titleVariant} className="error-list__title" color={titleColor}>{ title }</Typography> }
             { errors.map(([name, validation]) => (
                 validation.messages.map((message) => (
-                    <Typography key={name} component="p" className="error-list__error-message" color={errorColor} variant={errorVariant}>{`${name}: ${message.text}`}</Typography>
+                    <Typography key={name} component="p" className="error-list__error-message" color={errorColor} variant={errorVariant}>{renderErrorMessage(name, message.text)}</Typography>
                 ))
             ))}
             { alwaysVisible && errors.length === 0 && <Typography component="p" className="error-list__no-errors-message" color={titleColor} variant={errorVariant}>{ noErrorsText }</Typography> }
