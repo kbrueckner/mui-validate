@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete, FormControl, InputLabel, FormHelperText } from '@mui/material';
-import { ValidationGroup, Validate, AutoDisabler, ErrorList, AutoHide } from '../component-lib';
+import { ValidationGroup, Validate, AutoDisabler, ErrorList } from '../component-lib';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import {
@@ -15,7 +15,6 @@ import {
     SELECT_REGEX_INPUT_OPTION_B, SELECT_REQUIRED, SELECT_REQUIRED_INPUT,
     SELECT_REQUIRED_INPUT_OPTION_A, SELECT_REQUIRED_INPUT_OPTION_EMPTY, SELECT_UNIQUE,
     SELECT_UNIQUE_INPUT, SELECT_UNIQUE_INPUT_OPTION_A, SELECT_UNIQUE_INPUT_OPTION_B,
-    SETTINGS_INITIAL_NOISY, SETTINGS_INITIAL_NOISY_GROUP, SETTINGS_INITIAL_SILENT,
     TEXTFIELD_CUSTOM, TEXTFIELD_CUSTOM_INPUT, TEXTFIELD_REGEX, TEXTFIELD_REGEX_INPUT,
     TEXTFIELD_REQUIRED, TEXTFIELD_REQUIRED_INPUT, TEXTFIELD_SELECT_CUSTOM,
     TEXTFIELD_SELECT_CUSTOM_INPUT, TEXTFIELD_SELECT_CUSTOM_INPUT_OPTION_A,
@@ -25,15 +24,14 @@ import {
     TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_A, TEXTFIELD_SELECT_REQUIRED_INPUT_OPTION_EMPTY,
     TEXTFIELD_SELECT_UNIQUE, TEXTFIELD_SELECT_UNIQUE_INPUT, TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_A,
     TEXTFIELD_SELECT_UNIQUE_INPUT_OPTION_B, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
-    SETTINGS_NOISY, SETTINGS_NOISY_INPUT, SETTINGS_SILENT, SETTINGS_SILENT_GROUP,
-    SETTINGS_SILENT_GROUP_INPUT, SETTINGS_SILENT_INPUT,
     ERRORLIST1, ERRORLIST2, ERRORLIST_INPUT1, ERRORLIST_INPUT2,
     DISABLER_DISPLAY_ERRORLIST, DISABLER_DISPLAY_INPUT, DISABLER_DISPLAY_BUTTON, DISABLER_DISPLAY_CONTROL, DISABLER_DISPLAY_BUTTON_2,
-    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2, FIXES_LABEL_TEST,
-    TEXTFIELD_LINKED_1, TEXTFIELD_LINKED_2, TEXTFIELD_LINKED_3, TEXTFIELD_LINKED_1_INPUT, TEXTFIELD_LINKED_2_INPUT, TEXTFIELD_LINKED_3_INPUT,
-    TEXTFIELD_LINKED_EXAMPLE_1, TEXTFIELD_LINKED_EXAMPLE_2, TEXTFIELD_LINKED_EXAMPLE_1_INPUT, TEXTFIELD_LINKED_EXAMPLE_2_INPUT,
-    UNREG_UNREGISTER_BUTTON, UNREG_REGISTER_BUTTON, UNREG_CHECK_BUTTON,
+    DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2,
 } from './locators';
+import UnregisterValidation from './unregister-validation';
+import LinkedValidations from './linked-validations';
+import Fixes from './fixes';
+import ValidationModeSettings from './validation-mode-settings';
 
 const V5 = () => {
     const [dateRequired, setDateRequired]: [string | null | undefined, Function] = useState(null);
@@ -56,231 +54,13 @@ const V5 = () => {
         setDateCustom(date);
     };
 
-    const [selectIssueVal, setSelectIssueVal]: [string, Function] = useState('');
-
-    const [linkedValue, setLinkedValue]: [string, Function] = useState('');
-    const linkedRef1 = useRef();
-    const linkedRef2 = useRef();
-
-    const [linkedValueExample, setLinkedValueExample]: [string, Function] = useState('');
-    const linkedRefExample = useRef();
-
-    const [registered, setRegistered]: [boolean, Function] = useState(true);
-
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Container>
-                <Typography variant="h5">Unregister validation</Typography>
-                <ValidationGroup initialValidation='noisy'>
-                    <Box style={{ border: '1px solid #000'}} p={1}>
-                        <Box mb={2}>
-                            <Typography variant="caption">Unregister a validation from validation group after initial registration</Typography>
-                        </Box>
-                        <Grid container spacing={1}>
-                            <Grid item xs={3}>
-                                { registered ? (
-                                <Validate name="registeredTextfield" required>
-                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" required />
-                                </Validate>
-                                ) : <div>nothing registered</div> }
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Validate name="registeredTextfieldFixValue" required>
-                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" value="fix value" required />
-                                </Validate>
-                            </Grid>
-                            <Grid item xs={5}>
-                                <Button id={UNREG_UNREGISTER_BUTTON} variant="outlined" onClick={() => setRegistered(false)}>Unregister</Button>
-                                <Button id={UNREG_REGISTER_BUTTON} variant="outlined" onClick={() => setRegistered(true)}>Register</Button>
-                            </Grid>
-                            <Grid item xs={1}>
-                                <AutoDisabler>
-                                    <Button id={UNREG_CHECK_BUTTON} variant="outlined">test</Button>
-                                </AutoDisabler>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </ValidationGroup>
-                <Typography variant="h5">Linked validations</Typography>
-                <ValidationGroup initialValidation='noisy'>
-                    <Box style={{ border: '1px solid #000'}} p={1}>
-                        <Box mb={2}>
-                            <Typography variant="caption">Re-trigger validation via linked component</Typography>
-                        </Box>
-                        <Grid container spacing={1}>
-                            <Grid item xs={3}>
-                                <Validate name="tf1" required id={TEXTFIELD_LINKED_1} reference={linkedRef1}>
-                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} id={TEXTFIELD_LINKED_1_INPUT} />
-                                </Validate>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Validate name="tf2" required id={TEXTFIELD_LINKED_2} reference={linkedRef2}>
-                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} id={TEXTFIELD_LINKED_2_INPUT} />
-                                </Validate>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Validate name="tf3" required id={TEXTFIELD_LINKED_3} triggers={[linkedRef2, linkedRef1]}>
-                                    <TextField label="Textfield 3 - duplicates value to Textfield 1 and 2" fullWidth variant="outlined" size="small" required onChange={(evt) => {setLinkedValue(evt.target.value)}} id={TEXTFIELD_LINKED_3_INPUT} />
-                                </Validate>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </ValidationGroup>
-                <ValidationGroup initialValidation='noisy'>
-                    <Box style={{ border: '1px solid #000'}} p={1}>
-                        <Box mb={2}>
-                            <Typography variant="caption">Linked validation from README example</Typography>
-                        </Box>
-                        <Grid container spacing={1}>
-                            <Grid item xs={6}>
-                                <Validate name="tf1" custom={[() => !!linkedValueExample, 'Textfield 2 is empty']} id={TEXTFIELD_LINKED_EXAMPLE_1} reference={linkedRefExample}>
-                                    <TextField label="Validation relies on field 2 input" fullWidth variant="outlined" size="small" id={TEXTFIELD_LINKED_EXAMPLE_1_INPUT} />
-                                </Validate>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Validate name="tf2" id={TEXTFIELD_LINKED_EXAMPLE_2} triggers={linkedRefExample}>
-                                    <TextField label="This field is required for validation of first field" fullWidth variant="outlined" size="small" required value={linkedValueExample} onChange={(evt) => setLinkedValueExample(evt.target.value)} id={TEXTFIELD_LINKED_EXAMPLE_2_INPUT} />
-                                </Validate>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </ValidationGroup>
-                <Typography variant="h5">Fixes</Typography>
-                <Grid container spacing={1}>
-                    <Grid item xs={6}>
-                        <ValidationGroup>
-                            <Box style={{ border: '1px solid #000'}} p={1}>
-                                <Box mb={2}>
-                                    <Typography variant="caption">Issue with surrounding FromControl</Typography>
-                                </Box>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <FormControl fullWidth>
-                                            <InputLabel 
-                                                required 
-                                                id={FIXES_LABEL_TEST}
-                                            >select something else than test</InputLabel>
-                                            <Validate 
-                                                name="labelIssueFix" 
-                                                inputType="select"
-                                                required={true}
-                                            >
-                                                <Select
-                                                    value={selectIssueVal}
-                                                    required
-                                                    fullWidth
-                                                    name="some test"
-                                                    labelId={FIXES_LABEL_TEST}
-                                                    label="select something else than test"
-                                                    onChange={(event) => setSelectIssueVal(event.target.value)}
-                                                >
-                                                    <MenuItem value="">test - test - test</MenuItem>
-                                                    <MenuItem value="something else is selected">something else</MenuItem>
-                                                </Select>
-                                            </Validate>
-                                            <AutoHide validationName="labelIssueFix">
-                                                <FormHelperText>Hide based on validation result</FormHelperText>
-                                            </AutoHide>
-                                        </FormControl>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </ValidationGroup>
-                    </Grid>
-                </Grid>
-                <Typography variant="h5">Validation mode seetings</Typography>
-                <Grid container spacing={1}>
-                    <Grid item xs={6}>
-                        <Typography variant="h6">initialValidation</Typography>
-                        <ValidationGroup>
-                            <Box style={{ border: '1px solid #000'}} p={1}>
-                                <Box mb={2}>
-                                    <Typography variant="caption">Textfield required - initial silent</Typography>
-                                </Box>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={SETTINGS_INITIAL_SILENT}>
-                                            <TextField label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                        </Validate>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </ValidationGroup>
-                        <ValidationGroup>
-                            <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                                <Box mb={2}>
-                                    <Typography variant="caption">Textfield required - initial noisy</Typography>
-                                </Box>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={SETTINGS_INITIAL_NOISY} initialValidation="noisy">
-                                            <TextField label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                        </Validate>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </ValidationGroup>
-                        <ValidationGroup initialValidation="noisy">
-                            <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                                <Box mb={2}>
-                                    <Typography variant="caption">Textfield required - initial noisy by ValidationGroup</Typography>
-                                </Box>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={SETTINGS_INITIAL_NOISY_GROUP}>
-                                            <TextField label="This field is required" fullWidth variant="outlined" size="small" required/>
-                                        </Validate>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </ValidationGroup>
-                        </Grid>
-                        <Grid item xs={6}>
-                        <Typography variant="h6">validation</Typography>
-                        <ValidationGroup>
-                            <Box style={{ border: '1px solid #000'}} p={1}>
-                                <Box mb={2}>
-                                    <Typography variant="caption">Textfield required - noisy</Typography>
-                                </Box>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={SETTINGS_NOISY}>
-                                            <TextField id={SETTINGS_NOISY_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required />
-                                        </Validate>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </ValidationGroup>
-                        <ValidationGroup>
-                            <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                                <Box mb={2}>
-                                    <Typography variant="caption">Textfield required - silent</Typography>
-                                </Box>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={SETTINGS_SILENT} validation="silent">
-                                            <TextField id={SETTINGS_SILENT_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required />
-                                        </Validate>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </ValidationGroup>
-                        <ValidationGroup validation="silent">
-                            <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
-                                <Box mb={2}>
-                                    <Typography variant="caption">Textfield required - silent by ValidationGroup</Typography>
-                                </Box>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                        <Validate name="Textfield required" required id={SETTINGS_SILENT_GROUP}>
-                                            <TextField id={SETTINGS_SILENT_GROUP_INPUT} label="This field is required" fullWidth variant="outlined" size="small" required />
-                                        </Validate>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </ValidationGroup>
-                    </Grid>
-                </Grid>
+                <UnregisterValidation />
+                <LinkedValidations />
+                <Fixes />
+                <ValidationModeSettings />
                 <Typography variant="h5">ErrorList</Typography>
                 <ValidationGroup>
                     <Box style={{ border: '1px solid #000'}} p={1} mt={2}>

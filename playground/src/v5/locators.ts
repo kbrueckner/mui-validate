@@ -1,22 +1,5 @@
 import locator from 'test-locator';
 
-export const FIXES_LABEL_TEST = locator(['v5', 'fixes', 'label', 'test']);
-
-export const SETTINGS_INITIAL_SILENT = locator(['v5', 'textfield', 'required', 'initial-silent']);
-
-export const SETTINGS_INITIAL_NOISY = locator(['v5', 'textfield', 'required', 'initial-noisy']);
-
-export const SETTINGS_INITIAL_NOISY_GROUP = locator(['v5', 'textfield', 'required', 'initial-noisy', 'by-group']);
-
-export const SETTINGS_NOISY = locator(['v5', 'textfield', 'required', 'noisy']);
-export const SETTINGS_NOISY_INPUT = locator(['v5', 'textfield', 'required', 'noisy'], 'input');
-
-export const SETTINGS_SILENT = locator(['v5', 'textfield', 'required', 'silent']);
-export const SETTINGS_SILENT_INPUT = locator(['v5', 'textfield', 'required', 'silent'], 'input');
-
-export const SETTINGS_SILENT_GROUP = locator(['v5', 'textfield', 'required', 'silent', 'by-group']);
-export const SETTINGS_SILENT_GROUP_INPUT = locator(['v5', 'textfield', 'required', 'silent', 'by-group'], 'input');
-
 export const DISABLER_INPUT = locator(['v5', 'textfield', 'required', 'disabler'], 'input');
 export const DISABLER_BUTTON_DYNAMIC = locator(['v5', 'textfield', 'required', 'disabler'], 'button');
 export const DISABLER_BUTTON_AWAYS_OFF = locator(['v5', 'textfield', 'required', 'disabler', 'always-off'], 'button');
@@ -124,18 +107,7 @@ export const PICKER_REGEX_INPUT = locator(['v5', 'picker', 'regex'], 'input');
 export const PICKER_CUSTOM = locator(['v5', 'picker', 'custom']);
 export const PICKER_CUSTOM_INPUT = locator(['v5', 'picker', 'custom'], 'input');
 
-export const TEXTFIELD_LINKED_1 = locator(['v5', 'textfield', 'linked', '1']);
-export const TEXTFIELD_LINKED_1_INPUT = locator(['v5', 'textfield', 'linked', '1'], 'input');
-export const TEXTFIELD_LINKED_2 = locator(['v5', 'textfield', 'linked', '2']);
-export const TEXTFIELD_LINKED_2_INPUT = locator(['v5', 'textfield', 'linked', '2'], 'input');
-export const TEXTFIELD_LINKED_3 = locator(['v5', 'textfield', 'linked', '3']);
-export const TEXTFIELD_LINKED_3_INPUT = locator(['v5', 'textfield', 'linked', '3'], 'input');
-
-export const TEXTFIELD_LINKED_EXAMPLE_1 = locator(['v5', 'textfield', 'linked', 'example', '1']);
-export const TEXTFIELD_LINKED_EXAMPLE_1_INPUT = locator(['v5', 'textfield', 'linked', 'example', '1'], 'input');
-export const TEXTFIELD_LINKED_EXAMPLE_2 = locator(['v5', 'textfield', 'linked', 'example', '2']);
-export const TEXTFIELD_LINKED_EXAMPLE_2_INPUT = locator(['v5', 'textfield', 'linked', 'example', '2'], 'input');
-
-export const UNREG_UNREGISTER_BUTTON = locator(['v5', 'unreg', 'unregister'], 'button');
-export const UNREG_REGISTER_BUTTON = locator(['v5', 'unreg', 'register'], 'input');
-export const UNREG_CHECK_BUTTON = locator(['v5', 'unreg', 'check'], 'button');
+export * from './linked-validations/locators';
+export * from './unregister-validation/locators';
+export * from './fixes/locators';
+export * from './validation-mode-settings/locators';
