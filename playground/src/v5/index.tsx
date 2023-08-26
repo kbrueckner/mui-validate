@@ -293,7 +293,7 @@ const V5 = () => {
                                     <ErrorList title="Detected errors" alwaysVisible />
                                 </Grid>
                                 <Grid item id={ERRORLIST2}>
-                                    <ErrorList title="Detected errors - hidden if no errors" />
+                                    <ErrorList title="Detected errors - hidden if no errors (cutom error message rendering)" renderErrorMessage={(name, message) => `${name} >> ${message}`} />
                                 </Grid>
                             </Grid>
                         </Box>
