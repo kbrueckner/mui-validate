@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { TextField, Select, MenuItem, Button, Container, Grid, Box, Typography, Autocomplete, FormControl, InputLabel, FormHelperText } from '@mui/material';
 import { ValidationGroup, Validate, AutoDisabler, ErrorList, AutoHide } from '../component-lib';
-import { LocalizationProvider, DatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import {
     AUTOCOMPLETE_CUSTOM, AUTOCOMPLETE_CUSTOM_INITIAL, AUTOCOMPLETE_CUSTOM_INPUT,
     AUTOCOMPLETE_REGEX, AUTOCOMPLETE_REGEX_INPUT, AUTOCOMPLETE_REQUIRED,
@@ -32,11 +32,12 @@ import {
     DISABLER_DISPLAY_2_ERRORLIST, DISABLER_DISPLAY_2_INPUT, DISABLER_DISPLAY_2_BUTTON, DISABLER_DISPLAY_2_CONTROL, DISABLER_DISPLAY_2_BUTTON_2, FIXES_LABEL_TEST,
     TEXTFIELD_LINKED_1, TEXTFIELD_LINKED_2, TEXTFIELD_LINKED_3, TEXTFIELD_LINKED_1_INPUT, TEXTFIELD_LINKED_2_INPUT, TEXTFIELD_LINKED_3_INPUT,
     TEXTFIELD_LINKED_EXAMPLE_1, TEXTFIELD_LINKED_EXAMPLE_2, TEXTFIELD_LINKED_EXAMPLE_1_INPUT, TEXTFIELD_LINKED_EXAMPLE_2_INPUT,
+    UNREG_UNREGISTER_BUTTON, UNREG_REGISTER_BUTTON, UNREG_CHECK_BUTTON,
 } from './locators';
 
 const V5 = () => {
     const [dateRequired, setDateRequired]: [string | null | undefined, Function] = useState(null);
-    const handleDateRequiredChange = (date: unknown, value?: string | null | undefined) => {
+    const handleDateRequiredChange = (date: unknown, value: string | null | undefined) => {
         setDateRequired(date);
     };
 
@@ -64,53 +65,86 @@ const V5 = () => {
     const [linkedValueExample, setLinkedValueExample]: [string, Function] = useState('');
     const linkedRefExample = useRef();
 
+    const [registered, setRegistered]: [boolean, Function] = useState(true);
+
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Container>
+                <Typography variant="h5">Unregister validation</Typography>
+                <ValidationGroup initialValidation='noisy'>
+                    <Box style={{ border: '1px solid #000'}} p={1}>
+                        <Box mb={2}>
+                            <Typography variant="caption">Unregister a validation from validation group after initial registration</Typography>
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={3}>
+                                { registered ? (
+                                <Validate name="registeredTextfield" required>
+                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" required />
+                                </Validate>
+                                ) : <div>nothing registered</div> }
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Validate name="registeredTextfieldFixValue" required>
+                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" value="fix value" required />
+                                </Validate>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <Button id={UNREG_UNREGISTER_BUTTON} variant="outlined" onClick={() => setRegistered(false)}>Unregister</Button>
+                                <Button id={UNREG_REGISTER_BUTTON} variant="outlined" onClick={() => setRegistered(true)}>Register</Button>
+                            </Grid>
+                            <Grid item xs={1}>
+                                <AutoDisabler>
+                                    <Button id={UNREG_CHECK_BUTTON} variant="outlined">test</Button>
+                                </AutoDisabler>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
                 <Typography variant="h5">Linked validations</Typography>
-                    <ValidationGroup initialValidation='noisy'>
-                        <Box style={{ border: '1px solid #000'}} p={1}>
-                            <Box mb={2}>
-                                <Typography variant="caption">Re-trigger validation via linked component</Typography>
-                            </Box>
-                            <Grid container spacing={1}>
-                                <Grid item xs={3}>
-                                    <Validate name="tf1" required id={TEXTFIELD_LINKED_1} reference={linkedRef1}>
-                                        <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} id={TEXTFIELD_LINKED_1_INPUT} />
-                                    </Validate>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <Validate name="tf2" required id={TEXTFIELD_LINKED_2} reference={linkedRef2}>
-                                        <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} id={TEXTFIELD_LINKED_2_INPUT} />
-                                    </Validate>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Validate name="tf3" required id={TEXTFIELD_LINKED_3} triggers={[linkedRef2, linkedRef1]}>
-                                        <TextField label="Textfield 3 - duplicates value to Textfield 1 and 2" fullWidth variant="outlined" size="small" required onChange={(evt) => {setLinkedValue(evt.target.value)}} id={TEXTFIELD_LINKED_3_INPUT} />
-                                    </Validate>
-                                </Grid>
-                            </Grid>
+                <ValidationGroup initialValidation='noisy'>
+                    <Box style={{ border: '1px solid #000'}} p={1}>
+                        <Box mb={2}>
+                            <Typography variant="caption">Re-trigger validation via linked component</Typography>
                         </Box>
-                    </ValidationGroup>
-                    <ValidationGroup initialValidation='noisy'>
-                        <Box style={{ border: '1px solid #000'}} p={1}>
-                            <Box mb={2}>
-                                <Typography variant="caption">Linked validation from README example</Typography>
-                            </Box>
-                            <Grid container spacing={1}>
-                                <Grid item xs={6}>
-                                    <Validate name="tf1" custom={[() => !!linkedValueExample, 'Textfield 2 is empty']} id={TEXTFIELD_LINKED_EXAMPLE_1} reference={linkedRefExample}>
-                                        <TextField label="Validation relies on field 2 input" fullWidth variant="outlined" size="small" id={TEXTFIELD_LINKED_EXAMPLE_1_INPUT} />
-                                    </Validate>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Validate name="tf2" id={TEXTFIELD_LINKED_EXAMPLE_2} triggers={linkedRefExample}>
-                                        <TextField label="This field is required for validation of first field" fullWidth variant="outlined" size="small" required value={linkedValueExample} onChange={(evt) => setLinkedValueExample(evt.target.value)} id={TEXTFIELD_LINKED_EXAMPLE_2_INPUT} />
-                                    </Validate>
-                                </Grid>
+                        <Grid container spacing={1}>
+                            <Grid item xs={3}>
+                                <Validate name="tf1" required id={TEXTFIELD_LINKED_1} reference={linkedRef1}>
+                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} id={TEXTFIELD_LINKED_1_INPUT} />
+                                </Validate>
                             </Grid>
+                            <Grid item xs={3}>
+                                <Validate name="tf2" required id={TEXTFIELD_LINKED_2} reference={linkedRef2}>
+                                    <TextField label="This field is required" fullWidth variant="outlined" size="small" required value={linkedValue} onChange={(evt) => setLinkedValue(evt.target.value)} id={TEXTFIELD_LINKED_2_INPUT} />
+                                </Validate>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Validate name="tf3" required id={TEXTFIELD_LINKED_3} triggers={[linkedRef2, linkedRef1]}>
+                                    <TextField label="Textfield 3 - duplicates value to Textfield 1 and 2" fullWidth variant="outlined" size="small" required onChange={(evt) => {setLinkedValue(evt.target.value)}} id={TEXTFIELD_LINKED_3_INPUT} />
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
+                <ValidationGroup initialValidation='noisy'>
+                    <Box style={{ border: '1px solid #000'}} p={1}>
+                        <Box mb={2}>
+                            <Typography variant="caption">Linked validation from README example</Typography>
                         </Box>
-                    </ValidationGroup>
+                        <Grid container spacing={1}>
+                            <Grid item xs={6}>
+                                <Validate name="tf1" custom={[() => !!linkedValueExample, 'Textfield 2 is empty']} id={TEXTFIELD_LINKED_EXAMPLE_1} reference={linkedRefExample}>
+                                    <TextField label="Validation relies on field 2 input" fullWidth variant="outlined" size="small" id={TEXTFIELD_LINKED_EXAMPLE_1_INPUT} />
+                                </Validate>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Validate name="tf2" id={TEXTFIELD_LINKED_EXAMPLE_2} triggers={linkedRefExample}>
+                                    <TextField label="This field is required for validation of first field" fullWidth variant="outlined" size="small" required value={linkedValueExample} onChange={(evt) => setLinkedValueExample(evt.target.value)} id={TEXTFIELD_LINKED_EXAMPLE_2_INPUT} />
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
                 <Typography variant="h5">Fixes</Typography>
                 <Grid container spacing={1}>
                     <Grid item xs={6}>
@@ -747,7 +781,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateRequired}
                                                 onChange={handleDateRequiredChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_REQUIRED_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_REQUIRED_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>
@@ -768,7 +802,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateUnique}
                                                 onChange={handleDateUniqueChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_UNIQUE_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_UNIQUE_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>
@@ -791,7 +825,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateRegex}
                                                 onChange={handleDateRegexChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_REGEX_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_REGEX_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>
@@ -812,7 +846,7 @@ const V5 = () => {
                                                 label={'Valid to'}
                                                 value={dateCustom}
                                                 onChange={handleDateCustomChange}
-                                                renderInput={(params) => <TextField {...params} id={PICKER_CUSTOM_INPUT} />}
+                                                renderInput={(params: any) => <TextField {...params} id={PICKER_CUSTOM_INPUT} />}
                                             />
                                         </Validate>
                                     </Grid>

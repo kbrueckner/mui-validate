@@ -3,3 +3,7 @@ dist
 coverage
 reports
 .eslintcache
+results.xml
+.env
+playwright-report
+test-results

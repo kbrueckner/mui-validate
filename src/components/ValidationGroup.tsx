@@ -26,9 +26,26 @@ const ValidationGroup = ({
         });
     };
 
+    const removeValidation = (key: string): void => {
+        const newValidations: ValidationCollection = JSON.parse(JSON.stringify(validations));
+        delete newValidations[key];
+        setValidations({
+            ...newValidations,
+        });
+    };
+
     return (
         <ValidationContext.Provider value={{
-            validations, setValidations, allValid, initialValidation, validation, updateValidation, initialState, autoDisablersWereTriggered, setAutoDisablersWereTriggered,
+            validations,
+            setValidations,
+            allValid,
+            initialValidation,
+            validation,
+            updateValidation,
+            initialState,
+            autoDisablersWereTriggered,
+            setAutoDisablersWereTriggered,
+            removeValidation,
         }}
         >
             {children}
