@@ -4,7 +4,7 @@ import { InputType } from '../type';
 export const detectInputType = (props: any): InputType => {
     if (typeof props.autoComplete === 'boolean' || props.getOptionLabel !== undefined) { return 'autocomplete'; }
     if ([
-        // date picker up to v5
+        // date picker v5
         props.allowKeyboardControl, props.KeyboardButtonProps, props.inputFormat,
         props.mask, props.minDate, props.maxDate, props.disableMaskedInput, props.disableOpenPicker,
         props.disableHighlightToday, props.desktopModeMediaQuery, props.defaultCalendarMonth,
