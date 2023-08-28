@@ -64,7 +64,8 @@
         "react/require-default-props": "off",
         "@typescript-eslint/ban-types": "off",
         "no-empty-function": "off",
-        "@typescript-eslint/no-empty-function": "off"
+        "@typescript-eslint/no-empty-function": "off",
+        "import/no-relative-packages": "off"
     },
     "globals": {
         "jest": true

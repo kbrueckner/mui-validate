@@ -1,31 +1,26 @@
-import { Container } from '@mui/material';
-import UnregisterValidation from './unregister-validation';
-import LinkedValidations from './linked-validations';
-import Fixes from './fixes';
-import ValidationModeSettings from './validation-mode-settings';
-import ErrorLists from './error-lists';
-import AutoDisablers from './auto-disablers';
-import TextFields from './text-fields';
-import TextFieldSelects from './text-field-selects';
-import Selects from './selects';
-import Autocompletes from './autocompletes';
-import Pickers from './pickers';
+import { Button, Box, Grid } from '@mui/material';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const V5 = () => {
     return (
-        <Container>
-            <UnregisterValidation />
-            <LinkedValidations />
-            <Fixes />
-            <ValidationModeSettings />
-            <ErrorLists />
-            <AutoDisablers />
-            <TextFields />
-            <TextFieldSelects />
-            <Selects />
-            <Autocompletes />
-            <Pickers />
-        </Container>
+        <>
+            <Grid container spacing={1} mt={2}>
+                <Grid item><NavLink to="/unregister-validation"><Button variant="outlined">Unregister Validation</Button></NavLink></Grid>
+                <Grid item><NavLink to="/linked-validations"><Button variant="outlined">Linked Validations</Button></NavLink></Grid>
+                <Grid item><NavLink to="/fixes"><Button variant="outlined">Fixes</Button></NavLink></Grid>
+                <Grid item><NavLink to="/validation-mode-settings"><Button variant="outlined">Validation Mode Settings</Button></NavLink></Grid>
+                <Grid item><NavLink to="/errorlists"><Button variant="outlined">Errorlists</Button></NavLink></Grid>
+                <Grid item><NavLink to="/autodisablers"><Button variant="outlined">Autodisablers</Button></NavLink></Grid>
+                <Grid item><NavLink to="/textfields"><Button variant="outlined">Textfields</Button></NavLink></Grid>
+                <Grid item><NavLink to="/textfield-selects"><Button variant="outlined">Textfield Selects</Button></NavLink></Grid>
+                <Grid item><NavLink to="/selects"><Button variant="outlined">Selects</Button></NavLink></Grid>
+                <Grid item><NavLink to="/autocompletes"><Button variant="outlined">Autocompletes</Button></NavLink></Grid>
+                <Grid item><NavLink to="/pickers"><Button variant="outlined">Pickers</Button></NavLink></Grid>
+            </Grid>
+            <Box mt={5}>
+                <Outlet />
+            </Box>
+        </>
     );
 };
 

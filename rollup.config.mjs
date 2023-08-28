@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript2';
 import del from 'rollup-plugin-delete';
 import dts from 'rollup-plugin-dts';
-import pkg from './package.json' assert { type: "json" };
+import pkg from './package.json' assert { type: 'json' };
 
 export default [
     {
@@ -25,7 +25,7 @@ export default [
         external: Object.keys(pkg.peerDependencies || {}),
     },
     {
-        input: 'dist/dts/index.d.ts',
+        input: 'dist/dts/src/index.d.ts',
         output: [
             { file: 'dist/index.d.ts', format: 'es' },
             { file: 'playground/src/component-lib/index.d.ts', format: 'es' },
