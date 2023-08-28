@@ -45,4 +45,4 @@ export type ValidationInfo = {
     setAutoDisablersWereTriggered: (triggered: boolean) => void;
 };
 
-export type InputType = 'textfield' | 'select' | 'autocomplete' | 'picker';
+export type InputType = 'textfield' | 'select' | 'autocomplete' | 'picker' | 'datepicker';

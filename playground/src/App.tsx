@@ -11,7 +11,9 @@ import TextFields from './v5/text-fields';
 import Selects from './v5/selects';
 import Autocompletes from './v5/autocompletes';
 import Pickers from './v5/pickers';
+import PickersV6 from './v6/pickers';
 import V5 from "./v5";
+import V6 from "./v6";
 
 const App = () => {
     return <ThemeProvider theme={createTheme()}>
@@ -20,20 +22,24 @@ const App = () => {
             <RouterProvider router={
                 createBrowserRouter(
                 createRoutesFromElements(
-                    <Route path="/" element={<V5 />}>
-                        <Route path="unregister-validation" element={<UnregisterValidation />} />
-                        <Route path="linked-validations" element={<LinkedValidations />} />
-                        <Route path="fixes" element={<Fixes />} />
-                        <Route path="validation-mode-settings" element={<ValidationModeSettings />} />
-                        <Route path="errorlists" element={<ErrorLists />} />
-                        <Route path="autodisablers" element={<AutoDisablers />} />
-                        <Route path="textfields" element={<TextFields />} />
-                        <Route path="textfield-selects" element={<TextFieldSelects />} />
-                        <Route path="selects" element={<Selects />} />
-                        <Route path="autocompletes" element={<Autocompletes />} />
-                        <Route path="pickers" element={<Pickers />} />
-                    </Route>
-                        
+                    <>
+                        <Route path="/" element={<V5 />}>
+                            <Route path="unregister-validation" element={<UnregisterValidation />} />
+                            <Route path="linked-validations" element={<LinkedValidations />} />
+                            <Route path="fixes" element={<Fixes />} />
+                            <Route path="validation-mode-settings" element={<ValidationModeSettings />} />
+                            <Route path="errorlists" element={<ErrorLists />} />
+                            <Route path="autodisablers" element={<AutoDisablers />} />
+                            <Route path="textfields" element={<TextFields />} />
+                            <Route path="textfield-selects" element={<TextFieldSelects />} />
+                            <Route path="selects" element={<Selects />} />
+                            <Route path="autocompletes" element={<Autocompletes />} />
+                            <Route path="pickers" element={<Pickers />} />
+                        </Route>
+                        <Route path="v6" element={<V6 />}>
+                            <Route path="pickers" element={<PickersV6 />} />
+                        </Route>
+                    </>
                 )
             )} />
         </Container>

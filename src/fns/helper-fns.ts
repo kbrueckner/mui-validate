@@ -6,11 +6,20 @@ const detectAutocomplete = (props: any): boolean => typeof props.autoComplete ==
 // eslint-disable-next-line
 const detectPickerV5 = (props: any): boolean => [
     props.allowKeyboardControl, props.KeyboardButtonProps, props.inputFormat,
-    props.mask, props.minDate, props.maxDate, props.disableMaskedInput, props.disableOpenPicker,
-    props.disableHighlightToday, props.desktopModeMediaQuery, props.defaultCalendarMonth,
-    props.allowSameDateSelection, props.onMonthChange, props.onYearChange, props.showDaysOutsideCurrentMonth,
-    props.OpenPickerButtonProps, props.renderDay, props.shouldDisableDate, props.shouldDisableYear,
+    props.mask, props.disableMaskedInput, props.allowSameDateSelection,
+    props.OpenPickerButtonProps, props.renderDay,
     props.showTodayButton, props.todayText,
+].some((val) => val !== undefined);
+
+// eslint-disable-next-line
+const detectPickerV6 = (props: any): boolean => [
+    props.slots, props.dayOfWeekFormatter, props.defaultCalendarMonth, props.desktopModeMediaQuery,
+    props.disableFuture, props.disableHighlightToday, props.closeOnSelect, props.disableOpenPicker,
+    props.disablePast, props.displayWeekNumber, props.fixedWeekNumber, props.format, props.formatDensity,
+    props.localeText, props.minDate, props.maxDate, props.monthsPerRow, props.onMonthChange,
+    props.onSelectedSectionsChange, props.onViewChange, props.onYearChange, props.openTo, props.reduceAnimations,
+    props.selectedSections, props.shouldDisableDate, props.shouldDisableYear, props.shouldDisableMonth,
+    props.showDaysOutsideCurrentMonth, props.slotProps, props.timezone, props.yearsPerRow,
 ].some((val) => val !== undefined);
 
 // eslint-disable-next-line
@@ -18,6 +27,10 @@ export const detectInputType = (props: any): InputType => {
     if (
         detectAutocomplete(props)
     ) { return 'autocomplete'; }
+
+    if (
+        detectPickerV6(props)
+    ) { return 'datepicker'; }
 
     if (
         detectPickerV5(props)
