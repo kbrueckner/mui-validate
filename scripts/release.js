@@ -6,35 +6,41 @@ const readline = require('readline').createInterface({
 });
 const package = require('../package.json');
 
-const confirmToProceed = (message, callback) => {
+const confirmToProceed = (message, callback, stopOnNo = true) => {
     readline.question(`${message} (y/n): `, (answer) => {
-        if (answer.toLowerCase() !== 'y') {
+        const answeredWith = answer.toLowerCase();
+
+        if (answeredWith !== 'y' && stopOnNo) {
             readline.close();
             console.log('Cancelled release');
             return;
         }
 
-        callback();
+        callback(answeredWith === 'y');
     });
 };
 
 console.log(`Current package version: ${package.version}`);
 
 confirmToProceed('Is the set version correct for this release?', () => {
-    confirmToProceed('Did all integration tests pass?', () => {
-        const releasePackage = { ...package };
-        delete releasePackage.scripts;
+    confirmToProceed('Is this a beta?', (isBeta) => {
+        confirmToProceed('Did all integration tests pass?', () => {
+            const releasePackage = { ...package };
+            delete releasePackage.scripts;
 
-        try {
-            fs.writeFileSync('dist/package.json', JSON.stringify(releasePackage));
-            fs.copyFileSync('README.md', 'dist/README.md');
+            try {
+                fs.writeFileSync('dist/package.json', JSON.stringify(releasePackage));
+                fs.copyFileSync('README.md', 'dist/README.md');
 
-            require('child_process').execSync('npm publish ./dist');
-        } catch (err) {
-            console.error(err);
-        }
+                const publishCommand = `npm publish ./dist${isBeta ? ' --tag beta' : ''}`;
 
-        readline.close();
-        console.log('Package released');
-    });
+                require('child_process').execSync(publishCommand);
+            } catch (err) {
+                console.error(err);
+            }
+
+            readline.close();
+            console.log('Package released');
+        });
+    }, false);
 });
