@@ -86,8 +86,8 @@ const Validate = ({
                 value = getValueFromAutocomplete(children.props.value, children);
             // eslint-disable-next-line
             }
-            // picker
-            else if (detectedInputType === 'picker') {
+            // picker (v5) || datepicker (v6)
+            else if (detectedInputType === 'picker' || detectedInputType === 'datepicker') {
                 if (children.props.value) {
                     try {
                         value = new Date(children.props.value).toISOString();

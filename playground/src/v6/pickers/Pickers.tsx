@@ -31,7 +31,7 @@ const Pickers = () => {
     
     return <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Box>
-            <Typography variant="h5">Pickers</Typography>
+            <Typography variant="h5">Pickers (V6)</Typography>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
                     <ValidationGroup>
@@ -41,16 +41,17 @@ const Pickers = () => {
                             </Box>
                             <Grid container spacing={1}>
                                 <Grid item xs={12}>
-                                    {/* <Validate name="DatePicker required" required id={PICKER_REQUIRED} initialValidation="noisy"> */}
+                                    <Validate name="DatePicker required" required id={PICKER_REQUIRED} initialValidation="noisy">
                                         <DatePicker
-                                            // inputFormat="dd.MM.yyyy"
-                                            // mask="__.__.____"
+                                            format="dd.MM.yyyy"
                                             label={'Valid to'}
                                             value={dateRequired}
                                             onChange={handleDateRequiredChange}
-                                            // renderInput={(params: any) => <TextField {...params} id={PICKER_REQUIRED_INPUT} />}
+                                            slotProps={{
+                                                field: { id: PICKER_REQUIRED_INPUT }
+                                            }}
                                         />
-                                    {/* </Validate> */}
+                                    </Validate>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -62,16 +63,17 @@ const Pickers = () => {
                             </Box>
                             <Grid container spacing={1}>
                                 <Grid item xs={12}>
-                                    {/* <Validate name="DatePicker unique" unique={['2021-11-10T23:00:00.000Z']} id={PICKER_UNIQUE} initialValidation="noisy"> */}
+                                    <Validate name="DatePicker unique" unique={['2021-11-10T23:00:00.000Z']} id={PICKER_UNIQUE} initialValidation="noisy">
                                         <DatePicker
-                                            // inputFormat="dd.MM.yyyy"
-                                            // mask="__.__.____"
+                                            format="dd.MM.yyyy"
                                             label={'Valid to'}
                                             value={dateUnique}
                                             onChange={handleDateUniqueChange}
-                                            // renderInput={(params: any) => <TextField {...params} id={PICKER_UNIQUE_INPUT} />}
+                                            slotProps={{
+                                                field: { id: PICKER_UNIQUE_INPUT }
+                                            }}
                                         />
-                                    {/* </Validate> */}
+                                    </Validate>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -85,16 +87,17 @@ const Pickers = () => {
                             </Box>
                             <Grid container spacing={1}>
                                 <Grid item xs={12}>
-                                    {/* <Validate name="DatePicker reegex" regex={/2020-11-10T23:00:00\.000Z/} id={PICKER_REGEX} initialValidation="noisy"> */}
+                                    <Validate name="DatePicker reegex" regex={/2020-11-10T23:00:00\.000Z/} id={PICKER_REGEX} initialValidation="noisy">
                                         <DatePicker
-                                            // inputFormat="dd.MM.yyyy"
-                                            // mask="__.__.____"
+                                            format="dd.MM.yyyy"
                                             label={'Valid to'}
                                             value={dateRegex}
                                             onChange={handleDateRegexChange}
-                                            // renderInput={(params: any) => <TextField {...params} id={PICKER_REGEX_INPUT} />}
+                                            slotProps={{
+                                                field: { id: PICKER_REGEX_INPUT }
+                                            }}
                                         />
-                                    {/* </Validate> */}
+                                    </Validate>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -106,16 +109,17 @@ const Pickers = () => {
                             </Box>
                             <Grid container spacing={1}>
                                 <Grid item xs={12}>
-                                    {/* <Validate name="DatePicker custom" custom={[(value: string) => value === '2020-11-10T23:00:00.000Z', 'failed']} id={PICKER_CUSTOM} initialValidation="noisy"> */}
+                                    <Validate name="DatePicker custom" custom={[(value: string) => value === '2020-11-10T23:00:00.000Z', 'failed']} id={PICKER_CUSTOM} initialValidation="noisy">
                                         <DatePicker
-                                            // inputFormat="dd.MM.yyyy"
-                                            // mask="__.__.____"
+                                            format="dd.MM.yyyy"
                                             label={'Valid to'}
                                             value={dateCustom}
                                             onChange={handleDateCustomChange}
-                                            // renderInput={(params: any) => <TextField {...params} id={PICKER_CUSTOM_INPUT} />}
+                                            slotProps={{
+                                                field: { id: PICKER_CUSTOM_INPUT }
+                                            }}
                                         />
-                                    {/* </Validate> */}
+                                    </Validate>
                                 </Grid>
                             </Grid>
                         </Box>

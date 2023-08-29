@@ -12,8 +12,7 @@ import Selects from './v5/selects';
 import Autocompletes from './v5/autocompletes';
 import Pickers from './v5/pickers';
 import PickersV6 from './v6/pickers';
-import V5 from "./v5";
-import V6 from "./v6";
+import Layout from "./layout";
 
 const App = () => {
     return <ThemeProvider theme={createTheme()}>
@@ -23,7 +22,7 @@ const App = () => {
                 createBrowserRouter(
                 createRoutesFromElements(
                     <>
-                        <Route path="/" element={<V5 />}>
+                        <Route path="/" element={<Layout />}>
                             <Route path="unregister-validation" element={<UnregisterValidation />} />
                             <Route path="linked-validations" element={<LinkedValidations />} />
                             <Route path="fixes" element={<Fixes />} />
@@ -36,7 +35,7 @@ const App = () => {
                             <Route path="autocompletes" element={<Autocompletes />} />
                             <Route path="pickers" element={<Pickers />} />
                         </Route>
-                        <Route path="v6" element={<V6 />}>
+                        <Route path="v6" element={<Layout />}>
                             <Route path="pickers" element={<PickersV6 />} />
                         </Route>
                     </>
