@@ -125,7 +125,7 @@ The Validate component has the following attributes and validation rules:
 Attribute|Mandatory|Type|Default|Description
 --|--|--|--|--
 name|x|string|-|Unique internal identifier for the validation
-inputType|-|'detect' \| 'textfield' \| 'select' \| 'autocomplete' \| 'picker'|'detect'|Type of the encapsulated input i.e. textfield or select, when set to detect it will be tried to find the right input type automatically which could be error prone.
+inputType|-|'detect' \| 'textfield' \| 'select' \| 'autocomplete' \| 'picker' (MUI X 5) \| 'datepicker' (MUI X 6)|'detect'|Type of the encapsulated input i.e. textfield or select, when set to detect it will be tried to find the right input type automatically which could be error prone.
 required|-|bool \| [bool, string]|true|Tests for a value to be set
 unique|-|string[] \| [string[], string]|-|Checks the provided value to not be in a list of provided values
 regex|-|regexp \| [regexp, string]|-|Tests against a given regular expression
