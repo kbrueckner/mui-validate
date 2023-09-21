@@ -27,6 +27,7 @@ confirmToProceed('Is the set version correct for this release?', () => {
         confirmToProceed('Did all integration tests pass?', () => {
             const releasePackage = { ...package };
             delete releasePackage.scripts;
+            delete releasePackage.engines;
 
             try {
                 fs.writeFileSync('dist/package.json', JSON.stringify(releasePackage));

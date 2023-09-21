@@ -1,6 +1,9 @@
 {
   "name": "playground",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=18.17.1"
+  },
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.17.0",

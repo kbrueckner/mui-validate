@@ -5,6 +5,7 @@ import {
     ValidationRuleRegex, ValidationRuleRequired, ValidationRules,
     ValidationRuleUnique, Validation, ValidationRuleCustom, InputType,
     ValidationMode,
+    ValidateRef,
 } from '../type';
 import { useValidation } from './ValidationContext';
 import validate from '../fns/validation-fns';
@@ -30,9 +31,9 @@ export type ValidateProps = {
     validation?: ValidationMode;
     children: JSX.Element & { fullWidth?: boolean; labelId?: string; };
     // eslint-disable-next-line
-    reference?: RefObject<any>; // the name ref is reserved for html object referencing
+    reference?: RefObject<ValidateRef>; // the name ref is reserved for html object referencing
     // eslint-disable-next-line
-    triggers?: RefObject<any> | RefObject<any>[];
+    triggers?: RefObject<ValidateRef> | RefObject<ValidateRef>[];
     classes?: {
         root?: string;
         message?: string;
@@ -47,9 +48,9 @@ export type AdditionalProps = {
 
 const Validate = ({
     children, name, required, unique, regex, custom, after, before, triggers = [], classes = {},
-    initialValidation, validation, inputType = 'detect', id, reference = { current: {} },
+    initialValidation, validation, inputType = 'detect', id, reference,
 }: ValidateProps): JSX.Element => {
-    // val reflects the actual value, which is updated on every cvhange event
+    // val reflects the actual value, which is updated on every change event
     // it needs to be persisted so that cross-triggers do have a calculation base
     const [val, setVal]: [string, Function] = useState(children.props.value || '');
 
@@ -129,9 +130,24 @@ const Validate = ({
         }
     });
 
+    const triggerCrossValidations = () => {
+        // map triggers into array if not already one
+        const triggerRefsArray = Array.isArray(triggers) ? triggers : [triggers];
+
+        // trigger validations of linked validates
+        // we give us a little buffer time before the trigger so that all external value changhes
+        // have already been processed before the -re-validation
+        // eslint-disable-next-line
+        // @ts-ignore
+        setTimeout(() => triggerRefsArray.forEach((tRef: RefObject<ValidateRef>) => {
+            if (tRef.current && tRef.current.validate) { tRef.current.validate(); }
+        }), 50);
+    };
+
     // this is triggered on unmount and will unregister the validation from the validation group
     useEffect(() => () => {
         removeValidation(name);
+        triggerCrossValidations();
     }, []);
 
     // validate and return validation result
@@ -202,17 +218,7 @@ const Validate = ({
         // after hook operations
         if (after) { after(validationResult); }
 
-        // map triggers into array if not already one
-        const triggerRefsArray = Array.isArray(triggers) ? triggers : [triggers];
-
-        // trigger validations of linked validates
-        // we give us a little buffer time before the trigger so that all external value changhes
-        // have already been processed before the -re-validation
-        // eslint-disable-next-line
-        // @ts-ignore
-        setTimeout(() => triggerRefsArray.forEach((tRef: RefObject<any>) => {
-            if (tRef.current && tRef.current.validate) { tRef.current.validate(); }
-        }), 50);
+        triggerCrossValidations();
     }, [val]);
 
     // enrich passed in reference object to make revalidation available
