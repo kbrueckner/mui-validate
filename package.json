@@ -1,9 +1,10 @@
 {
   "name": "mui-validate",
-  "version": "1.1.0-beta.2",
+  "version": "1.1.0",
   "description": "Validation tools for Material UI components and component groups",
   "main": "index.cjs.js",
   "module": "index.esm.js",
+  "types": "index.d.ts",
   "engines": {
     "node": ">=18.17.1"
   },
