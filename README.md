@@ -1,11 +1,76 @@
 # MUI Validate
 
+## Overview
+
 This validation module allows you to validate inputs for [Material-UI](https://www.npmjs.com/package/@mui/material) input components such as TextField and Select.
 Multiple inputs can be grouped together into a validation group.
 Based on the validity of a validation group buttons in the group can be enabled/disabled and elements can be hidden automatically.
 The current state of a validation group can be accessed via a react hook.
 
 Goal of this project is to wrap Material-UI components with validators instead of creating them via validation components. The advantage of this is that you can stay Material-UI native while writing templates.
+
+## Getting started
+
+### Installation
+
+```javascript
+npm install --save mui-validate
+```
+
+or
+
+```javascript
+yarn add mui-validate
+```
+
+### Peer dependencies
+
+Peer dependencies for mui-validate are react and @mui/material.
+
+```javascript
+"peerDependencies": {
+    "@mui/material": "5.x",
+    "react": "^17.0.0 || ^18.0.0"
+},
+```
+
+### Usage
+
+The most basic example on how to use mui-validate is as follows.
+
+```javascript
+<ValidationGroup>
+    <Validate name="Textfield required" required>
+        <TextField />
+    <Validate>
+    <AutoDisabler>
+        <Button>Click me</Button>
+    </AutoDisabler>
+</ValidationGroup>
+```
+
+How does it work in detail?
+
+The ValidationGroup handles the state of 1 or more validations.
+
+Each Validate will add listeners to the change event of the wrapped input components and validate against the defined rules - in the given example is checks if a value is set.
+
+AutoDisabler disables the wrapped button if there is at least one validation failing.
+
+For details and configuration options please refer to the corrosponding component documentation.
+
+## Components
+
+* [ValidationGroup](doc/ValidationGroup.md)
+* [Validate](doc/Validate.md)
+
+
+
+
+
+
+
+
 
 ## How to use it
 
