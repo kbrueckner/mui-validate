@@ -1,4 +1,4 @@
-[<< back to overview](../README.md)
+[<< back to overview](../../README.md)
 
 # Validate
 
@@ -228,7 +228,7 @@ Defaults to: 'noisy'
 
 ### reference (optional)
 
-React RefObject which enables cross validation triggering
+React RefObject which enables cross validation triggering.
 
 Type: RefObject
 
@@ -237,57 +237,66 @@ Defaults to: undefined
 #### Usage
 
 ```javascript
-<Validate name="my identifier" after={customHookFunction}>
+// create ref object to enable cross validation
+const validationRef = useRef();
+
+<Validate name="my identifier" reference={validationRef}>
     ...
 </Validate>
 ```
 
 ### triggers (optional)
 
-A hook for functionality triggered after validation (with access to the validation result).
+React RefObject(s) which will be automatically triggered for (re-)validation if current input field validation finished (independent whether successful or not).
 
-Type: (result: Validation) => void;
+Type: RefObject | RefObject[]
 
 Defaults to: undefined
 
 #### Usage
 
 ```javascript
-<Validate name="my identifier" after={customHookFunction}>
+/*
+   ref object to use for cross validation
+   this reference has to be passed to another Validate which has a connected validation (see reference prop)
+*/
+const validationRef = useRef();
+
+<Validate name="my identifier" triggers={validationRef}>
     ...
 </Validate>
 ```
 
 ### id (optional)
 
-A hook for functionality triggered after validation (with access to the validation result).
+Id passed to the CSS id attribute for the validation wrapper (root).
 
-Type: (result: Validation) => void;
+Type: string
 
 Defaults to: undefined
 
 #### Usage
 
 ```javascript
-<Validate name="my identifier" after={customHookFunction}>
+<Validate name="my identifier" id="myId">
     ...
 </Validate>
 ```
 
 ### classes (optional)
 
-A hook for functionality triggered after validation (with access to the validation result).
+Object to define custom classes for the validation wrapper (root) and error message element (message).
 
-Type: (result: Validation) => void;
+Type: { root?: string, message?: string }
 
 Defaults to: undefined
 
 #### Usage
 
 ```javascript
-<Validate name="my identifier" after={customHookFunction}>
+<Validate name="my identifier" classes={{ root: 'rootClass', message: 'messageClass' }}>
     ...
 </Validate>
 ```
 
-[<< back to overview](../README.md)
+[<< back to overview](../../README.md)
