@@ -43,7 +43,7 @@ Pickers|x|x**|x**|x**
 
 ## Props
 
-### name (required)
+### name (mandatory)
 
 Unique internal identifier for the validation
 
