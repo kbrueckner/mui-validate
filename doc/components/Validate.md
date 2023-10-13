@@ -2,7 +2,7 @@
 
 # Validate
 
-Validate listens to change events of the wraped input component. The new value will be evaluated against the defined rules. It is possible to validate against a single rule or a combination of rules.
+Validate listens to change events of the wrapped input component. The new value will be evaluated against the defined rules. It is possible to validate against a single rule or a combination of rules.
 
 Supported input elements and validation rules are:
 
@@ -15,12 +15,12 @@ Pickers|x|x**|x**|x**
 
 \* Value passed to the validation function will either be a simple string when options are filled with strings or the string value calculated by getOptionLabel for complex options.
 
-** Value passed to the validation function is for valid dates the ISO string representation of the date or an empty string for invalid dates
+** Value passed to the validation function is for valid dates the ISO string representation of the date or an empty string for invalid dates.
 
 ## Usage
 
 ```javascript
-// validate against vlue present
+// validate against value present
 <Validate name="internal key 1" required>
     <TextField />
 </Validate>
@@ -59,7 +59,7 @@ Type: string
 
 ### inputType (optional)
 
-Type of the wraped input i.e. textfield or select, when set to detect it will be tried to find the right input type automatically which could be error prone.
+Type of the wrapped input i.e. textfield or select, when set to detect it will be tried to find the right input type automatically which could be error prone.
 
 Type: 'detect' | 'textfield' | 'select' | 'autocomplete' | 'picker' (MUI X 5) | 'datepicker' (MUI X 6)
 

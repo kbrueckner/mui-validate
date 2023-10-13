@@ -2,7 +2,7 @@
 
 # ValidationGroup
 
-Validation groups logically group validations. Every validation component (Validate) inside a group reports its validity state to it. The validation groups hold the state which can be accessed via a hook.
+Validation groups logically group validations. Every validation component (Validate) inside a group reports its validity state to the group. The validation group holds the state which can be accessed via a hook.
 
 ## Usage
 
@@ -18,9 +18,9 @@ Validation groups logically group validations. Every validation component (Valid
 
 Initial state passed in to the validation group. This is an optional attribute. The state will be updated/calculated automatically based on the Validate components inside the ValidationGroup.
 
-Type: ValidationCollection Object
+Type: ValidationCollection
 
-Defaults to: {} (empty state object)
+Defaults to: {}
 
 #### Usage
 

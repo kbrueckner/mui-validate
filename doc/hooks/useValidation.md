@@ -52,7 +52,7 @@ const { updateValidation } = useValidation();
 
 Removes a validation from the ValidationCollection.
 
-Type: (key: string) => void
+Type: (name: string) => void
 
 #### Usage
 
@@ -122,7 +122,7 @@ const { autoDisablersWereTriggered } = useValidation();
 
 ### setAutoDisablersWereTriggered
 
-Setter for AutoDisabler indicator.
+Setter for AutoDisabler triggered indicator.
 
 Type: (triggered: boolean) => void
 

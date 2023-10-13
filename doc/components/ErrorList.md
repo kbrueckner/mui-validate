@@ -84,7 +84,7 @@ Defaults to: 'caption'
 
 ### titleColor (optional)
 
-Color definition for list title and no errors message based on Material UI color definitions.
+Color definition for list title and "no errors" message based on Material UI color definitions.
 
 Type: 'inherit' | 'primary' | 'secondary' | 'textPrimary' | 'textSecondary' | 'error'
 
@@ -98,7 +98,7 @@ Defaults to: 'inherit'
 
 ### errorColor (optional)
 
-Color definition for errors messages in the list based on Material UI color definitions.
+Color definition for error messages in the list based on Material UI color definitions.
 
 Type: 'inherit' | 'primary' | 'secondary' | 'textPrimary' | 'textSecondary' | 'error'
 
@@ -116,7 +116,7 @@ Function to override default error list item message.
 
 Type: (validationName: string, errorMessage: string) => string
 
-Defaults to: (validationName: string, errorMessage: string) => `${validationName}: ${errorMessage}`
+Defaults to: (validationName: string, errorMessage: string) => \`\${validationName}: ${errorMessage}\`
 
 #### Usage
 

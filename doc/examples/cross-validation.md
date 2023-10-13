@@ -30,8 +30,8 @@ export default () => {
 }
 ```
 
-First we create a ref object which we pass to the Validate via reference prop which wrappes the TextField (tf1) which shall rely on a validation of another TextField (tf2).
+First we create a ref object and pass it to the Validate wrapping TextField (tf1) via reference prop. This TextField shall rely on a validation of another TextField (tf2).
 
-The same ref object is passed to the triggers prop of the Validate wrapping the TextField (tf2) which shall on change re-validate the first TextField's (tf1) validation.
+The same ref object is passed to the triggers prop of the Validate wrapping TextField (tf2) which shall on change re-validate the first TextField (tf1).
 
-With the above structure everytime the value of tf2 changes, tf1 will be re-validated.
+With the above structure, everytime the value of tf2 changes, tf1 will be re-validated.
