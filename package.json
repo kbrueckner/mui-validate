@@ -22,7 +22,7 @@
   },
   "peerDependencies": {
     "@mui/material": "5.x",
-    "react": "^17.0.0 || ^18.2.0"
+    "react": "^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
