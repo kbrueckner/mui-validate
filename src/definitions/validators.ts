@@ -1,3 +1,4 @@
+import { CustomValidationFunction } from '../type';
 import ERROR_MESSAGE from './error-messages';
 
 const required = (value: string): boolean => value !== '';
@@ -5,6 +6,8 @@ const required = (value: string): boolean => value !== '';
 const unique = (value: string, compareList: string[]): boolean => !compareList.map((val: string) => val.toLowerCase()).includes(value.toLowerCase());
 
 const regex = (value: string, regexp: RegExp): boolean => regexp.test(value);
+
+const custom = (value: string, fn: CustomValidationFunction): boolean => fn(value);
 
 export default {
     required: {
@@ -18,5 +21,9 @@ export default {
     regex: {
         test: regex,
         errorMessage: ERROR_MESSAGE.REGEX,
+    },
+    custom: {
+        test: custom,
+        errorMessage: ERROR_MESSAGE.CUSTOM,
     },
 };

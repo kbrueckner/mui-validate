@@ -34,10 +34,13 @@ const validate = (value: string, rules: ValidationRules = {}): Validation => {
         });
     }
 
-    if (rulesIncluded.includes('custom') && rules.custom && !rules.custom[0](value)) {
+    if (rulesIncluded.includes('custom') && rules.custom && !validator.custom.test(
+        value,
+        Array.isArray(rules.custom) ? rules.custom[0] : rules.custom,
+    )) {
         validation.messages.push({
             type: 'custom',
-            text: rules.custom[1],
+            text: (Array.isArray(rules.custom) && rules.custom[1]) || validator.custom.errorMessage,
         });
     }
 

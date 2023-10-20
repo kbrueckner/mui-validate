@@ -35,6 +35,7 @@ describe('validation-fns', () => {
         });
 
         test('custom fail', () => {
+            expect(validate('', { custom: (val) => val === 'test' })).toEqual({ valid: false, messages: [{ type: 'custom', text: ERROR_MESSAGE.CUSTOM }], display: true });
             expect(validate('', { custom: [(val) => val === 'test', 'Failed'] })).toEqual({ valid: false, messages: [{ type: 'custom', text: 'Failed' }], display: true });
         });
 
