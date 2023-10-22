@@ -23,9 +23,9 @@ export type ValidationRuleRegex = RegExp | [RegExp, string];
 
 export type CustomValidationFunction = (value: string) => boolean;
 
-type SingleValidationRuleCustom = CustomValidationFunction | [CustomValidationFunction, string];
+export type SingleValidationRuleCustom = CustomValidationFunction | [CustomValidationFunction, string];
 
-export type ValidationRuleCustom = SingleValidationRuleCustom;
+export type ValidationRuleCustom = SingleValidationRuleCustom | SingleValidationRuleCustom[];
 
 export type ValidationRules = {
     required?: ValidationRuleRequired;

@@ -1,4 +1,6 @@
-import { Validation, ValidationRules } from '../type';
+import {
+    SingleValidationRuleCustom, Validation, ValidationRules,
+} from '../type';
 import validator from '../definitions/validators';
 
 const validate = (value: string, rules: ValidationRules = {}): Validation => {
@@ -34,13 +36,26 @@ const validate = (value: string, rules: ValidationRules = {}): Validation => {
         });
     }
 
-    if (rulesIncluded.includes('custom') && rules.custom && !validator.custom.test(
-        value,
-        Array.isArray(rules.custom) ? rules.custom[0] : rules.custom,
-    )) {
-        validation.messages.push({
-            type: 'custom',
-            text: (Array.isArray(rules.custom) && rules.custom[1]) || validator.custom.errorMessage,
+    if (rulesIncluded.includes('custom') && rules.custom) {
+        // check if signle or multiple custom rules
+        const isSingleRule = !Array.isArray(rules.custom) || typeof rules.custom[1] === 'string';
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const customRulesToCheck: SingleValidationRuleCustom[] = isSingleRule ? [rules.custom] : rules.custom;
+
+        customRulesToCheck.every((rule) => {
+            if (!validator.custom.test(
+                value,
+                Array.isArray(rule) ? rule[0] : rule,
+            )) {
+                validation.messages.push({
+                    type: 'custom',
+                    text: (Array.isArray(rule) && rule[1]) || validator.custom.errorMessage,
+                });
+                // break the circuit and stop further evaluation
+                return false;
+            }
+            return true;
         });
     }
 
