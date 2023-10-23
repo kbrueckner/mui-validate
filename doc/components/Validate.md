@@ -36,7 +36,7 @@ Pickers|x|x**|x**|x**
 </Validate>
 
 // validate against a custom rule definition
-<Validate name="internal key 4" custom={[(value) => value === 'expected value', 'Custom validation failed!']}>
+<Validate name="internal key 4" custom={(value) => value === 'expected value'}>
     <TextField />
 </Validate>
 ```
@@ -147,17 +147,37 @@ Defaults to: undefined
 
 ### custom (optional)
 
-Checks against a custom defined validation function. Paramater for the custom function is the value after a change in the input field. The function must return the success status of the validation in boolean representation.
+Checks against one or multiple custom defined validation function(s). Paramater for the custom function(s) is the value after a change in the input field. The function(s) must return the success status of the validation in boolean representation.
 In case of validation failure an error message will be printed on the wrapped input component.
 
-Type: [(value: string) => boolean, string]
+The rule comes with a default error message which can be overwritten.
+
+Type: (value: string) => boolean | [(value: string) => boolean, string] | ((value: string) => boolean | [(value: string) => boolean, string])[]
 
 Defaults to: undefined
 
 #### Usage
 
 ```javascript
+// check against a given custom validation function with default error message
+<Validate name="my identifier" custom={(value) => value === "expected value"}>
+    ...
+</Validate>
+
+// check against a given custom validation function with custom error message
 <Validate name="my identifier" custom={[(value) => value === "expected value",  "This is a custom error message"]}>
+    ...
+</Validate>
+
+// check against multiple custom validation functions
+<Validate name="my identifier" custom={
+    [
+        // custom function 1 - default error message
+        (value) => value === "some expected value",
+        // custom function 2 - custom error message
+        [(value) => value === "some other expected value",  "This is a custom error message"],
+    ]
+}>
     ...
 </Validate>
 ```
