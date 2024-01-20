@@ -21,7 +21,11 @@ export type ValidationRuleUnique = string[] | [string[], string];
 
 export type ValidationRuleRegex = RegExp | [RegExp, string];
 
-export type ValidationRuleCustom = [(value: string) => boolean, string];
+export type CustomValidationFunction = (value: string) => boolean;
+
+export type SingleValidationRuleCustom = CustomValidationFunction | [CustomValidationFunction, string];
+
+export type ValidationRuleCustom = SingleValidationRuleCustom | SingleValidationRuleCustom[];
 
 export type ValidationRules = {
     required?: ValidationRuleRequired;
