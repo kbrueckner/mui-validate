@@ -1,7 +1,9 @@
 // eslint-disable-next-line
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import ValidationContext from './ValidationContext';
-import { ValidationMode, Validation, ValidationCollection } from '../type';
+import {
+    ValidationMode, Validation, ValidationCollection, ValidationInfo,
+} from '../type';
 
 export type ValidationGroupProps = {
     children: JSX.Element;
@@ -15,38 +17,44 @@ const validateAll = (validation: ValidationCollection): boolean => !Object.value
 const ValidationGroup = ({
     children, initialValidation = 'silent', validation = 'noisy', initialState = {},
 }: ValidationGroupProps): JSX.Element => {
-    const [validations, setValidations]: [ValidationCollection, (validationsIn: ValidationCollection) => void] = useState(initialState);
+    const [validations, setValidations]: [ValidationCollection, Dispatch<SetStateAction<ValidationCollection>>] = useState(initialState);
     const [autoDisablersWereTriggered, setAutoDisablersWereTriggered] = useState(false);
     const allValid = validateAll(validations);
 
     const updateValidation = (key: string, val: Validation): void => {
-        setValidations({
-            ...validations,
+        setValidations((prevValidations: ValidationCollection): ValidationCollection => ({
+            ...prevValidations,
             [key]: val,
-        });
+        }));
     };
 
     const removeValidation = (key: string): void => {
-        const newValidations: ValidationCollection = JSON.parse(JSON.stringify(validations));
-        delete newValidations[key];
-        setValidations({
-            ...newValidations,
+        setValidations((prevValidations: ValidationCollection): ValidationCollection => {
+            const newValidations: ValidationCollection = JSON.parse(JSON.stringify(prevValidations));
+            delete newValidations[key];
+            return {
+                ...newValidations,
+            };
         });
     };
 
+    const validationContextVaule: ValidationInfo = useMemo((): ValidationInfo => ({
+        validations,
+        setValidations,
+        allValid,
+        initialValidation,
+        validation,
+        updateValidation,
+        initialState,
+        autoDisablersWereTriggered,
+        setAutoDisablersWereTriggered,
+        removeValidation,
+    }), [validations, allValid, autoDisablersWereTriggered]);
+
     return (
-        <ValidationContext.Provider value={{
-            validations,
-            setValidations,
-            allValid,
-            initialValidation,
-            validation,
-            updateValidation,
-            initialState,
-            autoDisablersWereTriggered,
-            setAutoDisablersWereTriggered,
-            removeValidation,
-        }}
+        <ValidationContext.Provider value={
+            validationContextVaule
+        }
         >
             {children}
         </ValidationContext.Provider>

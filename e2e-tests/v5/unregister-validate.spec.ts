@@ -17,11 +17,11 @@ test.describe('Material-UI V5 tests', () => {
         const registerButton = `#${UNREG_REGISTER_BUTTON}`;
         const checkButton = `#${UNREG_CHECK_BUTTON}`;
 
-        expect(await page.locator(checkButton)).toBeDisabled();
+        await expect(page.locator(checkButton)).toBeDisabled();
         await page.click(unregisterButton);
-        expect(await page.locator(checkButton)).toBeEnabled();
+        await expect(page.locator(checkButton)).toBeEnabled();
         await page.click(registerButton);
-        expect(await page.locator(checkButton)).toBeDisabled();
+        await expect(page.locator(checkButton)).toBeDisabled();
     });
 
     test('Unregister validate with cross validation', async ({ page }) => {
@@ -31,10 +31,10 @@ test.describe('Material-UI V5 tests', () => {
         const registerButton = `#${UNREG_REGISTER_2_BUTTON}`;
         const checkButton = `#${UNREG_CHECK_2_BUTTON}`;
 
-        expect(await page.locator(checkButton)).toBeDisabled();
+        await expect(page.locator(checkButton)).toBeDisabled();
         await page.click(unregisterButton);
-        expect(await page.locator(checkButton)).toBeEnabled();
+        await expect(page.locator(checkButton)).toBeEnabled();
         await page.click(registerButton);
-        expect(await page.locator(checkButton)).toBeDisabled();
+        await expect(page.locator(checkButton)).toBeDisabled();
     });
 });
