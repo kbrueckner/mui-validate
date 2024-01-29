@@ -38,7 +38,8 @@ export type ValidationMode = 'silent' | 'noisy';
 
 export type ValidationInfo = {
     validations: ValidationCollection;
-    setValidations: (validations: ValidationCollection) => void;
+    // setValidations: (validations: ValidationCollection) => void;
+    setValidations: Function;
     updateValidation: (key: string, value: Validation) => void;
     removeValidation: (key: string) => void;
     allValid: boolean;
