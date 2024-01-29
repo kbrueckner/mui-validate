@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import React from 'react';
 import { useValidation } from './ValidationContext';
+import { ValidationCollection } from '../type';
 
 export type AutoDisablerProps = {
     children: JSX.Element;
@@ -25,11 +26,13 @@ const AutoDisabler = ({ children, firstDisplayErrors = false }: AutoDisablerProp
         onClick: !autoDisablersWereTriggered ? () => {
             // if firstDisplayErrors set display all error messages
             if (firstDisplayErrors) {
-                const newValidations = { ...validations };
-                Object.keys(newValidations).forEach((key: string) => {
-                    newValidations[key].display = true;
+                setValidations((prevValidations: ValidationCollection) => {
+                    const newValidations = { ...prevValidations };
+                    Object.keys(newValidations).forEach((key: string) => {
+                        newValidations[key].display = true;
+                    });
+                    return newValidations;
                 });
-                setValidations(newValidations);
             }
             setAutoDisablersWereTriggered(true);
             // if allValid then trigger the actual onClick event if present

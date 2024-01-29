@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import ValidationContext from './ValidationContext';
 import {
     ValidationMode, Validation, ValidationCollection, ValidationInfo,
@@ -17,7 +17,7 @@ const validateAll = (validation: ValidationCollection): boolean => !Object.value
 const ValidationGroup = ({
     children, initialValidation = 'silent', validation = 'noisy', initialState = {},
 }: ValidationGroupProps): JSX.Element => {
-    const [validations, setValidations]: [ValidationCollection, Function] = useState(initialState);
+    const [validations, setValidations]: [ValidationCollection, Dispatch<SetStateAction<ValidationCollection>>] = useState(initialState);
     const [autoDisablersWereTriggered, setAutoDisablersWereTriggered] = useState(false);
     const allValid = validateAll(validations);
 
