@@ -1,7 +1,7 @@
 import { CustomValidationFunction } from '../type';
 import ERROR_MESSAGE from './error-messages';
 
-const required = (value: string): boolean => value !== '';
+const required = (value: string): boolean => value !== '' && value !== null && value !== undefined;
 
 const unique = (value: string, compareList: string[]): boolean => !compareList.map((val: string) => val.toLowerCase()).includes(value.toLowerCase());
 

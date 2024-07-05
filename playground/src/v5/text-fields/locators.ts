@@ -3,6 +3,12 @@ import locator, { ELEMENT_TYPE } from 'test-locator';
 export const TEXTFIELD_REQUIRED = locator(['v5', 'textfield', 'required']);
 export const TEXTFIELD_REQUIRED_INPUT = locator(['v5', 'textfield', 'required'], ELEMENT_TYPE.INPUT);
 
+export const TEXTFIELD_REQUIRED_NULL = locator(['v5', 'textfield', 'required', 'null']);
+export const TEXTFIELD_REQUIRED_NULL_INPUT = locator(['v5', 'textfield', 'required', 'null'], ELEMENT_TYPE.INPUT);
+
+export const TEXTFIELD_REQUIRED_UNDEFINED = locator(['v5', 'textfield', 'required', 'undefined']);
+export const TEXTFIELD_REQUIRED_UNDEFINED_INPUT = locator(['v5', 'textfield', 'required', 'undefined'], ELEMENT_TYPE.INPUT);
+
 export const TEXTFIELD_UNIQUE = locator(['v5', 'textfield', 'unique']);
 export const TEXTFIELD_UNIQUE_INPUT = locator(['v5', 'textfield', 'unique'], ELEMENT_TYPE.INPUT);
 

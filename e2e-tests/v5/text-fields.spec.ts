@@ -2,7 +2,8 @@ import { test, expect } from '@playwright/test';
 import { BASE_URL } from '../constants';
 import {
     TEXTFIELD_CUSTOM, TEXTFIELD_CUSTOM_INPUT, TEXTFIELD_REGEX, TEXTFIELD_REGEX_INPUT, TEXTFIELD_REQUIRED,
-    TEXTFIELD_REQUIRED_INPUT, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
+    TEXTFIELD_REQUIRED_INPUT, TEXTFIELD_REQUIRED_NULL, TEXTFIELD_REQUIRED_NULL_INPUT, TEXTFIELD_REQUIRED_UNDEFINED,
+    TEXTFIELD_REQUIRED_UNDEFINED_INPUT, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT,
 } from '../../playground/src/v5/locators';
 
 test.describe('Material-UI V5 tests', () => {
@@ -12,6 +13,32 @@ test.describe('Material-UI V5 tests', () => {
 
         const control = `#${TEXTFIELD_REQUIRED}`;
         const input = `#${TEXTFIELD_REQUIRED_INPUT}`;
+
+        await page.fill(input, 'test');
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.fill(input, '');
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    test('TextField: required (null value)', async ({ page }) => {
+        await page.goto(`${BASE_URL}/textfields`);
+
+        const control = `#${TEXTFIELD_REQUIRED_NULL}`;
+        const input = `#${TEXTFIELD_REQUIRED_NULL_INPUT}`;
+
+        await page.fill(input, 'test');
+        expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
+
+        await page.fill(input, '');
+        expect(await page.waitForSelector(`${control}[data-has-error="true"]`)).toBeTruthy();
+    });
+
+    test('TextField: required (undefined value)', async ({ page }) => {
+        await page.goto(`${BASE_URL}/textfields`);
+
+        const control = `#${TEXTFIELD_REQUIRED_UNDEFINED}`;
+        const input = `#${TEXTFIELD_REQUIRED_UNDEFINED_INPUT}`;
 
         await page.fill(input, 'test');
         expect(await page.waitForSelector(`${control}[data-has-error="false"]`)).toBeTruthy();
