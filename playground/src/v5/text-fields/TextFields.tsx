@@ -1,12 +1,31 @@
 import { Box, Grid, TextField, Typography } from "@mui/material";
 import { Validate, ValidationGroup } from "../../component-lib";
-import { TEXTFIELD_CUSTOM, TEXTFIELD_CUSTOM_INPUT, TEXTFIELD_REGEX, TEXTFIELD_REGEX_INPUT, TEXTFIELD_REQUIRED, TEXTFIELD_REQUIRED_INPUT, TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT } from "./locators";
+import {
+    TEXTFIELD_CUSTOM, TEXTFIELD_CUSTOM_INPUT, TEXTFIELD_REGEX, TEXTFIELD_REGEX_INPUT,
+    TEXTFIELD_REQUIRED, TEXTFIELD_REQUIRED_INPUT, TEXTFIELD_REQUIRED_NULL,
+    TEXTFIELD_REQUIRED_NULL_INPUT, TEXTFIELD_REQUIRED_UNDEFINED, TEXTFIELD_REQUIRED_UNDEFINED_INPUT,
+    TEXTFIELD_UNIQUE, TEXTFIELD_UNIQUE_INPUT
+} from "./locators";
 
 const TextFields = () => {
     return <Box>
         <Typography variant="h5">TextField</Typography>
         <Grid container spacing={1}>
             <Grid item xs={6}>
+                <ValidationGroup>
+                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
+                        <Box mb={2}>
+                            <Typography variant="caption">TextField required (null value)</Typography>
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Validate name="Textfield required" required id={TEXTFIELD_REQUIRED_NULL} initialValidation="noisy">
+                                    <TextField id={TEXTFIELD_REQUIRED_NULL_INPUT} label="TextField" fullWidth variant="outlined" size="small" required value={null} />
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
                 <ValidationGroup>
                     <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
                         <Box mb={2}>
@@ -37,6 +56,20 @@ const TextFields = () => {
                 </ValidationGroup>
             </Grid>
             <Grid item xs={6}>
+                <ValidationGroup>
+                    <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
+                        <Box mb={2}>
+                            <Typography variant="caption">TextField unique (undefined value)</Typography>
+                        </Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                            <Validate name="Textfield required" required id={TEXTFIELD_REQUIRED_UNDEFINED} initialValidation="noisy">
+                                    <TextField id={TEXTFIELD_REQUIRED_UNDEFINED_INPUT} label="TextField" fullWidth variant="outlined" size="small" required value={undefined} />
+                                </Validate>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </ValidationGroup>
                 <ValidationGroup>
                     <Box style={{ border: '1px solid #000'}} p={1} mt={2}>
                         <Box mb={2}>
