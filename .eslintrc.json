@@ -65,7 +65,8 @@
         "@typescript-eslint/ban-types": "off",
         "no-empty-function": "off",
         "@typescript-eslint/no-empty-function": "off",
-        "import/no-relative-packages": "off"
+        "import/no-relative-packages": "off",
+        "import/no-extraneous-dependencies": "off"
     },
     "globals": {
         "jest": true

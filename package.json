@@ -1,12 +1,12 @@
 {
   "name": "mui-validate",
-  "version": "1.2.2",
+  "version": "1.3.0-beta.2",
   "description": "Validation tools for Material UI components and component groups",
   "main": "index.cjs.js",
   "module": "index.esm.js",
   "types": "index.d.ts",
   "engines": {
-    "node": ">=18.17.1"
+    "node": ">=22.17.0"
   },
   "scripts": {
     "build": "rollup -c && rm -r dist/dts",
@@ -21,10 +21,11 @@
     "release": "npm run lint && npm run test:unit && npm run build && node scripts/release.js"
   },
   "peerDependencies": {
-    "@mui/material": "5.x",
-    "react": "^17.0.0 || ^18.0.0"
+    "@mui/material": "5.x || 6.x || 7.x",
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.1",
     "@types/jest": "^29.5.3",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
@@ -40,7 +41,7 @@
     "jest": "^29.6.2",
     "jest-html-reporters": "^3.1.4",
     "npm-run-all": "^4.1.5",
-    "playwright": "^1.41.1",
+    "playwright": "^1.54.1",
     "rollup": "^3.28.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^6.0.0",
@@ -65,8 +66,5 @@
   "bugs": {
     "url": "https://github.com/kbrueckner/mui-validate/issues"
   },
-  "homepage": "https://github.com/kbrueckner/mui-validate",
-  "dependencies": {
-    "@playwright/test": "^1.41.1"
-  }
+  "homepage": "https://github.com/kbrueckner/mui-validate"
 }

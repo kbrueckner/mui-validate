@@ -57,6 +57,8 @@ test.describe('Material-UI V5 tests', () => {
         expect(await page.isDisabled(button2)).toBe(false);
         await page.fill(input, 'test');
         await page.fill(input, '');
+        // eslint-disable-next-line no-promise-executor-return
+        await new Promise((r) => setTimeout(r, 100));
         expect(await page.isDisabled(button)).toBe(true);
         expect(await page.isDisabled(button2)).toBe(true);
     });
