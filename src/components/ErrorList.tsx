@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { useValidation } from './ValidationContext';
 
-type TypographyVariant = 'body1'
+export type TypographyVariant = 'body1'
     | 'body2'
     | 'button'
     | 'caption'
@@ -18,7 +18,7 @@ type TypographyVariant = 'body1'
     | 'subtitle1'
     | 'subtitle2';
 
-type TypographyColor = 'inherit'
+export type TypographyColor = 'inherit'
     | 'primary'
     | 'secondary'
     | 'textPrimary'
