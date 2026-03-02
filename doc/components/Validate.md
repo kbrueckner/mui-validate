@@ -200,9 +200,9 @@ Defaults to: undefined
 
 ### after (optional)
 
-A hook for functionality triggered after validation (with access to the validation result).
+A hook for functionality triggered after validation (with access to the validation result and the value used during validation).
 
-Type: (result: Validation) => void
+Type: (result: Validation, value: string) => void
 
 Defaults to: undefined
 
