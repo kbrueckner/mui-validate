@@ -9,3 +9,4 @@ export * from './text-field-selects/locators';
 export * from './selects/locators';
 export * from './autocompletes/locators';
 export * from './pickers/locators';
+export * from './double-validate/locators';

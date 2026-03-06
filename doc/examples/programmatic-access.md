@@ -31,4 +31,4 @@ return <Validate name="required-outer" required reference={outerValidate}>
 
 In a case like that only the inner Validate would actually validate the value of TextField. To trigger the outer Validate we need the programmatic access as shown in the after hook of the inner Validate. It uses the ref passed into the outer Validate and triggers its validate function providing valueUsed to validate against.
 
-This is just a showcase with contradictive Validates. Furthermore if you would want to apply the exact rules to the TextField, you could add both rules to the same Validate component.
+This is just a showcase with contradictive Validates. Furthermore if you would want to apply the exact same rules to the TextField, you would rather add both rules to the same Validate component.
