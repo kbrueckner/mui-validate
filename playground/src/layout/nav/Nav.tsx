@@ -13,6 +13,7 @@ const NAV_CONFIG = [
     { link: '/selects', text: 'Selects' },
     { link: '/autocompletes', text: 'Autocompletes' },
     { link: '/pickers', text: 'Pickers' },
+    { link: '/double-validate', text: 'Double Validate' },
     { link: '/v6/pickers', text: 'Pickers (V6)' },
 ];
 

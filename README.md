@@ -29,8 +29,8 @@ Peer dependencies for mui-validate are react and @mui/material.
 
 ```javascript
 "peerDependencies": {
-    "@mui/material": "5.x",
-    "react": "^17.0.0 || ^18.0.0"
+    "@mui/material": "5.x || 6.x || 7.x",
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0"
 },
 ```
 
@@ -74,6 +74,7 @@ For details and configuration options please refer to the corrosponding componen
 ## Examples/Special Cases
 
 * [Cross Validation](doc/examples/cross-validation.md) - Value change of an input component triggers re-validation of another input component
+* [Programmatic Access to Validate](doc/examples/programmatic-access.md) - Programmatic access to validation on Validate component
 
 ## Support the project
 

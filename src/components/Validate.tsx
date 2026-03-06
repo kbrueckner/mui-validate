@@ -24,7 +24,7 @@ export type ValidateProps = {
     unique?: ValidationRuleUnique;
     regex?: ValidationRuleRegex;
     custom?: ValidationRuleCustom;
-    after?: (result: Validation) => void;
+    after?: (result: Validation, value: string) => void;
     before?: () => void;
     inputType?: 'detect' | InputType;
     initialValidation?: ValidationMode;
@@ -151,8 +151,8 @@ const Validate = ({
     }, []);
 
     // validate and return validation result
-    const doValidation = (): Validation => {
-        const validationResult = validate(val, validationRules);
+    const doValidation = (value?: string): Validation => {
+        const validationResult = validate(value || val, validationRules);
         if (validationDerrived === 'silent' || (initialValidationDerrived === 'silent' && !initialValidationPassed)) { validationResult.display = false; }
         updateValidation(name, validationResult);
 
@@ -216,14 +216,14 @@ const Validate = ({
         const validationResult = doValidation();
 
         // after hook operations
-        if (after) { after(validationResult); }
+        if (after) { after(validationResult, val); }
 
         triggerCrossValidations();
     }, [val]);
 
     // enrich passed in reference object to make revalidation available
     useImperativeHandle(reference, () => ({
-        validate: () => { doValidation(); },
+        validate: (value?: string) => { doValidation(value); },
         name,
         // eslint-disable-next-line
         // @ts-ignore

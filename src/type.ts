@@ -54,7 +54,7 @@ export type ValidationInfo = {
 export type InputType = 'textfield' | 'select' | 'autocomplete' | 'picker' | 'datepicker';
 
 export type ValidateRef = undefined | null | {
-    validate: () => void,
+    validate: (val?: string) => void,
     name: string;
     value: string | Date | number | null | undefined;
 };

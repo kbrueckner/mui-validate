@@ -13,6 +13,7 @@ import Autocompletes from './v5/autocompletes';
 import Pickers from './v5/pickers';
 import PickersV6 from './v6/pickers';
 import Layout from "./layout";
+import DoubleValidate from "./v5/double-validate";
 
 const App = () => {
     return <ThemeProvider theme={createTheme()}>
@@ -34,6 +35,7 @@ const App = () => {
                             <Route path="selects" element={<Selects />} />
                             <Route path="autocompletes" element={<Autocompletes />} />
                             <Route path="pickers" element={<Pickers />} />
+                            <Route path="double-validate" element={<DoubleValidate />} />
                         </Route>
                         <Route path="v6" element={<Layout />}>
                             <Route path="pickers" element={<PickersV6 />} />
